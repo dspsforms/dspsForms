@@ -1,0 +1,263 @@
+<div class="container-fluid" *ngIf="wrappedForm.created" >
+
+  <h1>{{ title }} </h1>
+  
+  <div class="row">
+    <div class="col-sm-10">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title inline">
+              Student
+          </div>
+        </div> <!-- panel-heading -->
+        
+        <div class="panel-body">
+          <table class="table table-bordered">
+            <tr><td>Full Name</td> <td> {{ wrappedForm.form.fullName }} </td></tr>
+            <tr><td>College ID</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
+          </table>
+        </div> <!-- panel-body -->
+      </div> <!-- panel, panel-default -->
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title inline">
+                Student Contact Information
+            </div>
+          </div> <!-- panel-heading -->
+          
+          <div class="panel-body">
+
+            <table class="table table-bordered">
+              <tr><td>Address Line</td> <td> {{ wrappedForm.form.addressLine1 }} </td></tr>
+              <tr><td>City</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
+              <tr><td>Zip</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
+              <tr><td>Home Phone</td> <td> {{ wrappedForm.form.homePhone }} </td></tr>
+              <tr><td>Cell Phone</td> <td> {{ wrappedForm.form.cellPhone }} </td></tr>
+              <tr><td>Email</td> <td> {{ wrappedForm.form.email }} </td></tr>
+            </table>
+          </div> <!-- panel-body -->
+      </div> <!-- panel panel-default-->
+
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title inline">
+                A bit more about student
+            </div>
+          </div> <!-- panel-heading -->
+          
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr><td>Gender</td> <td> {{ wrappedForm.form.gender }} </td></tr>
+              <tr><td>Date of Birth</td> <td> {{ wrappedForm.form.dob }} </td></tr>
+              <tr><td>Occupation</td> <td> {{ wrappedForm.form.occupation }} </td></tr>
+              <tr><td>How Long</td> <td> {{ wrappedForm.form.occupationHowLong }} </td></tr>
+              <tr><td>Language Spoken at home other than English?</td> <td> {{ wrappedForm.form.homeLang }} </td></tr>
+            </table>
+          </div> <!-- panel-body -->
+      </div> <!-- panel panel-default -->
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title inline">
+                Emergency Contact
+            </div>
+          </div> <!-- panel-heading -->
+          
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr><td>Name</td> <td> {{ wrappedForm.form.emergencyContact.name }} </td> </tr>
+              <tr><td>Relationship</td> <td> {{ wrappedForm.form.emergencyContact.relationship }} </td></tr>
+              <tr><td>Home Phone</td> <td> {{ wrappedForm.form.emergencyContact.homePhone }} </td></tr>
+              <tr><td>Work Phone</td> <td> {{ wrappedForm.form.emergencyContact.workPhone }} </td></tr>
+              <tr><td>Cell Phone</td> <td> {{ wrappedForm.form.emergencyContact.cellPhone }} </td></tr>
+            </table>
+          </div> <!-- panel-body -->
+      </div> <!-- panel panel-default -->
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title inline">
+                Student Educational Background and Accommodation Related Information
+            </div>
+          </div> <!-- panel-heading -->
+          
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>High school diploma?</td> <td> {{ wrappedForm.form.hasDiploma }} </td>
+                <td *ngIf="wrappedForm.form.hasDiploma" >High School</td> 
+                <td *ngIf="wrappedForm.form.hasDiploma" > {{ wrappedForm.form.highSchool }} </td>
+              </tr>
+              <tr>
+                <td>Number of Semesters at Mission College</td> <td> {{ wrappedForm.form.numSemsAtMission }} </td>
+              </tr>
+              <tr>
+                <td>Planned Academic or Vocational major</td> <td> {{ wrappedForm.form.plannedMajor }} </td>
+              </tr>
+              <tr>
+                <td>Has a Mission College counselor?</td> <td> {{ wrappedForm.form.hasCounselor }} </td>
+                <td *ngIf="wrappedForm.form.hasCounselor">Counselor's Name</td> 
+                <td *ngIf="wrappedForm.form.hasCounselor"> {{ wrappedForm.form.counselorName }} </td>
+              </tr>
+              <tr>
+                <td>Who referred you to the program?</td> <td> {{ wrappedForm.form.referrer }} </td>
+                <td *ngIf="wrappedForm.form.referrer" >Why?</td> 
+                <td *ngIf="wrappedForm.form.referrer"> {{ wrappedForm.form.referrerReason }} </td>
+              </tr>
+              <tr>
+                <td>Are you a Department of Rehabilitation Client?</td> <td> {{ wrappedForm.form.isDeptRehabClient }} </td>
+                <td *ngIf="wrappedForm.form.isDeptRehabClient">Rehab Counselor's Name</td> 
+                <td *ngIf="wrappedForm.form.isDeptRehabClient"> {{ wrappedForm.form.rehabCounselorName }} </td>
+              </tr>
+              <tr>
+                <td>Receives services from:</td> 
+                <td> 
+                  <div *ngIf="wrappedForm.form.services.eops == 'yes' "> EOPS </div>
+                  <div *ngIf="wrappedForm.form.services.calWorks == 'yes'"> CalWORKS </div>
+                  <div *ngIf="wrappedForm.form.services.ssdi == 'yes'"> SSDI </div>
+                  <div *ngIf="wrappedForm.form.services.access == 'yes' "> ACCESS </div>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>Would you like information about these programs?</td> <td> {{ wrappedForm.form.wantSevicesInfo }} </td>
+              </tr>
+            </table>
+          </div> <!-- panel-body -->
+      </div> <!-- panel panel-default -->
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <div class="panel-title inline">
+                  Questions
+              </div>
+          </div> <!-- panel-heading -->
+      
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>Currently enrolled at another Community College?</td> 
+                <td> {{ wrappedForm.form.enrolledInAnotherCC }}</td>
+              </tr>
+
+              <tr>
+                <td>Currently receiving Financial Aid?</td> 
+                <td> {{ wrappedForm.form.receivingFinAid }}</td>
+              </tr>
+
+              <tr>
+                <td>Currently have health, psychological or learning disability?</td> 
+                <td> {{ wrappedForm.form.hasDisability }}</td>
+              </tr>
+
+              <tr *ngIf="wrappedForm.form.hasDisability && wrappedForm.form.hasDisability == 'yes'">
+                <td>Describe disability</td> 
+                <td> {{ wrappedForm.form.disabilityDesc }}</td>
+              </tr>
+
+              <tr>
+                <td>Educationally related side-effects of Medication</td> 
+                <td> {{ wrappedForm.form.medSideEffects }}</td>
+              </tr>
+           
+              <tr>
+                <td>Accommodations potentially needed</td> 
+                <td> {{ wrappedForm.form.accommodationDesc }}</td>
+              </tr>
+                
+            </table>
+          </div> <!-- panel-body -->
+      </div> <!-- panel, panel-default -->
+
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <div class="panel-title inline">
+                  Signature and Date
+              </div>
+          </div> <!-- panel-heading -->
+      
+          <div class="panel-body">
+            <div class="col-sm-3">
+                {{ wrappedForm.form.signature }}
+            </div>
+            <div class="col-sm-4">
+                {{ date2Use | date:'medium' }}
+            </div>
+          </div> <!-- panel-body-->
+      </div> <!-- panel, panel-default -->
+
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container -->
+
+<!--
+
+  {
+  "formKey": "-LCChu53QHCkmW2invkJ",
+  "form": {
+    "created": 1526017270238,
+    "edited": false,
+    "form": {
+      "accommodationDesc": "accom 4",
+      "addressLine1": "address line 4",
+      "cellPhone": "",
+      "city": "city 4",
+      "collegeId": "College ID 4",
+      "counselorName": "Counselor 4",
+      "dateOfSig": "date 4",
+      "disabilityDesc": "",
+      "dob": "",
+      "email": "",
+      "emergencyContact": {
+        "cellPhone": "",
+        "homePhone": "",
+        "name": "Parent 4",
+        "relationship": "Parent",
+        "workPhone": ""
+      },
+      "enrolledInAnotherCC": "",
+      "fullName": "User 4",
+      "gender": "",
+      "hasCounselor": "yes",
+      "hasDiploma": "yes",
+      "hasDisability": "",
+      "highSchool": "high school 4",
+      "homeLang": "",
+      "homePhone": "",
+      "isDeptRehabClient": "",
+      "medSideEffects": "medications 4",
+      "numSemsAtMission": "5",
+      "occupation": "",
+      "occupationHowLong": "",
+      "plannedMajor": "",
+      "receivingFinAid": "",
+      "referrer": "",
+      "referrerReason": "",
+      "rehabCounselorName": "",
+      "services": {
+        "access": "",
+        "calWorks": "",
+        "eops": "",
+        "ssdi": ""
+      },
+      "signature": "User 4",
+      "wantSevicesInfo": "",
+      "zip": "zip 4"
+    },
+    "formName": "intakeForm",
+    "lastMod": 1526017270238,
+    "user": "nobody"
+  },
+  "item": {
+    "_isScalar": false,
+    "source": {
+      "_isScalar": false
+    },
+    "operator": {}
+  }
+}
+-->

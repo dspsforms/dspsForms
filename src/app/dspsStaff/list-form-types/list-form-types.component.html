@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <h2>Submitted Forms</h2>
+  <div class="row">
+    <div class="col-sm-8">
+
+      <h4>Please select from below to see filled forms </h4>
+      <ul class="list-group">
+        <li *ngFor="let item of list; let i=index"
+          class="list-group-item" >
+
+          <!-- /submittedForm/formName -->
+          <a [routerLink]="[submittedAbs, item]">
+            {{ formTitle(item) }}
+          </a>
+
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</div>

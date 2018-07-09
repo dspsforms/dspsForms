@@ -1,0 +1,12 @@
+.vertical-space {
+    margin-top: 10px;
+    padding-top: 10px
+}
+
+.horizontal-space {
+    margin-left: 10px;
+    padding-left: 10px;
+}
+.smaller {
+    font-size: 16px;
+}

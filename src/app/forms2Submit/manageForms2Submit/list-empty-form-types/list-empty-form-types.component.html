@@ -1,0 +1,28 @@
+
+
+<div class="container-fluid">
+
+    <div *ngIf="lastOpStatus" class="top-message alert alert-success"> 
+      {{ lastOpStatus }} 
+    </div>
+
+    <h2>DSPS Forms</h2>
+  <div class="row">
+    <div class="col-sm-8">
+      
+      <h4>Please select a form to fill and submit</h4>
+      <ul class="list-group">
+        <li *ngFor="let formName of formNames; let i=index"
+          class="list-group-item" >
+
+          <a [routerLink]="[newFormAbsolute2 + formName]">
+            {{ getFormTitle(formName) }}
+          </a>
+
+        </li>
+
+      </ul>
+      
+    </div>
+  </div>
+</div>

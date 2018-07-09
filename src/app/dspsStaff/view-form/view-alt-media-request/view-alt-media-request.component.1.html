@@ -1,0 +1,80 @@
+<div class="container-fluid">
+
+  <h1>{{ title }} </h1>
+  
+  <div class="row">
+    <div class="col-sm-10">
+
+      <legend>
+        Alternate Format Textbooks Needed
+      </legend>
+
+      <table class="table table-bordered">
+          <thead>
+              <th>Course Title and Section Number</th>
+              <th>ISBN #</th>
+              <th>Book Title / Author</th>
+              <th>Edition</th>
+              <!-- 
+              add actions, if desired 
+             -->
+          </thead>
+
+          <tr *ngFor="let item of wrappedForm.form.altFormatDetail; let i=index" >
+  
+              <td> {{ item.courseTitleAndSection }} </td>
+              <td> {{ item.isbn}}  </td>
+              <td>{{ item.bookTitleAndAuthor }} </td>
+              <td> {{ item.edition }} </td>
+          </tr>
+      </table>
+
+      <div>
+        <legend class="smaller">
+          Preferred File Format
+        </legend>
+      
+        <div class="horizontal-space">
+            <div *ngIf="wrappedForm.form.preferredFileFormat.kurzWeilFirefly"> Kurzweil/firefly </div>
+            <div *ngIf="wrappedForm.form.preferredFileFormat.msWord"> MS Word </div>
+            <div *ngIf="wrappedForm.form.preferredFileFormat.pdf"> PDF </div>
+            <div *ngIf="wrappedForm.form.preferredFileFormat.learningAlly"> Learning Ally </div>
+            <div *ngIf="wrappedForm.form.preferredFileFormat.audio"> Audio </div>
+            <div *ngIf="wrappedForm.form.preferredFileFormat.braillePaper"> Braille (paper) </div>
+            <div *ngIf="wrappedForm.form.preferredFileFormat.largePrint"> Large Print </div>
+        </div>  
+      </div> <!-- preferred file format-->
+
+      <div class="vertical-space">
+        <legend class="smaller">Requester</legend>
+        <table class="table table-bordered">
+          <tr>
+            <td> Name </td> <td> {{ wrappedForm.form.fullName }} </td>
+          </tr>
+          <tr>
+            <td> College ID </td> <td> {{ wrappedForm.form.collegeId }} </td>
+          </tr>
+          <tr>
+            <td> Email </td> <td> {{ wrappedForm.form.email  }} </td>
+          </tr>
+          <tr>
+            <td> Cell Phone </td> <td> {{  wrappedForm.form.cellPhone }} </td>
+          </tr>
+          <tr>
+            <td> Signature </td> <td> {{ wrappedForm.form.signature }} </td>
+          </tr>
+          <tr>
+            <td> Date </td> <td> {{ date2Use | date:'medium' }} </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 
+      <div class="pull-right vertical-space">
+          <app-date [timestamp]="wrappedForm.created" [label]="'Created'" ></app-date>
+      </div>
+      -->
+
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container -->

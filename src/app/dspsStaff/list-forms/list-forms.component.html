@@ -1,0 +1,37 @@
+<div *ngIf="jsonFormat">
+    Printing stuff
+    <p></p>
+
+    <pre>{{ list | json  }} </pre>
+</div>
+<div class="right">
+    <a class=" btn btn-warning" (click)="toggleJsonFormat()">Toggle JSON format</a>
+</div>
+
+<div class="container-fluid">
+    <h3>Submitted Forms: {{ formInfo.formTitle }} </h3>
+  <div class="row">
+    <div class="col-sm-8">
+
+
+      <ul class="list-group">
+        <div *ngFor="let item of list; let i=index">
+
+          <!-- ngIf will skip placeHolder node if any -->
+          <li *ngIf="item.formName"
+            class="list-group-item" >
+
+            <!-- /submittedForm/formName/formKey -->
+            <a
+              [routerLink]="[submittedAbs, getFormName(item), getKey(item)]">
+              {{ getVal(item) }}
+            </a>
+
+          </li>
+        </div> <!-- ngFor-->
+
+      </ul>
+
+    </div>
+  </div>
+</div>

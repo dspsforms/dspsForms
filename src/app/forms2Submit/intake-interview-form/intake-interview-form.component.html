@@ -1,0 +1,492 @@
+<div class="container-fluid">
+
+
+<h1>{{ title }} </h1>
+
+<!-- layout based on 
+  https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line 
+-->
+
+<div class="row">
+    <div class="col-sm-8">
+
+        <legend class="small">Fields marked with * are required.</legend>
+
+
+<form [formGroup]="intakeForm" (ngSubmit)="createOrEditIntake()" >
+    
+<div class="well">
+
+
+
+<fieldset>
+  <legend>You</legend>
+
+  <div class="form-group">
+      <label for="name">Full Name *</label>
+      <input 
+                  type="text" 
+                  class="form-control" 
+                  formControlName="fullName"
+                  >
+        <div *ngIf="intakeForm.get('fullName').touched && intakeForm.get('fullName').hasError('required')"
+                  class="alert alert-danger" >
+                  Name is required
+        </div>
+  </div> <!-- form-group, full name -->
+  
+  <div class="form-group">
+    <label for="collegeId">College ID *</label>
+    <input 
+              type="text" 
+              class="form-control" 
+              formControlName="collegeId"
+              >
+    <div *ngIf="intakeForm.get('collegeId').touched && intakeForm.get('collegeId').hasError('required')"
+                  class="alert alert-danger" >
+                  College ID is required
+    </div>
+  </div> <!-- form-group, college id -->
+</fieldset>
+
+</div> <!-- well-->
+ 
+<div class="well">
+
+<fieldset>
+  <legend>Your Contact Information</legend>
+
+  <div class="form-group">
+    <label for="addressLine1">Address Line</label>
+
+    <input 
+              type="text" 
+                class="form-control" 
+                formControlName="addressLine1"
+                >  
+  </div>  <!-- form-group, addressLine1 -->
+  
+  <div class="form-group">
+    <label for="city" >City</label>
+    <input 
+          type="text" 
+          class="form-control" 
+          formControlName="city"
+          >
+  </div> <!-- form-group, city -->
+
+  <div class="form-group">
+    <label for="zip">Zip</label>
+    <input 
+        type="text" 
+        class="form-control" 
+        formControlName="zip"
+        >          
+</div> <!-- form-group, zip -->
+
+<div class="form-group">
+    <label for="homePhone">Home Phone</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      formControlName="homePhone"
+      >
+</div>
+    
+<div class="form-group">
+    <label for="cellPhone">Cell Phone</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      formControlName="cellPhone"
+      >
+</div>
+    
+<div class="form-group">
+    <label for="email">Email</label>
+    <input 
+        type="text" 
+        class="form-control" 
+        formControlName="email"
+        >
+</div>
+</fieldset>
+</div> <!-- well, contact info-->
+
+<div class="well">
+
+
+<!-- see https://angular.io/guide/reactive-forms for radio example -->
+<fieldset>
+    <legend>A Bit About You</legend>
+
+    <div class="form-group">
+        <label for="gender" class="space-right" >Gender</label>
+        <label for="gender" class="radio-inline">
+            <input type="radio" formControlName="gender" value="male">Male
+        </label>
+        <label for="gender" class="radio-inline">
+            <input type="radio" formControlName="gender" value="female">Female
+        </label>
+    </div>  <!-- form-group, gender -->
+
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            formControlName="dob"
+        >
+    </div>
+
+    <!-- occupation + how long -->
+    
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="occupation" >Occupation</label>
+                <div>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="occupation"
+                    >
+                </div>
+            </div> <!-- form-group occupation -->
+
+            <div class="form-group col-sm-6">
+                <label for="occupationHowLong">How Long</label>
+                <div>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="occupationHowLong"
+                    >
+                </div>
+            </div> <!-- form-group occupationHowLong -->
+        </div>  <!-- row on occupation + how long -->
+     <!-- container on occupatino + how long -->
+
+    <div class="form-group">
+    <label for="homeLang">Language Spoken at home other than English?</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        formControlName="homeLang"
+        >
+    </div>
+
+</fieldset> <!-- more of You -->
+</div> <!-- well, more about you -->
+
+<div class="well">
+
+<fieldset>
+    <legend>Person to Notify in Case of Emergency</legend>
+
+    <div formGroupName="emergencyContact">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                formControlName="name"
+                >
+        </div>
+
+        <div class="form-group">
+            <label for="relationship">Relationship</label>
+            <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="relationship"
+                >
+        </div>
+
+        <div class="form-group">
+            <label for="homePhone">Home Phone</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                formControlName="homePhone"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="workPhone">Work Phone</label>
+            <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="workPhone"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="cellPhone">Cell Phone</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                formControlName="cellPhone"
+            >
+        </div>
+
+    </div> <!-- emergencyContact -->
+
+</fieldset>
+</div> <!-- well, emergency contact -->
+
+<div class="well">
+
+<fieldset>
+
+    <legend>Your Educational Background and Accommodation Related Information</legend>
+
+  <div class="form-group">
+    <label> Do you have a high school diploma?</label>
+    <label for="hasDiploma" class="radio-inline">
+        <input type="radio" formControlName="hasDiploma" value="yes">Yes
+    </label>
+    <label for="hasDiploma" class="radio-inline">
+        <input type="radio" formControlName="hasDiploma" value="no">No
+    </label>
+  </div>
+  <div class="form-group" *ngIf="intakeForm.get('hasDiploma').value == 'yes'">
+    <label for="highSchool" >High School</label>
+     <input 
+          type="text" 
+          class="form-control" 
+          formControlName="highSchool"
+        >
+    
+  </div>  <!-- form-group , high school -->
+
+  <div class="form-group">
+      <label for="numSemsAtMission">Number of Semesters at Mission College</label>
+        <input 
+              type="text" 
+              class="form-control" 
+              formControlName="numSemsAtMission"
+        >
+  </div>
+
+  <div class="form-group">
+      <label for="plannedMajor">What is your planned Academic or Vocational major?</label>
+        <input 
+              type="text" 
+              class="form-control" 
+              formControlName="plannedMajor"
+          >
+  </div>
+
+  <div class="form-group">
+      <label> Do you have a Mission College counselor?</label>
+      <label for="hasCounselor" class="radio-inline">
+          <input type="radio" formControlName="hasCounselor" value="yes">Yes
+      </label>
+      <label for="hasCounselor" class="radio-inline">
+          <input type="radio" formControlName="hasCounselor" value="no">No
+      </label>
+    </div>
+    <div class="form-group" *ngIf="intakeForm.get('hasCounselor').value == 'yes'">
+        <label for="counselorName">Counselor's Name</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            formControlName="counselorName"
+          >
+  </div>  <!-- form-group, counselor -->
+
+  <div class="row">
+    <div class="form-group" class="col-sm-6">
+        <label for="referrer" >Who referred you to the program?</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="referrer"
+        >
+    </div>
+    <div class="form-group" class="col-sm-6">
+        <label for="referrerReason">Why?</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            formControlName="referrerReason"
+        >
+    </div>
+  </div>
+
+  <!-- some vertical space -->
+  <div style="height:20px;"></div>
+
+    <div class="form-group">
+      <label class="space-right">Are you a Department of Rehabilitation Client?</label>
+      <label for="isDeptRehabClient" class="radio-inline">
+          <input type="radio" formControlName="isDeptRehabClient" value="yes">Yes
+      </label>
+      <label for="hasCounselor" class="radio-inline ">
+          <input type="radio" formControlName="isDeptRehabClient" value="no">No
+      </label>
+    </div>
+
+    <div class="form-group" *ngIf="intakeForm.get('isDeptRehabClient').value == 'yes' ">
+
+        <label for="rehabCounselorName">Rehab Counselor's Name</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            formControlName="rehabCounselorName"
+          >
+    </div>  <!-- form-group, rehab counselor -->
+
+  <div formGroupName="services">
+  
+    <div class="form-group">
+      <label>Please check each program you receive services from:</label> <br>
+      <label for="eops" class="checkbox-inline">
+          <input type="checkbox" formControlName="eops" >EOPS
+      </label>
+      <label for="calWorks" class="checkbox-inline ">
+          <input type="checkbox" formControlName="calWorks" >CalWORKS
+      </label>
+      <label for="ssdi" class="checkbox-inline ">
+          <input type="checkbox" formControlName="ssdi" >SSDI
+      </label>
+      <label for="access" class="checkbox-inline ">
+          <input type="checkbox" formControlName="access" >ACCESS
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+      <label class="space-right">Would you like information about these programs?</label>
+      <label for="wantSevicesInfo" class="radio-inline">
+          <input type="radio" formControlName="wantSevicesInfo" value="yes">Yes
+      </label>
+      <label for="wantSevicesInfo" class="radio-inline ">
+          <input type="radio" formControlName="wantSevicesInfo" value="no">No
+      </label>
+  </div>
+
+  <div class="form-group">
+      <label class="space-right">Are you currently enrolled at another Community College?</label>
+      <label for="enrolledInAnotherCC" class="radio-inline">
+          <input type="radio" formControlName="enrolledInAnotherCC" value="yes">Yes
+      </label>
+      <label for="enrolledInAnotherCC" class="radio-inline">
+          <input type="radio" formControlName="enrolledInAnotherCC" value="no">No
+      </label>
+  </div>
+
+  <div class="form-group">
+      <label class="space-right">Are you currently receiving Financial Aid?</label>
+      <label for="receivingFinAid" class="radio-inline">
+          <input type="radio" formControlName="receivingFinAid" value="yes">Yes
+      </label>
+      <label for="receivingFinAid" class="radio-inline ">
+          <input type="radio" formControlName="receivingFinAid" value="no">No
+      </label>
+  </div>
+
+    <div class="form-group">
+      <label>Do you currently have a health, psychological or learning disability?</label> <br>
+      <label for="hasDisability" class="radio-inline">
+          <input type="radio" formControlName="hasDisability" value="yes">Yes
+      </label>
+      <label for="hasDisability" class="radio-inline">
+          <input type="radio" formControlName="hasDisability" value="no">No
+      </label>
+    </div>
+    <div class="form-group" *ngIf="intakeForm.get('hasDisability').value == 'yes' " >
+        <label for="disabilityDesc">Describe your disability</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            formControlName="disabilityDesc"
+          >
+    </div>  <!-- form-group, disabilityDesc -->
+      
+  <div class="form-group">
+      <label for="medSideEffects" >Educationally related side-effects of Medication, if any:</label>
+         <!--  TODO autosize -->
+          <textarea 
+            placeholder="Medication side effects"
+            class="form-control" 
+            formControlName="medSideEffects"
+            rows="3">
+          </textarea>
+  </div>
+
+  <div class="form-group">
+      <label for="accommodationDesc">Briefly explain the accommodations you may require:</label>
+          <!--  TODO autosize -->
+          <textarea 
+            placeholder="Accommodations"
+            class="form-control" 
+            formControlName="accommodationDesc"
+            rows="3">
+          </textarea>
+  </div>
+
+</fieldset>
+
+</div> <!-- well, edu background and accommodation needs -->
+        
+
+        <div class="form-group" class="col-sm-6">
+            <label for="signature">Signature (type your name) * </label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="signature"
+                >
+                <div *ngIf="intakeForm.get('signature').touched && intakeForm.get('signature').hasError('required')"
+                        class="alert alert-danger" >
+                        Signature is required
+                </div>
+        </div> <!-- form-group signature -->
+    
+        <!-- 
+        <div class="form-group" class="col-sm-6">
+            <label for="dateOfSig" >Date</label>
+            <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="dateOfSig"
+                >
+                <div *ngIf="intakeForm.get('dateOfSig').touched && intakeForm.get('dateOfSig').hasError('required')"
+                            class="alert alert-danger" >
+                            Date is required
+                </div>
+        </div> 
+        -->
+         <!-- date -->
+      
+        <div class="form-row right vert-space">
+            <button type="submit" 
+                    [disabled]="!intakeForm.valid || !intakeForm.dirty"
+                    class="btn btn-primary"
+            >Submit</button>
+            <div *ngIf="!intakeForm.valid || !intakeForm.dirty">
+                <br>
+                <legend class="small">
+                  You can submit only if required fields are filled
+                </legend>
+            </div>
+
+        </div>
+      
+      
+  </form>
+
+</div> <!-- outer col-sm-6 well -->
+</div> <!-- outer row -->
+
+</div> <!-- container -->
+
+<div> &nbsp; 
+    <!-- some space-->
+    <p> &nbsp;</p>
+    <p> &nbsp;</p>
+</div>
+
+

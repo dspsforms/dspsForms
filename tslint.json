@@ -28,12 +28,12 @@
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
-      true,
+      false,
       140
     ],
     "member-access": false,
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "static-field",
@@ -69,7 +69,7 @@
     "no-string-literal": false,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
-    "no-trailing-whitespace": true,
+    "no-trailing-whitespace": false,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
@@ -77,15 +77,16 @@
     "object-literal-sort-keys": false,
     "one-line": [
       true,
-      "check-open-brace",
+      // "check-open-brace",
       "check-catch",
       "check-else",
       "check-whitespace"
     ],
     "prefer-const": true,
     "quotemark": [
-      true,
-      "single"
+      false,
+      "single",
+      "double"
     ],
     "radix": true,
     "semicolon": [
@@ -115,6 +116,18 @@
       "check-operator",
       "check-separator",
       "check-type"
+    ],
+    "directive-selector": [
+      true,
+      "attribute",
+      "app",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "app",
+      "kebab-case"
     ],
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
