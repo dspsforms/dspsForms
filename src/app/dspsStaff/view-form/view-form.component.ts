@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 // import { FireDbService } from '../../shared/fire-db.service';
 import { Config } from '../../model/config';
 // import { AngularFireObject } from 'angularfire2/database';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { WrappedForm } from '../../model/wrapped-form.model';
 import { FormUtil } from '../../model/form.util';
+import { FormsService } from '../../service/forms.service';
+import { SubscriptionUtil } from '../../shared/subscription-util';
 
 @Component({
   selector: 'app-view-form',
@@ -15,16 +17,18 @@ import { FormUtil } from '../../model/form.util';
 export class ViewFormComponent implements OnInit, OnDestroy {
 
   paramSubscription;
+  dbSubscription;
+
   busy = false;
   showJson = false;
 
   config: Config;
 
-  formInfo = { formName: '', formTitle: '', formKey: ''};
+  formInfo = { formName: '', formTitle: '', _id: ''};
 
   data: WrappedForm;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute, private formService: FormsService
   )
   { }
 
@@ -37,12 +41,38 @@ export class ViewFormComponent implements OnInit, OnDestroy {
 
         this.formInfo.formName = params['formName'];
         this.formInfo.formTitle = FormUtil.formTitle(this.formInfo.formName);
-        this.formInfo.formKey = params['formKey'];
+        this.formInfo._id = params['_id'];
 
-        this.data.formKey = params['formKey'];
+        this.data.formKey = params['_id'];
         console.log("formInfo", this.formInfo);
 
         this.busy = true;
+
+        /*
+
+        this works. however, the functionality has now been moved to FormsService
+
+        this.dbSubscription = this.formService.getFormData(this.formInfo.formName, this.formInfo._id)
+            .pipe(map(msgFormData => {
+              console.log("msgFormData", msgFormData);
+
+              const foo = msgFormData as { message: string; formData: any };
+
+              return foo.formData;
+            })).subscribe(formData => {
+              console.log("formData", formData);
+              this.data = formData;
+              this.busy = false;
+          });
+        */
+
+       this.dbSubscription  = this.formService.getCurrentFormUpdatedListener().subscribe(formData => {
+          this.data = formData;
+          this.busy = false;
+        });
+
+        this.formService.getFormData2(this.formInfo.formName, this.formInfo._id);
+
         //  let dbPath = Config.DB_FORM_SAVE_ROOT + '/' + this.formInfo.formName + '/' + this.formInfo.formKey;
 
         // this.data.itemRef = this.fireDbService.db.object(Config.DB_FORM_SAVE_ROOT + this.data.formKey);
@@ -57,14 +87,7 @@ export class ViewFormComponent implements OnInit, OnDestroy {
         });
         */
 
-        this.data.item.subscribe(res => {
-          console.log("res", res);
-          this.data.form = res;
-        },
-          error => {
-            console.log("error", error);
-          }
-        );
+
 
 
 
@@ -73,6 +96,9 @@ export class ViewFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+
+    SubscriptionUtil.unsubscribe(this.paramSubscription);
+    SubscriptionUtil.unsubscribe(this.dbSubscription);
 
   }
 

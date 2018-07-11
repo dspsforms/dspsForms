@@ -6,7 +6,7 @@ import { SubscriptionUtil } from '../../shared/subscription-util';
 import { FormUtil } from '../../model/form.util';
 import { UrlConfig } from '../../model/url-config';
 import { FormsService } from '../../service/forms.service';
-import { map } from '../../../../node_modules/rxjs/operators';
+import { map } from 'rxjs/operators';
 
 // list forms of a give type -- intakeForm, etc.
 @Component({

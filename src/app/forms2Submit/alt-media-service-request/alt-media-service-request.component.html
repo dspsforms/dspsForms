@@ -1,0 +1,256 @@
+<div class="container-fluid">
+
+
+  <h1>{{ title }} </h1>
+  
+  
+  <div class="row">
+      <div class="col-sm-10">
+  
+  
+  
+  <form [formGroup]="myForm" (ngSubmit)="createOrEditForm()" >
+      
+  <div class="well">
+  
+    <fieldset>
+      <legend>You</legend>
+      <legend class="small">Fields marked with * are required.</legend>
+    
+      <div class="form-group">
+          <label for="name">Name *</label>
+          <input 
+                      type="text" 
+                      class="form-control" 
+                      formControlName="fullName"
+                      >
+            <div *ngIf="myForm.get('fullName').touched && myForm.get('fullName').hasError('required')"
+                      class="alert alert-danger" >
+                      Name is required
+            </div>
+      </div> <!-- form-group, full name -->
+      
+      <div class="form-group">
+        <label for="collegeId">College ID *</label>
+        <input 
+                  type="text" 
+                  class="form-control" 
+                  formControlName="collegeId"
+                  >
+        <div *ngIf="myForm.get('collegeId').touched && myForm.get('collegeId').hasError('required')"
+                      class="alert alert-danger" >
+                      College ID is required
+        </div>
+      </div> <!-- form-group, college id -->
+
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+              type="text" 
+              class="form-control" 
+              formControlName="email"
+              >
+      </div>
+
+      <!-- changed phone to cell phone. is that ok? -->
+      <div class="form-group">
+        <label for="cellPhone">Cell Phone</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="cellPhone"
+          >
+      </div>
+
+    </fieldset>
+
+  </div> <!-- well -->
+
+  <div class="well">
+
+    <fieldset>
+      <legend>
+        Alternate Format Textbooks Needed
+      </legend>
+      <legend class="small">
+          Please provide the following information for each textbook 
+          requested in an alternate format.
+      </legend>
+
+      
+      <table formArrayName="altFormatDetail" class="table table-bordered">
+          <thead>
+              <th>Course Title and Section Number *</th>
+              <th>ISBN #</th>
+              <th>Book Title / Author *</th>
+              <th>Edition</th>
+              <th></th>
+              <!-- 
+              if the user were logged on, add edit and delete 
+             -->
+          </thead>
+
+          <!-- these are not really needed. user is not logged on, so has no previous data to show -->
+          <!-- 
+          <tr *ngFor="let altBook of altBooks">
+              <td>{{ altBook.courseTitleAndSection }} </td>
+              <td>{{ altBook.isbn }} </td>
+              <td>{{ altBook.bookTitleAndAuthor }} </td>
+              <td>{{ altBook.edition }} </td> 
+              <td>
+                  <i (click)="deleteAltBook(altBook)"
+                      class="glyphicon glyphicon-remove"> 
+                  </i>
+              </td>
+          </tr>
+          -->
+
+          <!-- the form table -->
+
+          <!-- <tr *ngFor="let item of myForm.controls.altFormatDetail.controls; let i=index" -->
+          <tr *ngFor="let item of formAltFormatDetail.controls; let i=index"
+                  [formGroupName]="i" >
+  
+              <td class="form-group" >
+                  <textarea 
+                    placeholder="Course"
+                    class="form-control" 
+                    formControlName="courseTitleAndSection"
+                    rows="3">
+                  </textarea>
+
+                
+                  <div 
+                  *ngIf="myForm.get('altFormatDetail').at(i).get('courseTitleAndSection').touched && myForm.get('altFormatDetail').at(i).get('courseTitleAndSection').hasError('required')"
+                    class="alert alert-danger" >
+                    Course title / section  required
+                  </div>
+                
+              </td>
+              <td class="form-group" >
+                <textarea 
+                  placeholder="ISBN"
+                  class="form-control" 
+                  formControlName="isbn"
+                  rows="3">
+                </textarea>
+              <td class="form-group" >
+                <textarea 
+                  placeholder="Book and Author"
+                  class="form-control" 
+                  formControlName="bookTitleAndAuthor"
+                  rows="3">
+                </textarea>
+                <div 
+                  *ngIf="myForm.get('altFormatDetail').at(i).get('bookTitleAndAuthor').touched && myForm.get('altFormatDetail').at(i).get('bookTitleAndAuthor').hasError('required')"
+                    class="alert alert-danger" >
+                    Book Title / Author  required
+                  </div>
+                
+              </td>
+              <td class="form-group" >
+                <textarea 
+                  placeholder="Edition"
+                  class="form-control" 
+                  formControlName="edition"
+                  rows="3">
+                </textarea>
+                
+              </td>
+              <td>
+                  <i (click)="delete(i)"
+                    class="glyphicon glyphicon-remove"> 
+                  </i>
+              </td>
+  
+          </tr>
+      </table>
+
+
+
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        Preferred File Format
+      </legend>
+      <legend class="small">
+          Choose a specific file format from the list below. You may choose first and second choice.
+      </legend>
+
+      <div formGroupName="preferredFileFormat">
+  
+            <div class="form-group">
+              <label for="eops" class="checkbox-inline">
+                  <input type="checkbox" formControlName="kurzWeilFirefly" >Kurzweil/firefly
+              </label>
+              <label for="calWorks" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="msWord" >MS Word
+              </label>
+              <label for="ssdi" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="pdf" >PDF
+              </label>
+              <label for="access" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="learningAlly" >Learning Ally
+              </label>
+              <label for="access" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="audio" >Audio
+              </label>
+              <label for="access" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="braillePaper" >Braille (paper)
+              </label>
+              <label for="access" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="largePrint" >Large Print
+              </label>
+            </div>
+      </div>
+    </fieldset>
+
+   
+  </div> <!-- well -->
+
+  <div class="right">
+      <a class=" btn btn-warning" (click)="addRow()">Add Another Text</a>
+  </div>
+
+  
+
+    <div class="form-group col-sm-6">
+      <label for="signature">Signature (type your name) *</label>
+          <input 
+              type="text" 
+              class="form-control" 
+              formControlName="signature"
+          >
+          <div *ngIf="myForm.get('signature').touched && myForm.get('signature').hasError('required')"
+                  class="alert alert-danger" >
+                  Signature is required
+          </div>
+    </div> <!-- form-group signature -->
+
+  <div class="clearfix">
+
+  </div>
+  
+    <div class="form-row right">
+        <button type="submit" 
+          [disabled]="!myForm.valid || !myForm.dirty"
+                class="btn btn-primary"
+        >Submit</button>
+        <div *ngIf="!myForm.valid || !myForm.dirty">
+            <br>
+            <legend class="small">
+              You can submit only if required fields are filled
+            </legend>
+        </div>
+        
+
+    </div>
+  
+
+
+  </form>
+  </div>  <!-- col-sml-8 -->
+  </div>  <!-- row -->
+  </div> <!-- container-fluid -->
+  

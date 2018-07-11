@@ -133,7 +133,30 @@ app.get("/api/form/:formName", (req, res, next) => {
 
 });
 
-app.delete("/api/:formName/:id", (req, res, next) => {
+app.get("/api/form/:formName/:_id", (req, res, next) => {
+
+  if (req.params.formName == 'intakeForm') {
+
+    console.log("fetched data for _id=", req.params._id);
+
+    // TODO fetch only some select fields from db; also (limit, offeset)
+    IntakeForm.findById(req.params._id).then(
+      document => {
+        console.log("intakeForms from db", document);
+        res.status(200).json({
+          message: "Intake Form fetched successfully",
+          formData: document
+        });
+      }
+    );
+  }
+
+});
+
+
+
+
+app.delete("/api/form/:formName/:id", (req, res, next) => {
   console.log(req.params.id);
   // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
 

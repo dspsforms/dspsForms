@@ -1,22 +1,22 @@
 
 <div *ngIf="formInfo.formName == 'altMediaRequest' ">
- <app-view-alt-media-request 
-      [formKey]="data.formKey" 
-      [wrappedForm]="data.form" >
+ <app-view-alt-media-request
+      [formKey]="data._id"
+      [wrappedForm]="data" >
  </app-view-alt-media-request>
 </div>
 
-<div *ngIf="formInfo.formName == 'intakeForm' ">
-     <app-view-intake 
-        [formKey]="data.formKey" 
-        [wrappedForm]="data.form" >
+<div *ngIf="formInfo.formName == 'intakeForm' && data ">
+     <app-view-intake
+        [formKey]="data._id"
+        [wrappedForm]="data" >
     </app-view-intake>
 </div>
 
 <div *ngIf="formInfo.formName == 'applicationForServices' ">
-        <app-view-application-for-services 
-           [formKey]="data.formKey" 
-           [wrappedForm]="data.form" >
+        <app-view-application-for-services
+           [formKey]="data._id"
+           [wrappedForm]="data" >
        </app-view-application-for-services>
 </div>
 

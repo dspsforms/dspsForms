@@ -16,6 +16,7 @@ import { Config } from '../../model/config';
 import { StatusMessage } from '../../model/status-message';
 import { LastOperationStatusService } from '../../service/last-operation-status.service';
 import { UrlConfig } from '../../model/url-config';
+import { FormName, FormUtil } from '../../model/form.util';
 
 @Component({
   selector: 'app-intake-interview-form',
@@ -33,7 +34,7 @@ export class IntakeInterviewFormComponent implements OnInit {
   subscription;
 
   // itemsRef: AngularFireList<any>;
-  formName: string = UrlConfig.INTAKE_FORM; // 'intakeForm';
+  formName: string = FormName.INTAKE_FORM; // 'intakeForm';
 
   constructor(fb: FormBuilder,
     private router: Router,
@@ -124,11 +125,7 @@ export class IntakeInterviewFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.title = "Intake Interview Form";
-
-    // this.itemsRef = this.fireDbService.db.list('formsSubmitted/' + this.formName);
-
-
+    this.title = FormUtil.formTitle(this.formName); // "Intake Interview Form";
   }
 
   savedForm;
@@ -138,7 +135,7 @@ export class IntakeInterviewFormComponent implements OnInit {
 
     if (this.intakeForm.dirty) {
 
-      // var curTime = firebase.database.ServerValue.TIMESTAMP;
+
       this.savedForm = new SavedForm({
         formName: this.formName,
         user: 'nobody',

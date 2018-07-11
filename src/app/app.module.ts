@@ -4,6 +4,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from "@angular/common/http";
 
 // ref: https://www.npmjs.com/package/ng5-breadcrumb
 import {Ng5BreadcrumbModule} from 'ng5-breadcrumb';
@@ -25,6 +26,10 @@ import { HomeComponent } from './home.component';
 import { NavBarComponent } from './nav-bar.component';
 import { LogoutComponent } from './logout/logout.component';
 import { IntakeInterviewFormComponent } from './forms2Submit/intake-interview-form/intake-interview-form.component';
+import { AltMediaServiceRequestComponent } from './forms2Submit/alt-media-service-request/alt-media-service-request.component';
+import { ApplicationForServicesComponent } from './forms2Submit/application-for-services/application-for-services.component';
+
+
 // import { AngularFireModule } from 'angularfire2';
 // import { AngularFireDatabaseModule } from 'angularfire2/database';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -44,13 +49,6 @@ import { ViewApplicationForServicesComponent } from './dspsStaff/view-form/view-
 
 
 
-/* Add these back
-
-
-import { AltMediaServiceRequestComponent } from './forms2Submit/alt-media-service-request/alt-media-service-request.component';
-import { ApplicationForServicesComponent } from './forms2Submit/application-for-services/application-for-services.component';
-
-*/
 
 
 @NgModule({
@@ -66,6 +64,9 @@ import { ApplicationForServicesComponent } from './forms2Submit/application-for-
     ActiveLinkSRComponent,
     LogoutComponent,
     IntakeInterviewFormComponent,
+    AltMediaServiceRequestComponent,
+    ApplicationForServicesComponent,
+
     DateComponent,
     ListEmptyFormTypesComponent,
 
@@ -77,10 +78,11 @@ import { ApplicationForServicesComponent } from './forms2Submit/application-for-
     ViewAltMediaRequestComponent,
     ViewApplicationForServicesComponent,
 
+
     /* Add these back
 
-    AltMediaServiceRequestComponent,
-    ApplicationForServicesComponent,
+
+
 
     */
 
@@ -92,6 +94,7 @@ import { ApplicationForServicesComponent } from './forms2Submit/application-for-
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    HttpClientModule,
 
     // Firebase stuff
     // AngularFireModule.initializeApp(environment.firebaseConfig, 'app-root'),

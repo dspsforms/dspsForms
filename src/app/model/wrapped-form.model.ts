@@ -1,24 +1,20 @@
-// import { AngularFireObject } from "angularfire2/database";
-import { Observable } from "rxjs";
+
 
 export class WrappedForm {
 
-    formKey?: string;
-    // itemRef?: AngularFireObject<any>;
-    item?: Observable<any>;
+  formKey?: string;
+  _id?: string;
     form?: any;
 
-    constructor(options: {
+  constructor(options: {
         formKey?: string,
-        // itemRef?: AngularFireObject<any>,
-        item?: Observable<any>,
+        _id?: string,
         form?: any,
     })
     {
-        this.formKey = options.formKey;
-       // this.itemRef = options.itemRef;
-        this.form = options.form || {};
-        this.item = options.item;
+      this.formKey = options.formKey;
+      this._id = options._id;
+      this.form = options.form || {};
     }
 
 }

@@ -1,0 +1,9 @@
+legend.small{
+    font-size: 15px; 
+}
+th, .center {
+    text-align:center;
+}
+.right {
+    text-align:right;
+}
