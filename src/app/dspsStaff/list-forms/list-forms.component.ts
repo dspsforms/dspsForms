@@ -1,12 +1,9 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-// import { FireDbService } from '../../shared/fire-db.service';
-import { Config } from '../../model/config';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionUtil } from '../../shared/subscription-util';
 import { FormUtil } from '../../model/form.util';
 import { UrlConfig } from '../../model/url-config';
 import { FormsService } from '../../service/forms.service';
-import { map } from 'rxjs/operators';
 
 // list forms of a give type -- intakeForm, etc.
 @Component({
@@ -51,6 +48,10 @@ export class ListFormsComponent implements OnInit, OnDestroy {
 
           this.list = [];
 
+          /*
+
+          this works. the functionality has now been moved to FormsService
+
           this.dbSubscription = this.formService.listForms(this.formInfo.formName)
             .pipe(map(wrappedList => {
               console.log("wrappedList", wrappedList);
@@ -66,26 +67,15 @@ export class ListFormsComponent implements OnInit, OnDestroy {
               this.busy = false;
             });
 
-          /* TODO
-            let dbPath = Config.DB_FORM_SAVE_ROOT + '/' + this.formInfo.formName;
+          */
 
-            console.log("dbPath", dbPath);
+          this.dbSubscription = this.formService.getFormUpdatedListener(this.formInfo.formName)
+            .subscribe(listOfForms => {
+              this.list = listOfForms;
+              this.busy = false;
+            });
 
-            this.dbSubscription = this.fireDbService.db.list(dbPath,
-                ref => ref.orderByChild('created'))
-                //.valueChanges()
-                .snapshotChanges()
-                .map(arr => arr.reverse())
-                .subscribe(dbList => {
-                    console.log("dbList", dbList);
-                    this.list = dbList;
-
-
-                    this.busy = false;
-
-                }); // db subscription
-
-              */
+          this.formService.listForms2(this.formInfo.formName);
 
         }); // param subscription
 

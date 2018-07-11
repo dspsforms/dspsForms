@@ -50,7 +50,7 @@ export class ViewFormComponent implements OnInit, OnDestroy {
 
         /*
 
-        this works. however, the functionality has now been moved to FormsService
+        this works. the functionality has now been moved to FormsService
 
         this.dbSubscription = this.formService.getFormData(this.formInfo.formName, this.formInfo._id)
             .pipe(map(msgFormData => {
