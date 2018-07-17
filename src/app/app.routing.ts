@@ -20,6 +20,11 @@ import { ListEmptyFormTypesComponent } from './forms2Submit/manageForms2Submit/l
 import { ListFormTypesComponent } from './dspsStaff/list-form-types/list-form-types.component';
 import { ListFormsComponent } from './dspsStaff/list-forms/list-forms.component';
 import { ViewFormComponent } from './dspsStaff/view-form/view-form.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AddNewStaffComponent } from './auth/add-new-staff/add-new-staff.component';
+import { AdminAuthGuard } from './auth/admin-auth-guard';
+import { StaffAuthGuard } from './auth/staff-auth-guard';
+
 
 /* temporarily commented out
 
@@ -43,18 +48,20 @@ export const ngProjectRouting = RouterModule.forRoot([
     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.APPLICATION_FOR_SERVICES , component: ApplicationForServicesComponent },
 
     // 'submittedForm'
-    { path: UrlConfig.SUBMITTED_FORM, component: ListFormTypesComponent },
+    { path: UrlConfig.SUBMITTED_FORM, component: ListFormTypesComponent  , canActivate: [StaffAuthGuard] }, // protected
 
     // 'submittedForm/:formName'
-   { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent } ,
+   { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent  , canActivate: [StaffAuthGuard] } ,
 
     // 'submittedForm/:formName/:_id'
-    { path: UrlConfig.SUBMITTED_FORM + '/:formName/:_id', component: ViewFormComponent },
+    { path: UrlConfig.SUBMITTED_FORM + '/:formName/:_id', component: ViewFormComponent  , canActivate: [StaffAuthGuard] },
 
     // change this to a component that redirects out to the main website
     // {path: 'home', component: ListEmptyFormTypesComponent },
 
-    {path: 'logout', component: LogoutComponent },
+    {path: UrlConfig.ADD_NEW_STAFF_USER, component: AddNewStaffComponent, canActivate: [AdminAuthGuard] },
+    {path: UrlConfig.LOGIN, component: LoginComponent },
+    {path: UrlConfig.LOGOUT, component: LogoutComponent },
     { path: 'notfound', component: NotFoundComponent },
     { path: '**', redirectTo: 'notfound' },
 ]);

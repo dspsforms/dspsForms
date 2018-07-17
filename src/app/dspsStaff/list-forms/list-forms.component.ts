@@ -4,6 +4,7 @@ import { SubscriptionUtil } from '../../shared/subscription-util';
 import { FormUtil } from '../../model/form.util';
 import { UrlConfig } from '../../model/url-config';
 import { FormsService } from '../../service/forms.service';
+import { Subscription } from 'rxjs';
 
 // list forms of a give type -- intakeForm, etc.
 @Component({
@@ -14,12 +15,13 @@ import { FormsService } from '../../service/forms.service';
 export class ListFormsComponent implements OnInit, OnDestroy {
 
     list;
-    dbSubscription;
-    paramSubscription;
+    private dbSubscription: Subscription;
+    private paramSubscription: Subscription;
 
     busy = false;
 
     jsonFormat = false;
+    foo = true;
 
     formInfo = { formName: '', formTitle: ''};
 

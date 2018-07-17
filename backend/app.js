@@ -3,6 +3,10 @@ const bodyParser = require("body-parser");
 
 const mongoose = require('mongoose');
 
+const formRoutes = require('./routes/form-routes');
+const userRoutes = require('./routes/user-routes');
+
+
 // Connection URL
 const uri = 'mongodb://localhost:27017/simpledsps';
 
@@ -21,11 +25,7 @@ mongoose.connect(uri).then(
     }
   );
 
-
-const SavedFormMongoose = require('./models/saved-form-mongoose');
-
-const IntakeForm = require('./models/intake-form');
-
+// const once = require('./misc/once');
 
 const app = express();
 
@@ -45,137 +45,46 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/:formName", (req, res, next) => {
+// "/api/form/list"
+app.get("/api/form2/list", (req, res, next) => {
+  console.log("matching /api/form/list");
+//trying to get collection names
+mongoose.connection.db.listCollections().toArray().then(collections => {
+  console.log("collections: ", collections);
+  /*
+  collections:  [ { name: 'intakeforms',
+  type: 'collection',
+  options: {},
+  info: { readOnly: false, uuid: [Object] },
+  idIndex:
+   { v: 2,
+     key: [Object],
+     name: '_id_',
+     ns: 'simpledsps.intakeforms' } } ]
+     */
 
-    let form;
-    const currentTime = new Date();
-    // req.params.formName === 'intakeForm'
-    if (true) {
-        form = new IntakeForm({
-            formName: 'intakeForm',
-            user: req.body.user,
-            form: req.body.form, // "tmp form string",
-            edited: req.body.edited,
-            created: currentTime,
-            lastMod: currentTime
-        });
-    }
+  res.status(200).json({
+    message: "Collections List fethed successfully",
+    collections: collections
+  });
 
-    console.log("req.params=", req.params);
-    console.log("req.body=", req.body);
-
-    console.log("req.body.form=", req.body.form);
-
-    console.log("form before save", form);
-    form.save().then( createdForm => {
-            // success
-            console.log("after save, createdForm=", createdForm);
-            res.status(201).json({
-                message: 'Form ' + req.params.formName + ' added successfully',
-                formId: createdForm._id
-            });
-
+})
+  .catch((err) => {
+    console.log(err);
+    res.status(404).json({
+      message: "Error",
+      err: err
     });
-
-
-
-});
-
-app.get("/api/forms", (req, res, next) => {
-
-  //trying to get collection names
-  mongoose.connection.db.listCollections().toArray().then(collections => {
-    console.log("collections: ", collections);
-    /*
-    collections:  [ { name: 'intakeforms',
-    type: 'collection',
-    options: {},
-    info: { readOnly: false, uuid: [Object] },
-    idIndex:
-     { v: 2,
-       key: [Object],
-       name: '_id_',
-       ns: 'simpledsps.intakeforms' } } ]
-       */
-
-    res.status(200).json({
-      message: "Collections List fethed successfully",
-      collections: collections
-    });
-
-  })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).json({
-        message: "Eror",
-        err: err
-      });
-    });
+  });
 
 
 });
 
-app.get("/api/form/:formName", (req, res, next) => {
-
-  if (req.params.formName == 'intakeForm') {
-
-    // TODO fetch only some select fields from db; also (limit, offeset)
-    IntakeForm.find().then(
-      documents => {
-        console.log("intakeForms from db", documents);
-        res.status(200).json({
-          message: "Intake Forms fetched successfully!",
-          listOfForms: documents
-        });
-      }
-    );
-  }
-
-});
-
-app.get("/api/form/:formName/:_id", (req, res, next) => {
-
-  if (req.params.formName == 'intakeForm') {
-
-    console.log("fetched data for _id=", req.params._id);
-
-    // TODO fetch only some select fields from db; also (limit, offeset)
-    IntakeForm.findById(req.params._id).then(
-      document => {
-        console.log("intakeForms from db", document);
-        res.status(200).json({
-          message: "Intake Form fetched successfully",
-          formData: document
-        });
-      }
-    );
-  }
-
-});
 
 
 
-
-app.delete("/api/form/:formName/:id", (req, res, next) => {
-  console.log(req.params.id);
-  // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
-
-  if (req.params.formName == 'intakeForm') {
-
-    IntakeForm.deleteOne({
-      _id: mongoose.Types.ObjectId(req.params.id)
-    }).then(
-      result => {
-        console.log(result);
-        res.status(200).json({
-          message: "Intake form deleted"
-        });
-      });
-
-  }
-
-
-});
+app.use("/api/form", formRoutes);
+app.use("/api/user", userRoutes);
 
 
 module.exports = app;

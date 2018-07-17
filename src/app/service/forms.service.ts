@@ -6,7 +6,7 @@ import { AjaxService } from '../shared/ajax.service';
 
 import { environment } from '../../environments/environment';
 import { WrappedForm } from '../model/wrapped-form.model';
-import { FormName } from '../model/form.util';
+import { FormName, FormUtil } from '../model/form.util';
 
 
 
@@ -25,8 +25,10 @@ export class FormsService implements OnInit {
   private currentForm: WrappedForm;
   private currentFormUpdated = new Subject<WrappedForm>();
 
-  constructor(private ajaxService: AjaxService,
-    private http: HttpClient) {
+  private formListTypes = []; // collections of forms in the database
+  private formListUpdated = new Subject<string[]>();
+
+  constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
     // key is formNmae. value is a Subject.
     const formNames: string[] = FormName.formNames;
@@ -45,6 +47,10 @@ export class FormsService implements OnInit {
     return this.currentFormUpdated.asObservable();
   }
 
+  getFormListUpdatedListener() {
+    return this.formListUpdated.asObservable();
+  }
+
   // each formName has a list of forms.
   // return an observable for such a list.
   getFormUpdatedListener(formName: string) {
@@ -56,20 +62,14 @@ export class FormsService implements OnInit {
     }
   }
 
-  listFormTypes() {
-    return this.ajaxService.get (environment.server + '/api/forms') ;
-  }
-
-  listForms(formName: string) {
-    return this.ajaxService.get (environment.server + '/api/form/' + formName) ;
-  }
-
+/*
   // /api/form/:formName/:_id
   getFormData(formName: string, _id: string) {
     const url = environment.server + '/api/form/' + formName + "/" + _id;
     console.log("fetching url=", url);
     return this.ajaxService.get (url) ;
   }
+*/
 
   // /api/form/:formName/:_id
   getFormData2(formName: string, _id: string) {
@@ -107,6 +107,27 @@ export class FormsService implements OnInit {
         // send out an event to those listening for change in currentForm
         this.currentFormUpdated.next(this.currentForm);
       });
+  }
+
+  listFormTypes() {
+    const url = environment.server + '/api/form/list';
+    console.log("fetching url=", url);
+    this.http.get<{ message: string; collections: any[] }>(url).subscribe(msgData => {
+      console.log(msgData);
+      // msgData.collections has the collection names. each is a plural
+
+      this.formListTypes = msgData.collections.map(collectionName => {
+
+        // collection name is in plural format
+        const formName = FormUtil.collection2FormName(collectionName);
+        return formName;
+
+      });
+
+      // let those listening on it know
+      this.formListUpdated.next([...this.formListTypes]);
+
+    }) ;
   }
 
   // /api/form/:formName

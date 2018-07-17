@@ -4,7 +4,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 // ref: https://www.npmjs.com/package/ng5-breadcrumb
 import {Ng5BreadcrumbModule} from 'ng5-breadcrumb';
@@ -46,6 +46,9 @@ import { ViewIntakeComponent } from './dspsStaff/view-form/view-intake/view-inta
 import { ViewAltMediaRequestComponent } from './dspsStaff/view-form/view-alt-media-request/view-alt-media-request.component';
 
 import { ViewApplicationForServicesComponent } from './dspsStaff/view-form/view-application-for-services/view-application-for-services.component';
+import { AddNewStaffComponent } from './auth/add-new-staff/add-new-staff.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 
 
@@ -77,6 +80,8 @@ import { ViewApplicationForServicesComponent } from './dspsStaff/view-form/view-
     ViewIntakeComponent,
     ViewAltMediaRequestComponent,
     ViewApplicationForServicesComponent,
+    AddNewStaffComponent,
+    LoginComponent,
 
 
     /* Add these back
@@ -109,6 +114,7 @@ import { ViewApplicationForServicesComponent } from './dspsStaff/view-form/view-
     AjaxService,
 
     LastOperationStatusService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 
   ],
   bootstrap: [AppComponent]

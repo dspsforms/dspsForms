@@ -13,5 +13,12 @@ export class UrlConfig {
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
+  static ADD_NEW_STAFF_USER = 'addNewStaffUser';
+
+  static LOGIN = 'login';
+
+
+  static LOGOUT = 'logout';
+
 
 }

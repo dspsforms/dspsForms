@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { FireDbService } from '../../shared/fire-db.service';
 import { Config } from '../../model/config';
 import { FormUtil } from '../../model/form.util';
 import { UrlConfig } from '../../model/url-config';
 import { FormsService } from '../../service/forms.service';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { SubscriptionUtil } from '../../shared/subscription-util';
 
 @Component({
   selector: 'app-list-form-types',
   templateUrl: './list-form-types.component.html',
   styleUrls: ['./list-form-types.component.css']
 })
-export class ListFormTypesComponent implements OnInit {
+export class ListFormTypesComponent implements OnInit, OnDestroy {
 
   list;
   subscription;
   busy = false;
+
+  private listChangeSub: Subscription;
 
   // /submitted2
   submittedAbs = UrlConfig.SUBMITTED_FORM_ABSOLUTE;
@@ -23,42 +27,26 @@ export class ListFormTypesComponent implements OnInit {
   constructor(private formsService: FormsService) { }
 
   ngOnInit() {
-
     this.list = [];
-    this.subscription = this.formsService.listFormTypes()
-      .pipe(map(wrappedCollections => {
-         // change intakeforms to intakeForm, etc.
-        console.log("wrappedCollections", wrappedCollections);
 
-        const foo = wrappedCollections as { message: string; collections: any[] };
+    this.busy = true;
 
-        /*
-    collections:  [ { name: 'intakeforms',
-    type: 'collection',
-    options: {},
-    info: { readOnly: false, uuid: [Object] },
-    idIndex:
-     { v: 2,
-       key: [Object],
-       name: '_id_',
-       ns: 'simpledsps.intakeforms' } } ]
-       */
+    // set up a subscription for the data
+    this.listChangeSub = this.formsService.getFormListUpdatedListener()
+      .subscribe(formNameList => {
+        this.busy = false;
+        this.list = formNameList; // ['intakeForm', ... ]
+      });
 
-        return foo.collections.map(collection => {
-          const formName = FormUtil.collection2FormName(collection.name);
-          return formName;
+    // call the service to fetch the collection names from the server. when this completes, the subscription above will get the data.
+    this.formsService.listFormTypes();
+  }
 
-        });
 
-      })) // pipe
-      .subscribe(formNames => {
+      /*
+      previously, with Firebase:
 
-      console.log("formNames", formNames);
-      this.list = formNames;
-      this.busy = false;
-
-    });
-      /* .db.list(Config.DB_FORM_SAVE_ROOT,
+      .db.list(Config.DB_FORM_SAVE_ROOT,
       ref => ref.orderByChild('created'))
             .valueChanges().map(arr => arr.reverse())
             .subscribe(formTypeList => {
@@ -69,7 +57,7 @@ export class ListFormTypesComponent implements OnInit {
                 this.busy = false;
             }) ;
       */
-  }
+
 
   // item is formName
   formTitle(item) {
@@ -94,6 +82,10 @@ export class ListFormTypesComponent implements OnInit {
       console.log(err);
     }
 
+  }
+
+  ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.listChangeSub);
   }
 
 }
