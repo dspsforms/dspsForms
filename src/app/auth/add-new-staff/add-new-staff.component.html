@@ -1,13 +1,13 @@
-<div class="container-fluid">
+<div class="container-fluid" >
 
   <div class="row">
-    <div class="col">
+    <div class="col-sm-8">
 
   <form [formGroup]="signUpForm" (ngSubmit)="addStaffMember()" >
 
   <div class="well">
     <fieldset>
-      <legend>Add New Staff Member</legend>
+      <legend>Add New User (staff and/or admin)</legend>
 
       <div class="form-group">
           <label >Email address</label>
@@ -22,6 +22,19 @@
               </div>
               <div *ngIf="!email.errors.required && email.errors.email">
                   Email format is incorrect.
+              </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <label >Name</label>
+          <input type="name"
+              class="form-control"
+              formControlName="name"
+              placeholder="Name" >
+          <div *ngIf="name.touched && !name.valid"
+              class="alert alert-danger">
+              <div *ngIf="name.errors.required">
+                  Name is required.
               </div>
           </div>
       </div>
@@ -50,14 +63,30 @@
             formControlName="password"
             placeholder="Password" >
 
-        <div *ngIf="password2.touched && !password2.valid">
+        <div *ngIf="password2.touched && !password2.valid"
+          class="alert alert-danger">
           Passwords must match.
         </div>
 
       </div>
 
+      <div class="form-group">
+        <label>Please check <u>all</u> that apply:</label> <br>
+        <label for="isStaff" class="checkbox-inline">
+            <input type="checkbox" formControlName="isStaff"  >Staff
+        </label>
+        <label for="isAdmin" class="checkbox-inline ">
+            <input type="checkbox" formControlName="isAdmin" >Admin
+        </label>
+      </div>
 
-      <button class="btn btn-primary" type="submit" >Sign in</button>
+      <div *ngIf="isAdmin.touched && !isAdmin.valid"
+        class="alert alert-danger">
+        user must be either staff or admin
+      </div>
+
+
+      <button class="btn btn-primary" type="submit" >Add User</button>
 
       <div *ngIf="errCode || errMsg" class="alert alert-danger">
           <span *ngIf="errCode"> {{errCode}} </span>

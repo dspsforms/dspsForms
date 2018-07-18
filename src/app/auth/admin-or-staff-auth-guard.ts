@@ -12,7 +12,7 @@ import { AuthService } from "./auth.service";
 @Injectable({
   providedIn: 'root'
 })
-export class StaffAuthGuard implements CanActivate {
+export class AdminOrStaffAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -20,11 +20,15 @@ export class StaffAuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
 
+    // this thing may have issues. need to debug/test. please do not use this for now.
+    const isAdminAuth = this.authService.getIsAdminAuth();
     const isStaffAuth = this.authService.getIsStaffAuth();
-    if (!isStaffAuth) {
+
+    const authStatus = isAdminAuth || isStaffAuth;
+    if (!authStatus) {
       const nextUrl = route.url.join('');
       this.router.navigate(['/login'], {queryParams: {next: nextUrl }} );
     }
-    return isStaffAuth;
+    return authStatus;
   }
 }

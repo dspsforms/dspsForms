@@ -1,0 +1,38 @@
+<div class="container-fluid" *ngIf="users">
+
+  <div class="row">
+    <div class="col-sm-10">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title inline">
+            Users
+          </div>
+        </div> <!-- panel-heading -->
+
+        <div class="panel-body">
+
+          <table class="table table-bordered">
+            <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Is Admin</th>
+                <th>Is Staff</th>
+                <th>Created</th>
+                <th>Last Modified</th>
+            </thead>
+
+            <tr *ngFor="let user of users; let i=index" >
+
+              <td> {{ user.name }} </td>
+              <td> {{ user.email}}  </td>
+              <td> <i *ngIf="user.isAdmin" class="glyphicon glyphicon-check"></i> </td>
+              <td> <i *ngIf="user.isStaff" class="glyphicon glyphicon-check"></i> </td>
+              <td> {{ user.created | date:'medium' }} </td>
+              <td> {{ user.lastMod | date:'medium' }} </td>
+            </tr>
+          </table>
+        </div> <!-- panel-body -->
+      </div> <!-- panel, panel-default -->
+
+</div>

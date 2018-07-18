@@ -2,6 +2,15 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// admin guard
+const checkAuthAdmin = require("../middleware/check-auth-admin");
+
+// staff guard
+const checkAuthStaff = require("../middleware/check-auth-staff");
+
+// (staff or admin) guard
+const checkAuthStaffOrAdmin = require("../middleware/check-auth-staff-or-admin");
+
 const User = require("../models/user-model");
 
 const router = express.Router();
@@ -19,39 +28,60 @@ mongo-sanitize will strip out strings that start with $
 see : https://github.com/vkarpov15/mongo-sanitize
 */
 
-const sanitze = require('mongo-sanitize');
+const sanitize = require('mongo-sanitize');
 
-// post /api/user/addstaff
-router.post("/addstaff", (req, res, next) => {
+// post /api/user/addstaff -- requester must have admin permission
+router.post("/addstaff",
+  checkAuthAdmin,
+  (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
-    const sanitizedEmail = sanitze(req.body.email);
-    console.log("orig: ", req.body.email, "sanitized: ", sanitizedEmail);
-    // no query will be run on the password field, so no need to sanitize password before hashing
+    const sanitizedEmail = sanitize(req.body.email);
+    const sanitizedName = sanitize(req.body.name);
+    const sanitizedIsStaff = sanitize(req.body.isStaff);
+    const sanitizedIsAdmin = sanitize(req.body.isAdmin);
+    const currentTime = new Date();
+     // no query will be run on the password field, so no need to sanitize password before hashing
     const user = new User({
       email: sanitizedEmail,
-      password: hash
+      name: sanitizedName,
+      password: hash,
+      isAdmin: sanitizedIsAdmin,
+      isStaff: sanitizedIsStaff,
+      created: currentTime,
+      lastMod: currentTime
     });
+    console.log("user to be added=", user);
+
+    /*
+    res.status(200).json({
+      message: "User to be added",
+      result: user
+    });
+    */
+
+
     user
       .save()
       .then(result => {
         res.status(201).json({
-          message: "User added",
-          result: result
+          message: "User " + result.name + " added"
         });
       })
       .catch(err => {
-        res.status(500).json({
+        console.log(err);
+        res.status(401).json({
           error: err
         });
       });
+
   });
 });
 
-// post /api/user/login
+// post /api/user/login -- requester is not logged in, no auth needed
 router.post("/login", (req, res, next) => {
   console.log("in login");
   let fetchedUser;
-  const sanitizedEmail = sanitze(req.body.email);
+  const sanitizedEmail = sanitize(req.body.email);
   console.log("orig: ", req.body.email, "sanitized: ", sanitizedEmail);
   User.findOne({ email: sanitizedEmail })
     .then(user => {
@@ -82,7 +112,11 @@ router.post("/login", (req, res, next) => {
       const token = jwt.sign(
         {
           email: fetchedUser.email,
-          userId: fetchedUser._id
+          userId: fetchedUser._id,
+          isAdmin: fetchedUser.isAdmin,
+          isStaff: fetchedUser.isStaff,
+          isStudent: fetchedUser.isStudent,
+          isInstructor: fetchedUser.isInstructor
         },
         "secret_this_should_be_longer",
         { expiresIn: "1h" }
@@ -106,6 +140,34 @@ router.post("/login", (req, res, next) => {
         message: "Auth failed " + err
       });
     });
+});
+
+// /api/user/list -- requester must be staff or admin
+router.get("/list",
+  checkAuthStaffOrAdmin,
+  (req, res, next) => {
+  console.log("in list");
+
+  User.find().then(userList => {
+    console.log(userList);
+    if (!userList) {
+      return res.status(401).json({
+        message: "No users could be returned"
+      });
+    }
+    return res.status(200).json({
+      message: "User List",
+      users: userList
+
+    });
+
+  }).catch(err => {
+    console.log(err);
+    return res.status(401).json({
+      message: "List failed " + err
+    });
+  });
+
 });
 
 module.exports = router;

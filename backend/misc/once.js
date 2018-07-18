@@ -5,19 +5,22 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user-model');
 
 // set this to true only once. will create an admin user
-if (false) {
+if (true) {
 
-  const pass = ''; // set this once, run it, then erase!
+  const pass = '123'; // set this once, run it, then erase!
   const adminHash = bcrypt.hashSync(pass, 10);
 
+  const currentTime = new Date();
   let user = new User({
-    email: 'missiondsps@vannev.com',
+    email: 't2@test.com', // 'missiondsps@vannev.com',
     password: adminHash,
-    name: 'Admin',
-    isAdmin: true,
+    name: 'staff',
+    isAdmin: false,
     isStaff: true,
     isStudent: false,
-    isInstructor:false
+    isInstructor: false,
+    created: currentTime,
+    lastMod: currentTime
 
   });
 
@@ -28,7 +31,7 @@ if (false) {
 
 // test admin user
 
-if (true) {
+if (false) {
   const pass = ''; // set this for testing, run it, then erase!
   User.findOne({ email: 'missiondsps@vannev.com' })
     .then(user => {

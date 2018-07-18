@@ -3,6 +3,9 @@ const express = require("express");
 
 const mongoose = require('mongoose');
 
+// staff guard
+const checkAuthStaff = require("../middleware/check-auth-staff");
+
 const router = express.Router();
 
 const IntakeForm = require('../models/intake-form-model');
@@ -44,112 +47,121 @@ router.post("/:formName", (req, res, next) => {
 
 });
 
-// "/api/form/list"
-router.get("/list", (req, res, next) => {
-  console.log("in /api/form/list");
-//trying to get collection names
-mongoose.connection.db.listCollections().toArray().then(collections => {
-  console.log("collections: ", collections);
-  /*
-  collections:  [ { name: 'intakeforms',
-  type: 'collection',
-  options: {},
-  info: { readOnly: false, uuid: [Object] },
-  idIndex:
-   { v: 2,
-     key: [Object],
-     name: '_id_',
-     ns: 'simpledsps.intakeforms' } } ]
-     */
+// "/api/form/list"  -- must have staff permission
+router.get("/list",
+  checkAuthStaff,
+  (req, res, next) => {
+    console.log("in /api/form/list");
+    //trying to get collection names
+    mongoose.connection.db.listCollections().toArray().then(collections => {
+      console.log("collections: ", collections);
+      /*
+      collections:  [ { name: 'intakeforms',
+      type: 'collection',
+      options: {},
+      info: { readOnly: false, uuid: [Object] },
+      idIndex:
+      { v: 2,
+        key: [Object],
+        name: '_id_',
+        ns: 'simpledsps.intakeforms' } } ]
+        */
 
-  const filtered = collections.filter(col => {
-    // only return form collections. remove users, logs, and anything else that is not a form-collection
-    if (col.name === 'users' || col.name === 'logs') {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }).map(collection => { return collection.name; }
-  );
+      const filtered = collections.filter(col => {
+        // only return form collections. remove users, logs, and anything else that is not a form-collection
+        if (col.name === 'users' || col.name === 'logs') {
+          return false;
+        }
+        else {
+          return true;
+        }
+      }).map(collection => { return collection.name; });
 
-  console.log("filtered=", filtered);
-  res.status(200).json({
-    message: "Collections List fethed successfully",
-    collections: filtered
-  });
-
-})
-  .catch((err) => {
-    console.log(err);
-    res.status(404).json({
-      message: "Eror",
-      err: err
-    });
-  });
-
-
-});
-
-// get "/api/form/:formName"
-router.get("/:formName", (req, res, next) => {
-
-if (req.params.formName == 'intakeForm') {
-
-  // TODO fetch only some select fields from db; also (limit, offeset)
-  IntakeForm.find().then(
-    documents => {
-      console.log("intakeForms from db", documents);
+      console.log("filtered=", filtered);
       res.status(200).json({
-        message: "Intake Forms fetched successfully!",
-        listOfForms: documents
+        message: "Collections List fethed successfully",
+        collections: filtered
       });
-    }
-  );
-}
 
-});
-
-// get "/api/form/:formName/:_id"
-router.get("/:formName/:_id", (req, res, next) => {
-
-if (req.params.formName == 'intakeForm') {
-
-  console.log("fetched data for _id=", req.params._id);
-
-  // TODO fetch only some select fields from db; also (limit, offeset)
-  IntakeForm.findById(req.params._id).then(
-    document => {
-      console.log("intakeForms from db", document);
-      res.status(200).json({
-        message: "Intake Form fetched successfully",
-        formData: document
-      });
-    }
-  );
-}
-
-});
-
-
-// delete "/api/form/:formName/:id"
-router.delete("/:formName/:id", (req, res, next) => {
-console.log(req.params.id);
-// https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
-
-if (req.params.formName == 'intakeForm') {
-
-  IntakeForm.deleteOne({
-    _id: mongoose.Types.ObjectId(req.params.id)
-  }).then(
-    result => {
-      console.log(result);
-      res.status(200).json({
-        message: "Intake form deleted"
-      });
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(404).json({
+          message: "Eror",
+          err: err
+        });
     });
 
-}
+
+  });
+
+// get "/api/form/:formName"  -- must have staff level perm
+router.get("/:formName",
+  checkAuthStaff,
+  (req, res, next) => {
+
+    if (req.params.formName == 'intakeForm') {
+
+      // TODO fetch only some select fields from db; also (limit, offeset)
+      IntakeForm.find().then(
+        documents => {
+          console.log("intakeForms from db", documents);
+          res.status(200).json({
+            message: "Intake Forms fetched successfully!",
+            listOfForms: documents
+          });
+        }
+      );
+    }
+
+});
+
+// get "/api/form/:formName/:_id"  -- with this pattern, need staff level perm
+router.get("/:formName/:_id",
+  checkAuthStaff,
+
+  (req, res, next) => {
+
+    if (req.params.formName == 'intakeForm') {
+
+      console.log("fetched data for _id=", req.params._id);
+
+      // TODO fetch only some select fields from db; also (limit, offeset)
+      IntakeForm.findById(req.params._id).then(
+        document => {
+          console.log("intakeForms from db", document);
+          res.status(200).json({
+            message: "Intake Form fetched successfully",
+            formData: document
+          });
+        }
+      );
+    }
+
+});
+
+
+// delete "/api/form/:formName/:id"  -- with this pattern, need staff level perm
+router.delete("/:formName/:id",
+  checkAuthStaff,
+
+  (req, res, next) => {
+    console.log(req.params.id);
+    // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
+
+    if (req.params.formName == 'intakeForm') {
+
+      IntakeForm.deleteOne({
+        _id: mongoose.Types.ObjectId(req.params.id)
+      }).then(
+        result => {
+          console.log(result);
+          res.status(200).json({
+            message: "Intake form deleted"
+          });
+        });
+
+    }
 
 
 });

@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
+import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatPaginatorModule } from "@angular/material";
+
+
 // ref: https://www.npmjs.com/package/ng5-breadcrumb
 import {Ng5BreadcrumbModule} from 'ng5-breadcrumb';
 
@@ -49,6 +52,7 @@ import { ViewApplicationForServicesComponent } from './dspsStaff/view-form/view-
 import { AddNewStaffComponent } from './auth/add-new-staff/add-new-staff.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ListUsersComponent } from './user/list-users/list-users.component';
 
 
 
@@ -82,6 +86,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     ViewApplicationForServicesComponent,
     AddNewStaffComponent,
     LoginComponent,
+    ListUsersComponent,
 
 
     /* Add these back
@@ -100,6 +105,13 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
 
     // Firebase stuff
     // AngularFireModule.initializeApp(environment.firebaseConfig, 'app-root'),
@@ -111,9 +123,9 @@ import { AuthInterceptor } from './auth/auth-interceptor';
   ],
   providers: [
     // FireDbService,
-    AjaxService,
+    // AjaxService,
 
-    LastOperationStatusService,
+    // LastOperationStatusService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 
   ],

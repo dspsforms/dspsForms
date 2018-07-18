@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { filter } from 'rxjs/operators';
+import { SubscriptionUtil } from '../../shared/subscription-util';
+import { Subscription } from '../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +20,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   displaySignIn = false;
   signInForm;
 
+  next: string;
+  querySub: Subscription;
+
+
   constructor(private router: Router,
+    private route: ActivatedRoute,
     public fb: FormBuilder,
-  private authService: AuthService)
+    private authService: AuthService)
   {
     this.signInForm = fb.group({
       email: [ '', [Validators.required, Validators.email] ],
@@ -29,18 +37,38 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.querySub =  this.route.queryParams.pipe(filter(params => params.next)).subscribe(params => {
+      console.log("next in login:", params.next);
+      this.next =  params.next;
+    });
+
+    /*
+    this will not work because the route has already changed to /login
+
+    // hold on to the url we came from, so we can redirect to that url
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.prevUrl = event.url;
+        console.log('prevUrl=', this.prevUrl);
+      }
+    });
+    */
+
   }
 
   login() {
 
-    // TODO get nextUrl
+    // redirect to prevUrl (or / if empty) after login
     this.authService.login(this.signInForm.value.email,
-      this.signInForm.value.password, null);
+      this.signInForm.value.password, this.next);
 
 
   }
 
   ngOnDestroy() {
+
+    SubscriptionUtil.unsubscribe(this.querySub);
 
   }
 

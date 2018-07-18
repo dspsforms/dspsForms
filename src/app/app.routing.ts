@@ -9,7 +9,6 @@ import { ConfirmDeactivate } from './shared/confirm-deactivate.service';
 
 import { UrlConfig } from './model/url-config';
 
-import { LogoutComponent } from './logout/logout.component';
 import { IntakeInterviewFormComponent } from './forms2Submit/intake-interview-form/intake-interview-form.component';
 import { AltMediaServiceRequestComponent } from './forms2Submit/alt-media-service-request/alt-media-service-request.component';
 import { ApplicationForServicesComponent } from './forms2Submit/application-for-services/application-for-services.component';
@@ -24,6 +23,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { AddNewStaffComponent } from './auth/add-new-staff/add-new-staff.component';
 import { AdminAuthGuard } from './auth/admin-auth-guard';
 import { StaffAuthGuard } from './auth/staff-auth-guard';
+import { ListUsersComponent } from './user/list-users/list-users.component';
+import { AdminOrStaffAuthGuard } from './auth/admin-or-staff-auth-guard';
 
 
 /* temporarily commented out
@@ -59,9 +60,12 @@ export const ngProjectRouting = RouterModule.forRoot([
     // change this to a component that redirects out to the main website
     // {path: 'home', component: ListEmptyFormTypesComponent },
 
-    {path: UrlConfig.ADD_NEW_STAFF_USER, component: AddNewStaffComponent, canActivate: [AdminAuthGuard] },
+    {path: UrlConfig.ADD_NEW_STAFF_USER, component: AddNewStaffComponent , canActivate: [AdminAuthGuard] }, //
     {path: UrlConfig.LOGIN, component: LoginComponent },
-    {path: UrlConfig.LOGOUT, component: LogoutComponent },
+
+    {path: UrlConfig.SHOW_USERS, component: ListUsersComponent, canActivate: [StaffAuthGuard]} ,
+
     { path: 'notfound', component: NotFoundComponent },
+    { path: 'foo', component: NotFoundComponent} ,
     { path: '**', redirectTo: 'notfound' },
 ]);

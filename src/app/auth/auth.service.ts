@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 import { AuthData } from "./auth-data.model";
+import { AuthType } from "./auth-type.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   private token: string;
   private tokenTimer: any;
   private userId: string;
-  private authStatusListener = new Subject<boolean>();
+  private authStatusListener = new Subject<AuthType>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -38,12 +39,18 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createStaffUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+  createUser(email: string,
+    name: string,
+    password: string,
+    isStaff: boolean,
+    isAdmin: boolean,
+    nextUrl: string) {
+    const authData: AuthData = { email: email, name: name, password: password , isStaff: isStaff, isAdmin: isAdmin};
     this.http
       .post("http://localhost:3000/api/user/addstaff", authData)
       .subscribe(response => {
         console.log(response);
+        this.router.navigate([nextUrl || "/"]);
       });
   }
 
@@ -52,15 +59,18 @@ export class AuthService {
     nextUrl: string) {
 
     const authData: AuthData = { email: email, password: password };
+    const url = "http://localhost:3000/api/user/login";
+    console.log('sending post request to ', url);
     this.http
       .post<{
         token: string; expiresIn: number, userId: string,
         isAdmin: boolean, isStaff: boolean, isStudent: boolean, isInstructor: boolean
       }>(
-        "http://localhost:3000/api/user/login",
+        url,
         authData
       )
       .subscribe(response => {
+        console.log("response=", response);
         const token = response.token;
         this.token = token;
         if (token) {
@@ -75,7 +85,8 @@ export class AuthService {
           }
 
           this.userId = response.userId;
-          this.authStatusListener.next(true);
+
+          this.triggerAuthChangeEvent();
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
@@ -98,15 +109,34 @@ export class AuthService {
       this.isStaffAuthenticated = authInformation.isStaffAuthenticated;
       this.userId = authInformation.userId;
       this.setAuthTimer(expiresIn / 1000);
-      this.authStatusListener.next(true);
+
+      this.triggerAuthChangeEvent();
     }
+  }
+
+  // send out an auth change event to those listening
+  triggerAuthChangeEvent() {
+    const authType: AuthType = {
+      staffAuth: this.isStaffAuthenticated,
+      adminAuth: this.isAdminAuthenticated
+    };
+    this.authStatusListener.next(authType);
+  }
+
+  // return current auth
+  getAuth() {
+    const authType: AuthType = {
+      staffAuth: this.isStaffAuthenticated,
+      adminAuth: this.isAdminAuthenticated
+    };
+    return authType;
   }
 
   logout() {
     this.token = null;
     this.isAdminAuthenticated = false;
     this.isStaffAuthenticated = false;
-    this.authStatusListener.next(false);
+    this.triggerAuthChangeEvent();
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
