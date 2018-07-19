@@ -8,6 +8,8 @@ import { SavedForm } from '../../model/saved-form.model';
 import { StatusMessage } from '../../model/status-message';
 import { UrlConfig } from '../../model/url-config';
 import { FormUtil, FormName } from '../../model/form.util';
+import { Subscription } from '../../../../node_modules/rxjs';
+import { FormsService } from '../../service/forms.service';
 
 @Component({
   selector: 'app-application-for-services',
@@ -16,20 +18,20 @@ import { FormUtil, FormName } from '../../model/form.util';
 })
 export class ApplicationForServicesComponent implements OnInit {
 
-  title;
+  title: string;
   form: FormGroup;
 
-  // intake object initialized to blank
-  model;
-
-  subscription;
+  savedForm: SavedForm;
+  err: string;
+  errMsg: string;
+  formSaveStatusSub: Subscription;
 
   formName: string = FormName.APPLICATION_FOR_SERVICES; // 'applicationForServices';
 
   constructor(fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private ajaxService: AjaxService,
+    private formService: FormsService,
     private lastOpStatusService: LastOperationStatusService)
   {
     this.form = fb.group({
@@ -49,10 +51,51 @@ export class ApplicationForServicesComponent implements OnInit {
     // this.itemsRef = this.fireDbService.db.list('formsSubmitted/' + this.formName);
   }
 
-  savedForm;
-  newKey;
 
-  createOrEdit() {
+
+  createOrEditForm() {
+    console.log(this.form.value);
+
+
+    if (this.form.dirty) {
+
+      this.savedForm = new SavedForm({
+        formName: this.formName,
+        user: 'nobody',
+        form: this.form.value,
+        edited: false,
+        // created: curTime,
+        // lastMod: curTime,
+
+      });
+
+      // first subscribe to the form save status listener. then, ask formService to save the form
+      this.formSaveStatusSub = this.formService.getFormSaveStatusListener().subscribe(res => {
+        if (res.err) {
+          // form save failed, show error message, stay on current page
+          this.err = res.err;
+          this.errMsg = res.message;
+        } else {
+
+          // form saved successfully, redirect out
+
+          // set the status message that will be shown in the newForm page
+          this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
+
+          // goto /newForm
+          this.router.navigate([UrlConfig.NEW_FORM_ABSOLUTE ]);
+        }
+      });
+
+      // ask formService to save the form
+      this.formService.saveForm(this.savedForm);
+
+
+    } // if this.form.dirty
+  }
+
+  /*
+  createOrEdit0() {
 
     if (this.form.dirty) {
 
@@ -82,5 +125,6 @@ export class ApplicationForServicesComponent implements OnInit {
 
 
   }
+  */
 
 }

@@ -1,12 +1,11 @@
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { Autosize } from 'ng-autosize/src/autosize.directive';
 // import { AutosizeDirective } from 'angular-autosize';
 
-import { AjaxService } from '../../shared/ajax.service';
 
 
 import * as _ from 'underscore';
@@ -17,21 +16,24 @@ import { LastOperationStatusService } from '../../service/last-operation-status.
 import { StatusMessage } from '../../model/status-message';
 import { UrlConfig } from '../../model/url-config';
 import { FormUtil, FormName } from '../../model/form.util';
+import { FormsService } from '../../service/forms.service';
+import { Subscription } from '../../../../node_modules/rxjs';
+import { SubscriptionUtil } from '../../shared/subscription-util';
 
 @Component({
   selector: 'app-alt-media-service-request',
   templateUrl: './alt-media-service-request.component.html',
   styleUrls: ['./alt-media-service-request.component.css']
 })
-export class AltMediaServiceRequestComponent implements OnInit {
+export class AltMediaServiceRequestComponent implements OnInit, OnDestroy {
 
-  title;
-  myForm: FormGroup;
+  title: string;
+  form: FormGroup;
 
-  // intake object initialized to blank
-  myModel;
-
-  subscription;
+  savedForm: SavedForm;
+  err: string;
+  errMsg: string;
+  formSaveStatusSub: Subscription;
 
   formName: string = FormName.ALT_MEDIA_REQUEST; // 'altMediaRequest';
 
@@ -41,13 +43,13 @@ export class AltMediaServiceRequestComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private ajaxService: AjaxService,
+    private formService: FormsService,
     private lastOpStatusService: LastOperationStatusService, ) {
 
 
 
     // myForm is a FormGroup which contains an empty FormArray
-    this.myForm = this.fb.group({
+    this.form = this.fb.group({
       altFormatDetail: this.fb.array([]),
 
       fullName: ['', Validators.required],
@@ -84,7 +86,7 @@ export class AltMediaServiceRequestComponent implements OnInit {
       // and pushes it into the FormArray
 
       // We get our FormArray
-      const control = <FormArray>this.myForm.controls['altFormatDetail'];
+      const control = <FormArray>this.form.controls['altFormatDetail'];
 
       // instantiate a new alt-format-request FormGroup;
       const newAltFormatReq: FormGroup = this.initItems();
@@ -128,7 +130,7 @@ export class AltMediaServiceRequestComponent implements OnInit {
     // console.log("myForm=", this.myForm);
 
 
-    const control = <FormArray>this.myForm.controls['altFormatDetail'];
+    const control = <FormArray>this.form.controls['altFormatDetail'];
 
     console.log("control, before delete=", control);
 
@@ -144,10 +146,51 @@ export class AltMediaServiceRequestComponent implements OnInit {
 
   }
 
-  savedForm;
-  newKey;
+
 
   createOrEditForm() {
+    console.log(this.form.value);
+
+
+    if (this.form.dirty) {
+
+      this.savedForm = new SavedForm({
+        formName: this.formName,
+        user: 'nobody',
+        form: this.form.value,
+        edited: false,
+        // created: curTime,
+        // lastMod: curTime,
+
+      });
+
+      // first subscribe to the form save status listener. then, ask formService to save the form
+      this.formSaveStatusSub = this.formService.getFormSaveStatusListener().subscribe(res => {
+        if (res.err) {
+          // form save failed, show error message, stay on current page
+          this.err = res.err;
+          this.errMsg = res.message;
+        } else {
+
+          // form saved successfully, redirect out
+
+          // set the status message that will be shown in the newForm page
+          this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
+
+          // goto /newForm
+          this.router.navigate([UrlConfig.NEW_FORM_ABSOLUTE ]);
+        }
+      });
+
+      // ask formService to save the form
+      this.formService.saveForm(this.savedForm);
+
+
+    } // if this.myForm.dirty
+  }
+
+  /*
+  createOrEditForm0() {
 
     console.log(this.myForm.value);
 
@@ -179,12 +222,17 @@ export class AltMediaServiceRequestComponent implements OnInit {
 
 
   }
+  */
 
   showForm() {
-    console.log(this.myForm);
+    console.log(this.form);
   }
 
-  get formAltFormatDetail() { return <FormArray> this.myForm.get('altFormatDetail'); }
+  ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
+  }
+
+  get formAltFormatDetail() { return <FormArray> this.form.get('altFormatDetail'); }
 
 
 

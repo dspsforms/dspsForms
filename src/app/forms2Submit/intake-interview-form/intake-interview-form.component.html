@@ -1,10 +1,11 @@
 <div class="container-fluid">
 
+<div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
 
 <h1>{{ title }} </h1>
 
-<!-- layout based on 
-  https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line 
+<!-- layout based on
+  https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
 -->
 
 <div class="row">
@@ -13,8 +14,8 @@
         <legend class="small">Fields marked with * are required.</legend>
 
 
-<form [formGroup]="intakeForm" (ngSubmit)="createOrEditIntake()" >
-    
+<form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
 <div class="well">
 
 
@@ -24,25 +25,25 @@
 
   <div class="form-group">
       <label for="name">Full Name *</label>
-      <input 
-                  type="text" 
-                  class="form-control" 
+      <input
+                  type="text"
+                  class="form-control"
                   formControlName="fullName"
                   >
-        <div *ngIf="intakeForm.get('fullName').touched && intakeForm.get('fullName').hasError('required')"
+        <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
                   class="alert alert-danger" >
                   Name is required
         </div>
   </div> <!-- form-group, full name -->
-  
+
   <div class="form-group">
     <label for="collegeId">College ID *</label>
-    <input 
-              type="text" 
-              class="form-control" 
+    <input
+              type="text"
+              class="form-control"
               formControlName="collegeId"
               >
-    <div *ngIf="intakeForm.get('collegeId').touched && intakeForm.get('collegeId').hasError('required')"
+    <div *ngIf="form.get('collegeId').touched && form.get('collegeId').hasError('required')"
                   class="alert alert-danger" >
                   College ID is required
     </div>
@@ -50,7 +51,7 @@
 </fieldset>
 
 </div> <!-- well-->
- 
+
 <div class="well">
 
 <fieldset>
@@ -59,54 +60,54 @@
   <div class="form-group">
     <label for="addressLine1">Address Line</label>
 
-    <input 
-              type="text" 
-                class="form-control" 
+    <input
+              type="text"
+                class="form-control"
                 formControlName="addressLine1"
-                >  
+                >
   </div>  <!-- form-group, addressLine1 -->
-  
+
   <div class="form-group">
     <label for="city" >City</label>
-    <input 
-          type="text" 
-          class="form-control" 
+    <input
+          type="text"
+          class="form-control"
           formControlName="city"
           >
   </div> <!-- form-group, city -->
 
   <div class="form-group">
     <label for="zip">Zip</label>
-    <input 
-        type="text" 
-        class="form-control" 
+    <input
+        type="text"
+        class="form-control"
         formControlName="zip"
-        >          
+        >
 </div> <!-- form-group, zip -->
 
 <div class="form-group">
     <label for="homePhone">Home Phone</label>
-    <input 
-      type="text" 
-      class="form-control" 
+    <input
+      type="text"
+      class="form-control"
       formControlName="homePhone"
       >
 </div>
-    
+
 <div class="form-group">
     <label for="cellPhone">Cell Phone</label>
-    <input 
-      type="text" 
-      class="form-control" 
+    <input
+      type="text"
+      class="form-control"
       formControlName="cellPhone"
       >
 </div>
-    
+
 <div class="form-group">
     <label for="email">Email</label>
-    <input 
-        type="text" 
-        class="form-control" 
+    <input
+        type="text"
+        class="form-control"
         formControlName="email"
         >
 </div>
@@ -132,22 +133,22 @@
 
     <div class="form-group">
         <label for="dob">Date of Birth</label>
-        <input 
-            type="text" 
-            class="form-control" 
+        <input
+            type="text"
+            class="form-control"
             formControlName="dob"
         >
     </div>
 
     <!-- occupation + how long -->
-    
+
         <div class="row">
             <div class="form-group col-sm-6">
                 <label for="occupation" >Occupation</label>
                 <div>
-                    <input 
-                    type="text" 
-                    class="form-control" 
+                    <input
+                    type="text"
+                    class="form-control"
                     formControlName="occupation"
                     >
                 </div>
@@ -156,9 +157,9 @@
             <div class="form-group col-sm-6">
                 <label for="occupationHowLong">How Long</label>
                 <div>
-                    <input 
-                    type="text" 
-                    class="form-control" 
+                    <input
+                    type="text"
+                    class="form-control"
                     formControlName="occupationHowLong"
                     >
                 </div>
@@ -168,9 +169,9 @@
 
     <div class="form-group">
     <label for="homeLang">Language Spoken at home other than English?</label>
-        <input 
-        type="text" 
-        class="form-control" 
+        <input
+        type="text"
+        class="form-control"
         formControlName="homeLang"
         >
     </div>
@@ -187,45 +188,45 @@
 
         <div class="form-group">
             <label for="name">Name</label>
-                <input 
-                type="text" 
-                class="form-control" 
+                <input
+                type="text"
+                class="form-control"
                 formControlName="name"
                 >
         </div>
 
         <div class="form-group">
             <label for="relationship">Relationship</label>
-            <input 
-                    type="text" 
-                    class="form-control" 
+            <input
+                    type="text"
+                    class="form-control"
                     formControlName="relationship"
                 >
         </div>
 
         <div class="form-group">
             <label for="homePhone">Home Phone</label>
-            <input 
-                type="text" 
-                class="form-control" 
+            <input
+                type="text"
+                class="form-control"
                 formControlName="homePhone"
             >
         </div>
 
         <div class="form-group">
             <label for="workPhone">Work Phone</label>
-            <input 
-                    type="text" 
-                    class="form-control" 
+            <input
+                    type="text"
+                    class="form-control"
                     formControlName="workPhone"
             >
         </div>
 
         <div class="form-group">
             <label for="cellPhone">Cell Phone</label>
-            <input 
-                type="text" 
-                class="form-control" 
+            <input
+                type="text"
+                class="form-control"
                 formControlName="cellPhone"
             >
         </div>
@@ -250,30 +251,30 @@
         <input type="radio" formControlName="hasDiploma" value="no">No
     </label>
   </div>
-  <div class="form-group" *ngIf="intakeForm.get('hasDiploma').value == 'yes'">
+  <div class="form-group" *ngIf="form.get('hasDiploma').value == 'yes'">
     <label for="highSchool" >High School</label>
-     <input 
-          type="text" 
-          class="form-control" 
+     <input
+          type="text"
+          class="form-control"
           formControlName="highSchool"
         >
-    
+
   </div>  <!-- form-group , high school -->
 
   <div class="form-group">
       <label for="numSemsAtMission">Number of Semesters at Mission College</label>
-        <input 
-              type="text" 
-              class="form-control" 
+        <input
+              type="text"
+              class="form-control"
               formControlName="numSemsAtMission"
         >
   </div>
 
   <div class="form-group">
       <label for="plannedMajor">What is your planned Academic or Vocational major?</label>
-        <input 
-              type="text" 
-              class="form-control" 
+        <input
+              type="text"
+              class="form-control"
               formControlName="plannedMajor"
           >
   </div>
@@ -287,11 +288,11 @@
           <input type="radio" formControlName="hasCounselor" value="no">No
       </label>
     </div>
-    <div class="form-group" *ngIf="intakeForm.get('hasCounselor').value == 'yes'">
+    <div class="form-group" *ngIf="form.get('hasCounselor').value == 'yes'">
         <label for="counselorName">Counselor's Name</label>
-        <input 
-            type="text" 
-            class="form-control" 
+        <input
+            type="text"
+            class="form-control"
             formControlName="counselorName"
           >
   </div>  <!-- form-group, counselor -->
@@ -299,17 +300,17 @@
   <div class="row">
     <div class="form-group" class="col-sm-6">
         <label for="referrer" >Who referred you to the program?</label>
-        <input 
-          type="text" 
-          class="form-control" 
+        <input
+          type="text"
+          class="form-control"
           formControlName="referrer"
         >
     </div>
     <div class="form-group" class="col-sm-6">
         <label for="referrerReason">Why?</label>
-        <input 
-            type="text" 
-            class="form-control" 
+        <input
+            type="text"
+            class="form-control"
             formControlName="referrerReason"
         >
     </div>
@@ -328,18 +329,18 @@
       </label>
     </div>
 
-    <div class="form-group" *ngIf="intakeForm.get('isDeptRehabClient').value == 'yes' ">
+    <div class="form-group" *ngIf="form.get('isDeptRehabClient').value == 'yes' ">
 
         <label for="rehabCounselorName">Rehab Counselor's Name</label>
-        <input 
-            type="text" 
-            class="form-control" 
+        <input
+            type="text"
+            class="form-control"
             formControlName="rehabCounselorName"
           >
     </div>  <!-- form-group, rehab counselor -->
 
   <div formGroupName="services">
-  
+
     <div class="form-group">
       <label>Please check each program you receive services from:</label> <br>
       <label for="eops" class="checkbox-inline">
@@ -396,21 +397,21 @@
           <input type="radio" formControlName="hasDisability" value="no">No
       </label>
     </div>
-    <div class="form-group" *ngIf="intakeForm.get('hasDisability').value == 'yes' " >
+    <div class="form-group" *ngIf="form.get('hasDisability').value == 'yes' " >
         <label for="disabilityDesc">Describe your disability</label>
-        <input 
-            type="text" 
-            class="form-control" 
+        <input
+            type="text"
+            class="form-control"
             formControlName="disabilityDesc"
           >
     </div>  <!-- form-group, disabilityDesc -->
-      
+
   <div class="form-group">
       <label for="medSideEffects" >Educationally related side-effects of Medication, if any:</label>
          <!--  TODO autosize -->
-          <textarea 
+          <textarea
             placeholder="Medication side effects"
-            class="form-control" 
+            class="form-control"
             formControlName="medSideEffects"
             rows="3">
           </textarea>
@@ -419,9 +420,9 @@
   <div class="form-group">
       <label for="accommodationDesc">Briefly explain the accommodations you may require:</label>
           <!--  TODO autosize -->
-          <textarea 
+          <textarea
             placeholder="Accommodations"
-            class="form-control" 
+            class="form-control"
             formControlName="accommodationDesc"
             rows="3">
           </textarea>
@@ -430,43 +431,43 @@
 </fieldset>
 
 </div> <!-- well, edu background and accommodation needs -->
-        
+
 
         <div class="form-group" class="col-sm-6">
             <label for="signature">Signature (type your name) * </label>
-                <input 
-                    type="text" 
-                    class="form-control" 
+                <input
+                    type="text"
+                    class="form-control"
                     formControlName="signature"
                 >
-                <div *ngIf="intakeForm.get('signature').touched && intakeForm.get('signature').hasError('required')"
+                <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
                         class="alert alert-danger" >
                         Signature is required
                 </div>
         </div> <!-- form-group signature -->
-    
-        <!-- 
+
+        <!--
         <div class="form-group" class="col-sm-6">
             <label for="dateOfSig" >Date</label>
-            <input 
-                    type="text" 
-                    class="form-control" 
+            <input
+                    type="text"
+                    class="form-control"
                     formControlName="dateOfSig"
                 >
-                <div *ngIf="intakeForm.get('dateOfSig').touched && intakeForm.get('dateOfSig').hasError('required')"
+                <div *ngIf="form.get('dateOfSig').touched && form.get('dateOfSig').hasError('required')"
                             class="alert alert-danger" >
                             Date is required
                 </div>
-        </div> 
+        </div>
         -->
          <!-- date -->
-      
+
         <div class="form-row right vert-space">
-            <button type="submit" 
-                    [disabled]="!intakeForm.valid || !intakeForm.dirty"
+            <button type="submit"
+                    [disabled]="!form.valid || !form.dirty"
                     class="btn btn-primary"
             >Submit</button>
-            <div *ngIf="!intakeForm.valid || !intakeForm.dirty">
+            <div *ngIf="!form.valid || !form.dirty">
                 <br>
                 <legend class="small">
                   You can submit only if required fields are filled
@@ -474,8 +475,8 @@
             </div>
 
         </div>
-      
-      
+
+
   </form>
 
 </div> <!-- outer col-sm-6 well -->
@@ -483,7 +484,7 @@
 
 </div> <!-- container -->
 
-<div> &nbsp; 
+<div> &nbsp;
     <!-- some space-->
     <p> &nbsp;</p>
     <p> &nbsp;</p>

@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { Autosize } from 'ng-autosize/src/autosize.directive';
 // import { AutosizeDirective } from 'angular-autosize';
 
-import { AjaxService } from '../../shared/ajax.service';
 // import { AngularFireList } from 'angularfire2/database';
 // import { FireDbService } from '../../shared/fire-db.service';
 
@@ -17,21 +16,24 @@ import { StatusMessage } from '../../model/status-message';
 import { LastOperationStatusService } from '../../service/last-operation-status.service';
 import { UrlConfig } from '../../model/url-config';
 import { FormName, FormUtil } from '../../model/form.util';
+import { Subscription } from '../../../../node_modules/rxjs';
+import { FormsService } from '../../service/forms.service';
+import { SubscriptionUtil } from '../../shared/subscription-util';
 
 @Component({
   selector: 'app-intake-interview-form',
   templateUrl: './intake-interview-form.component.html',
   styleUrls: ['./intake-interview-form.component.css']
 })
-export class IntakeInterviewFormComponent implements OnInit {
+export class IntakeInterviewFormComponent implements OnInit, OnDestroy {
 
-  title;
-  intakeForm: FormGroup;
+  title: string;
+  form: FormGroup;
 
-  // intake object initialized to blank
-  intakeModel;
-
-  subscription;
+  savedForm: SavedForm;
+  err: string;
+  errMsg: string;
+  formSaveStatusSub: Subscription;
 
   // itemsRef: AngularFireList<any>;
   formName: string = FormName.INTAKE_FORM; // 'intakeForm';
@@ -40,7 +42,7 @@ export class IntakeInterviewFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     // private fireDbService: FireDbService,
-    private ajaxService: AjaxService,
+    private formService: FormsService,
     private lastOpStatusService: LastOperationStatusService)
   {
 
@@ -51,7 +53,7 @@ export class IntakeInterviewFormComponent implements OnInit {
     */
 
     // let todaysDate = new Date();
-    this.intakeForm = fb.group({
+    this.form = fb.group({
       fullName: ['', Validators.required],
       collegeId: ['', Validators.required],
       addressLine1: [''],
@@ -128,18 +130,64 @@ export class IntakeInterviewFormComponent implements OnInit {
     this.title = FormUtil.formTitle(this.formName); // "Intake Interview Form";
   }
 
-  savedForm;
-  newKey;
 
+
+  createOrEditForm() {
+    console.log(this.form.value);
+
+
+    if (this.form.dirty) {
+
+      this.savedForm = new SavedForm({
+        formName: this.formName,
+        user: 'nobody',
+        form: this.form.value,
+        edited: false,
+        // created: curTime,
+        // lastMod: curTime,
+
+      });
+
+      // first subscribe to the form save status listener. then, ask formService to save the form
+      this.formSaveStatusSub = this.formService.getFormSaveStatusListener().subscribe(res => {
+        if (res.err) {
+          // form save failed, show error message, stay on current page
+          this.err = res.err;
+          this.errMsg = res.message;
+        } else {
+
+          // form saved successfully, redirect out
+
+          // set the status message that will be shown in the newForm page
+          this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
+
+          // goto /newForm
+          this.router.navigate([UrlConfig.NEW_FORM_ABSOLUTE ]);
+        }
+      });
+
+      // ask formService to save the form
+      this.formService.saveForm(this.savedForm);
+
+
+    } // if this.myForm.dirty
+  }
+
+  ngOnDestroy() {
+    // formSaveStatusSub
+    SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
+  }
+
+  /*
   createOrEditIntake() {
 
-    if (this.intakeForm.dirty) {
+    if (this.form.dirty) {
 
 
       this.savedForm = new SavedForm({
         formName: this.formName,
         user: 'nobody',
-        form: this.intakeForm.value,
+        form: this.form.value,
         edited: false,
         // created and lastMod are added by the server
          // created: curTime,
@@ -175,4 +223,5 @@ export class IntakeInterviewFormComponent implements OnInit {
 
 
   }
+  */
 }

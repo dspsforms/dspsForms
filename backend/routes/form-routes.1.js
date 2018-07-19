@@ -132,31 +132,46 @@ router.get("/:formName",
   (req, res, next) => {
 
     const formName = sanitize(req.params.formName);
-    console.log("fetching forms for ", formName);
-
-    let form;
 
     if (formName == 'intakeForm') {
-      form = IntakeForm;
-    } else if (formName === 'altMediaRequest') {
-      form = AltMediaRequest;
-    } else if (formName === 'applicationForServices') {
-      form = ApplicationForServices;
-    }
 
       // TODO fetch only some select fields from db; also (limit, offeset)
-    form.find().then(
+      IntakeForm.find().then(
         documents => {
-          console.log("form from db", documents);
+          console.log("intakeForms from db", documents);
           res.status(200).json({
-            message: "Forms fetched successfully!",
+            message: "Intake Forms fetched successfully!",
             listOfForms: documents
           });
         }
       );
-  }
+    } else if (formName == 'altMediaRequest') {
 
-);
+      // TODO fetch only some select fields from db; also (limit, offeset)
+      AltMediaRequest.find().then(
+        documents => {
+          console.log("altMediaRequest from db", documents);
+          res.status(200).json({
+            message: "altMediaRequest Forms fetched successfully!",
+            listOfForms: documents
+          });
+        }
+      );
+    } else if (formName == 'applicationForServices') {
+
+      // TODO fetch only some select fields from db; also (limit, offeset)
+      ApplicationForServices.find().then(
+        documents => {
+          console.log("applicationForServices from db", documents);
+          res.status(200).json({
+            message: "applicationForServices Forms fetched successfully!",
+            listOfForms: documents
+          });
+        }
+      );
+    }
+
+});
 
 // get "/api/form/:formName/:_id"  -- with this pattern, need staff level perm
 router.get("/:formName/:_id",
@@ -164,30 +179,21 @@ router.get("/:formName/:_id",
 
   (req, res, next) => {
 
-    let form;
+    if (req.params.formName == 'intakeForm') {
 
-    const formName = sanitize(req.params.formName);
-
-    if (formName == 'intakeForm') {
-      form = IntakeForm;
-    } else if (formName === 'altMediaRequest') {
-      form = AltMediaRequest;
-    } else if (formName === 'applicationForServices') {
-      form = ApplicationForServices;
-    }
-
-    console.log("fetched data for _id=", req.params._id);
+      console.log("fetched data for _id=", req.params._id);
 
       // TODO fetch only some select fields from db; also (limit, offeset)
-    form.findById(sanitize(req.params._id)).then(
+      IntakeForm.findById(req.params._id).then(
         document => {
-          console.log("forms from db", document);
+          console.log("intakeForms from db", document);
           res.status(200).json({
-            message: "Form fetched successfully",
+            message: "Intake Form fetched successfully",
             formData: document
           });
         }
-    );
+      );
+    }
 
 });
 
@@ -200,28 +206,20 @@ router.delete("/:formName/:id",
     console.log(req.params.id);
     // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
 
-    let form;
+    if (req.params.formName == 'intakeForm') {
 
-    const formName = sanitize(req.params.formName);
-    const id = sanitize(req.params._id);
-
-    if (formName == 'intakeForm') {
-      form = IntakeForm;
-    } else if (formName === 'altMediaRequest') {
-      form = AltMediaRequest;
-    } else if (formName === 'applicationForServices') {
-      form = ApplicationForServices;
-    }
-
-    form.deleteOne({
-        _id: mongoose.Types.ObjectId(id)
+      IntakeForm.deleteOne({
+        _id: mongoose.Types.ObjectId(req.params.id)
       }).then(
         result => {
           console.log(result);
           res.status(200).json({
-            message: "form deleted"
+            message: "Intake form deleted"
           });
-    });
+        });
+
+    }
+
 
 });
 

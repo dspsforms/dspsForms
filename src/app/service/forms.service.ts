@@ -7,6 +7,7 @@ import { AjaxService } from '../shared/ajax.service';
 import { environment } from '../../environments/environment';
 import { WrappedForm } from '../model/wrapped-form.model';
 import { FormName, FormUtil } from '../model/form.util';
+import { SavedForm } from '../model/saved-form.model';
 
 
 
@@ -27,6 +28,8 @@ export class FormsService implements OnInit {
 
   private formListTypes = []; // collections of forms in the database
   private formListUpdated = new Subject<string[]>();
+
+  private formSaveStatus = new Subject<{ formId: string, message: string, err?: string } > ();
 
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
@@ -60,6 +63,10 @@ export class FormsService implements OnInit {
     } else {
       return null;
     }
+  }
+
+  getFormSaveStatusListener() {
+    return this.formSaveStatus.asObservable();
   }
 
 /*
@@ -166,5 +173,21 @@ export class FormsService implements OnInit {
           console.log("no Subject found to send out an update event for formName ", formName);
         }
       });
+  }
+
+  saveForm(formData: SavedForm) {
+    // url is like this: "http://localhost:3000/api/intakeForm"
+    const url = "http://localhost:3000/api/form/" + formData.formName;
+    this.http
+      .post < { formId: string, message: string, err?: string } > (url, formData)
+      .subscribe(response => {
+        console.log(response);
+        this.formSaveStatus.next({ formId: response.formId, message: response.message });
+        // this.router.navigate([nextUrl || "/"]);
+      },
+      err => {
+        console.log(err);
+        this.formSaveStatus.next({ formId: null, message: 'an error occured',  err: err });
+    });
   }
 }

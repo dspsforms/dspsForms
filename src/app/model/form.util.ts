@@ -33,7 +33,7 @@ export class FormUtil {
 
           // mongo collections are named intakeforms, etc.
           FormUtil.mongo2FormNameMap["intakeforms"] = FormName.INTAKE_FORM;
-          FormUtil.mongo2FormNameMap["altmediaqequests"] = FormName.ALT_MEDIA_REQUEST;
+          FormUtil.mongo2FormNameMap["altmediarequests"] = FormName.ALT_MEDIA_REQUEST;
           FormUtil.mongo2FormNameMap["applicationforservices"] = FormName.APPLICATION_FOR_SERVICES;
 
           FormUtil.initialized = true;

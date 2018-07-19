@@ -1,28 +1,29 @@
 <div class="container-fluid">
 
+  <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
 
   <h1>{{ title }} </h1>
-    
-  <!-- layout based on 
-      https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line 
+
+  <!-- layout based on
+      https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
   -->
-    
+
   <div class="row">
     <div class="col-sm-8">
-    
+
     <legend class="small">All fields are required.</legend>
-    
-    
-    <form [formGroup]="form" (ngSubmit)="createOrEdit()" >
-        
+
+
+    <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
     <div class="well">
 
       <fieldset>
           <div class="form-group">
             <label for="name">Initial Date of Application for DSPS Services *</label>
-            <input 
-              type="text" 
-              class="form-control" 
+            <input
+              type="text"
+              class="form-control"
               formControlName="initialDate" >
 
             <div *ngIf="form.get('initialDate').touched && form.get('initialDate').hasError('required')"
@@ -30,12 +31,12 @@
                 Initial Date is required
             </div>
           </div> <!-- form-group, initial date -->
-          
+
         <div class="form-group">
           <label for="name">Name *</label>
-            <input 
-                type="text" 
-                class="form-control" 
+            <input
+                type="text"
+                class="form-control"
                 formControlName="fullName" >
 
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
@@ -43,12 +44,12 @@
                 Name is required
             </div>
         </div> <!-- form-group, full name -->
-            
+
         <div class="form-group">
           <label for="collegeId">College ID *</label>
-          <input 
-              type="text" 
-              class="form-control" 
+          <input
+              type="text"
+              class="form-control"
               formControlName="ssnCollegeId" >
 
           <div *ngIf="form.get('ssnCollegeId').touched && form.get('ssnCollegeId').hasError('required')"
@@ -59,11 +60,11 @@
 
         <div class="form-group">
           <label for="collegeId">Phone *</label>
-          <input 
-              type="text" 
-              class="form-control" 
+          <input
+              type="text"
+              class="form-control"
               formControlName="phone" >
-                
+
           <div *ngIf="form.get('phone').touched && form.get('phone').hasError('required')"
               class="alert alert-danger" >
               Phone is required
@@ -77,11 +78,11 @@
         <legend>Please type your name to sign</legend>
         <div class="form-group">
           <label for="collegeId">Sign *</label>
-          <input 
-              type="text" 
-              class="form-control" 
+          <input
+              type="text"
+              class="form-control"
               formControlName="studentSignature" >
-                  
+
           <div *ngIf="form.get('studentSignature').touched && form.get('studentSignature').hasError('required')"
               class="alert alert-danger" >
               Student signature is required
@@ -91,7 +92,7 @@
     </div>
 
     <div class="form-row right vert-space">
-        <button type="submit" 
+        <button type="submit"
                 [disabled]="!form.valid || !form.dirty"
                 class="btn btn-primary"
         >Submit</button>
