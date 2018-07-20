@@ -27,7 +27,7 @@ mongoose.connect(uri).then(
 
 // make a copy of misc/once.js, call it once.tmp.js, add first admin
 // user, run it once, then delete once.tmp.js
-// const once = require('./misc/once.tmp');
+const once = require('./misc/once.tmp');
 
 const app = express();
 
