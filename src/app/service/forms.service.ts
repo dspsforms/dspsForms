@@ -176,8 +176,8 @@ export class FormsService implements OnInit {
   }
 
   saveForm(formData: SavedForm) {
-    // url is like this: "http://localhost:3000/api/intakeForm"
-    const url = "http://localhost:3000/api/form/" + formData.formName;
+    // url is like this: "http://localhost:3000/api/form/intakeForm"
+    const url = environment.server + "/api/form/" + formData.formName;
     this.http
       .post < { formId: string, message: string, err?: string } > (url, formData)
       .subscribe(response => {

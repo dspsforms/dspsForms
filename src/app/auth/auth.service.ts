@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 
 import { AuthData } from "./auth-data.model";
 import { AuthType } from "./auth-type.model";
+import { environment } from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +47,9 @@ export class AuthService {
     isAdmin: boolean,
     nextUrl: string) {
     const authData: AuthData = { email: email, name: name, password: password , isStaff: isStaff, isAdmin: isAdmin};
+    const url = environment.server + '/api/user/addstaff';
     this.http
-      .post("http://localhost:3000/api/user/addstaff", authData)
+      .post(url, authData)
       .subscribe(response => {
         console.log(response);
         this.router.navigate([nextUrl || "/"]);
@@ -59,7 +61,7 @@ export class AuthService {
     nextUrl: string) {
 
     const authData: AuthData = { email: email, password: password };
-    const url = "http://localhost:3000/api/user/login";
+    const url = environment.server + '/api/user/login';
     console.log('sending post request to ', url);
     this.http
       .post<{
