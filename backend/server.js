@@ -2,6 +2,12 @@ const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
+// https://stackoverflow.com/questions/5999373/how-do-i-prevent-node-js-from-crashing-try-catch-doesnt-work#
+process.on('uncaughtException', function (err) {
+  console.error(err);
+  console.log("Node NOT Exiting...");
+});
+
 const normalizePort = val => {
   var port = parseInt(val, 10);
 
