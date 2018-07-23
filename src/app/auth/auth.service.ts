@@ -6,6 +6,7 @@ import { Subject } from "rxjs";
 import { AuthData } from "./auth-data.model";
 import { AuthType } from "./auth-type.model";
 import { environment } from "../../environments/environment";
+import { UrlConfig } from "../model/url-config";
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +53,7 @@ export class AuthService {
       .post(url, authData)
       .subscribe(response => {
         console.log(response);
-        this.router.navigate([nextUrl || "/"]);
+        this.router.navigate([nextUrl || UrlConfig.SHOW_USERS_ABSOLUTE]);
       });
   }
 

@@ -2,23 +2,28 @@
 
     <h1>{{ title }} </h1>
 
-    
-    
+
+
     <div class="row">
       <div class="col-sm-10">
-  
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <div class="panel-title inline">
                 Student Applicant
             </div>
           </div> <!-- panel-heading -->
-          
+
           <div class="panel-body">
             <table class="table table-bordered">
                 <tr><td>Initial Date of Application for DSPS Services</td> <td> {{ wrappedForm.form.initialDate }} </td></tr>
               <tr><td>Full Name</td> <td> {{ wrappedForm.form.fullName }} </td></tr>
-              <tr><td>Social Security Number or College ID</td> <td> {{ wrappedForm.form.ssnCollegeId }} </td></tr>
+              <tr>
+                <td>College ID</td>
+                <!-- older version used ssnCollegeId, so it's listed here as well. TODO cleanup db -->
+                <td>
+                  {{ wrappedForm.form.collegeId }} {{ wrappedForm.form.ssnCollegeId }}
+                </td></tr>
               <tr><td>Phone</td> <td> {{ wrappedForm.form.phone }} </td></tr>
               <tr><td>Student Signature</td> <td> {{ wrappedForm.form.studentSignature }} </td></tr>
             </table>

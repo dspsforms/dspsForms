@@ -16,9 +16,10 @@ import { StatusMessage } from '../../model/status-message';
 import { LastOperationStatusService } from '../../service/last-operation-status.service';
 import { UrlConfig } from '../../model/url-config';
 import { FormName, FormUtil } from '../../model/form.util';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 import { FormsService } from '../../service/forms.service';
 import { SubscriptionUtil } from '../../shared/subscription-util';
+import { FormValidators } from '../../service/form-validators';
 
 @Component({
   selector: 'app-intake-interview-form',
@@ -55,14 +56,15 @@ export class IntakeInterviewFormComponent implements OnInit, OnDestroy {
     // let todaysDate = new Date();
     this.form = fb.group({
       fullName: ['', Validators.required],
-      collegeId: ['', Validators.required],
+      collegeId: ['', [Validators.required, FormValidators.collegeIdFormat]],
+      // collegeId: [''],
       addressLine1: [''],
       city: [''],
       zip: [''],
 
       homePhone: [''],
       cellPhone: [''],
-      email: [''],
+      email: ['', Validators.email],
 
       dob: [''],
       gender: [''],
@@ -138,6 +140,9 @@ export class IntakeInterviewFormComponent implements OnInit, OnDestroy {
 
     if (this.form.dirty) {
 
+      // this.form.get('collegeId').setValue('G0' + this.form.get('collegeIdTmp').value);
+      // console.log("form after colledgeId set", this.form.value);
+
       this.savedForm = new SavedForm({
         formName: this.formName,
         user: 'nobody',
@@ -178,50 +183,16 @@ export class IntakeInterviewFormComponent implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
   }
 
-  /*
-  createOrEditIntake() {
+  // without this, the typescript validators show errors in html
+  // some bug in their code
 
-    if (this.form.dirty) {
-
-
-      this.savedForm = new SavedForm({
-        formName: this.formName,
-        user: 'nobody',
-        form: this.form.value,
-        edited: false,
-        // created and lastMod are added by the server
-         // created: curTime,
-        // lastMod: curTime,
-
-      });
-
-      console.log("saving form ", this.savedForm);
-
-
-      // this.newKey = this.itemsRef.push(this.savedForm).key;
-
-      this.ajax Service.post("http://localhost:3000/api/intakeForm", this.savedForm).subscribe(
-        res => {
-          console.log(res);
-          const foo = <{ _id: string, message: string }>res;
-          this.newKey = foo._id;
-
-          // set the status message that will be shown in the newForm page
-          this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
-
-          // goto /newForm
-          this.router.navigate([UrlConfig.NEW_FORM_ABSOLUTE]);
-
-        });
-
-
-
-
-
-    }
-
-
-
+  get collegeId() {
+    return this.form.get('collegeId');
   }
-  */
+
+  get email() {
+    return this.form.get('email');
+  }
+
+
 }

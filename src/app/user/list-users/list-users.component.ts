@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthData } from '../../auth/auth-data.model';
 import { UserService } from '../user.service';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 
 import { DatePipe } from '@angular/common';
 

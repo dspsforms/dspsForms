@@ -1,4 +1,4 @@
-<div class="container-fluid" >
+<div class="container-fluid" *ngIf="initialized" >
 
   <div class="row">
     <div class="col-sm-8">
@@ -8,6 +8,7 @@
   <div class="well">
     <fieldset>
       <legend>Add New User (staff and/or admin)</legend>
+      <legend class="small">All fields are required.</legend>
 
       <div class="form-group">
           <label >Email address</label>
@@ -60,10 +61,10 @@
         <label  >Repeat Password</label>
         <input type="password"
             class="form-control"
-            formControlName="password"
-            placeholder="Password" >
+            formControlName="password2"
+            placeholder="Repeat Password" >
 
-        <div *ngIf="password2.touched && !password2.valid"
+        <div *ngIf="password2.touched && this.signUpForm.errors?.passwordsMustMatch"
           class="alert alert-danger">
           Passwords must match.
         </div>
@@ -80,13 +81,15 @@
         </label>
       </div>
 
-      <div *ngIf="isAdmin.touched && !isAdmin.valid"
+      <div *ngIf="(isAdmin.touched || isStaff.touched) && this.signUpForm.errors?.atLeastOneOfAdminOrStaff"
         class="alert alert-danger">
-        user must be either staff or admin
+        User must be Staff and/or Admin
       </div>
 
 
-      <button class="btn btn-primary" type="submit" >Add User</button>
+      <button class="btn btn-primary"
+        [disabled]="!signUpForm.valid || !signUpForm.dirty"
+          type="submit" >Add User</button>
 
       <div *ngIf="errCode || errMsg" class="alert alert-danger">
           <span *ngIf="errCode"> {{errCode}} </span>

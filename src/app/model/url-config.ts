@@ -16,6 +16,8 @@ export class UrlConfig {
   static ADD_NEW_STAFF_USER = 'addNewStaffUser';
   static SHOW_USERS = 'showUsers';
 
+  static SHOW_USERS_ABSOLUTE = '/showUsers';
+
   static LOGIN = 'login';
 
 

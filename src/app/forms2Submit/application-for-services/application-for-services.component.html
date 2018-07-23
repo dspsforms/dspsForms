@@ -50,11 +50,16 @@
           <input
               type="text"
               class="form-control"
-              formControlName="ssnCollegeId" >
+              placeholder="G0 followed by 7 digits"
+              formControlName="collegeId" >
 
-          <div *ngIf="form.get('ssnCollegeId').touched && form.get('ssnCollegeId').hasError('required')"
+          <div *ngIf="collegeId.touched && collegeId.hasError('required')"
               class="alert alert-danger" >
-              Social Security Number or College ID is required
+              College ID is required
+          </div>
+          <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
+              class="alert alert-danger" >
+              College ID is of the format G0 followed by 7 digits
           </div>
         </div> <!-- form-group -->
 

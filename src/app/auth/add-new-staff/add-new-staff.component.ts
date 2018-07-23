@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 
 import { AuthService } from '../auth.service';
 import { SubscriptionUtil } from '../../shared/subscription-util';
-import { Subscription } from '../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-new-staff',
@@ -24,6 +24,8 @@ export class AddNewStaffComponent implements OnInit, OnDestroy {
 
   querySub: Subscription;
 
+  initialized = false;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     public fb: FormBuilder, private authService: AuthService)
@@ -32,15 +34,18 @@ export class AddNewStaffComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
       password: ['', Validators.required],
-      password2: ['', [Validators.required]], // , this.passwordsMustMatch
+      password2: [''],
       isStaff: [true],
       isAdmin: [false], // this.atLeastOneOfAdminOrStaff
-    });
+    } , {
+      validator: [this.passwordsMustMatch, this.atLeastOneOfAdminOrStaff, ]
+      });
 
   }
 
   ngOnInit() {
 
+    this.initialized = true;
 
     this.querySub = this.route.queryParams.pipe(filter(params => params.next)).subscribe(params => {
       console.log("next in login:", params.next);
@@ -49,7 +54,7 @@ export class AddNewStaffComponent implements OnInit, OnDestroy {
   }
 
   addStaffMember() {
-    console.log("signUpForm=", this.signUpForm.value);
+    console.log("signUpForm=", this.signUpForm);
 
     this.authService.createUser(this.signUpForm.value.email,
         this.signUpForm.value.name,
@@ -88,19 +93,30 @@ export class AddNewStaffComponent implements OnInit, OnDestroy {
     return this.signUpForm.get('isAdmin');
   }
 
-  passwordsMustMatch() {
-    if (this.signUpForm.get('password') === this.signUpForm.get('password2')) {
-      return null;
-    } else {
-      return { passwordsMustMatch: true };
-    }
+  get isStaff() {
+    return this.signUpForm.get('isStaff');
   }
 
-  atLeastOneOfAdminOrStaff() {
-    if (this.signUpForm.get('isAdmin') || this.signUpForm.get('isStaff')) {
+
+  atLeastOneOfAdminOrStaff(group: FormGroup) {
+    if (group.get('isAdmin').value || group.get('isStaff').value) {
       return null;
     } else {
       return { atLeastOneOfAdminOrStaff: true };
+    }
+  }
+
+  passwordsMustMatch(group: FormGroup) {
+
+    const passwordControl = group.get('password');
+    const password2Control = group.get('password2');
+    if (!passwordControl || !password2Control) {
+      return null;
+    }
+    if (passwordControl.value === password2Control.value) {
+      return null;
+    } else {
+      return { passwordsMustMatch: true };
     }
   }
 

@@ -9,6 +9,7 @@ import { UrlConfig } from '../../model/url-config';
 import { FormUtil, FormName } from '../../model/form.util';
 import { Subscription } from '../../../../node_modules/rxjs';
 import { FormsService } from '../../service/forms.service';
+import { FormValidators } from '../../service/form-validators';
 
 @Component({
   selector: 'app-application-for-services',
@@ -36,7 +37,7 @@ export class ApplicationForServicesComponent implements OnInit {
     this.form = fb.group({
       initialDate: ['', Validators.required],
       fullName: ['', Validators.required],
-      ssnCollegeId: ['', Validators.required],
+      collegeId: ['', [Validators.required, FormValidators.collegeIdFormat]] ,
       phone: ['', Validators.required],
       studentSignature: ['', Validators.required],
     });
@@ -93,37 +94,9 @@ export class ApplicationForServicesComponent implements OnInit {
     } // if this.form.dirty
   }
 
-  /*
-  createOrEdit0() {
 
-    if (this.form.dirty) {
-
-
-      this.savedForm = new SavedForm({
-        formName: this.formName,
-        user: 'nobody',
-        form: this.form.value,
-        edited: false,
-        // created: curTime,
-        // lastMod: curTime,
-
-      });
-
-      // this.newKey = this.itemsRef.push(this.savedForm).key;
-
-      console.log(this.newKey);
-
-      // set the status message that will be shown in the newForm page
-      this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
-
-      // goto /newForm
-      this.router.navigate([UrlConfig.NEW_FORM_ABSOLUTE]);
-
-    }
-
-
-
+  get collegeId() {
+    return this.form.get('collegeId');
   }
-  */
 
 }
