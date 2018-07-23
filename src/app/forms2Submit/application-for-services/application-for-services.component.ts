@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AjaxService } from '../../shared/ajax.service';
 import { LastOperationStatusService } from '../../service/last-operation-status.service';
 import { SavedForm } from '../../model/saved-form.model';
 import { StatusMessage } from '../../model/status-message';

@@ -5,7 +5,7 @@ import { Subject } from "rxjs";
 
 import { AuthData } from "./auth-data.model";
 import { AuthType } from "./auth-type.model";
-import { environment } from "../../environments/environment.prod";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

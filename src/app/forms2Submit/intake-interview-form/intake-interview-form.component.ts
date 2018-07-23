@@ -200,7 +200,7 @@ export class IntakeInterviewFormComponent implements OnInit, OnDestroy {
 
       // this.newKey = this.itemsRef.push(this.savedForm).key;
 
-      this.ajaxService.post("http://localhost:3000/api/intakeForm", this.savedForm).subscribe(
+      this.ajax Service.post("http://localhost:3000/api/intakeForm", this.savedForm).subscribe(
         res => {
           console.log(res);
           const foo = <{ _id: string, message: string }>res;

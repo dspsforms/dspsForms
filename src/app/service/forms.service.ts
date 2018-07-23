@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 
-import { AjaxService } from '../shared/ajax.service';
 
 import { environment } from '../../environments/environment';
 import { WrappedForm } from '../model/wrapped-form.model';
@@ -69,14 +68,6 @@ export class FormsService implements OnInit {
     return this.formSaveStatus.asObservable();
   }
 
-/*
-  // /api/form/:formName/:_id
-  getFormData(formName: string, _id: string) {
-    const url = environment.server + '/api/form/' + formName + "/" + _id;
-    console.log("fetching url=", url);
-    return this.ajaxService.get (url) ;
-  }
-*/
 
   // /api/form/:formName/:_id
   getFormData2(formName: string, _id: string) {

@@ -35,7 +35,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/", express.static(path.join(__dirname, "/angular")));
+// app.use("/", express.static(path.join(__dirname, "/angular")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -92,9 +92,11 @@ mongoose.connection.db.listCollections().toArray().then(collections => {
 app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
 
+/*
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "angular", "index.html"));
 });
+*/
 
 
 module.exports = app;

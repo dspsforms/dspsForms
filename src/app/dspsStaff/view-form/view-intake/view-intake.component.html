@@ -1,7 +1,7 @@
 <div class="container-fluid" *ngIf="wrappedForm.created" >
 
   <h1>{{ title }} </h1>
-  
+
   <div class="row">
     <div class="col-sm-10">
 
@@ -11,7 +11,7 @@
               Student
           </div>
         </div> <!-- panel-heading -->
-        
+
         <div class="panel-body">
           <table class="table table-bordered">
             <tr><td>Full Name</td> <td> {{ wrappedForm.form.fullName }} </td></tr>
@@ -26,13 +26,13 @@
                 Student Contact Information
             </div>
           </div> <!-- panel-heading -->
-          
+
           <div class="panel-body">
 
             <table class="table table-bordered">
               <tr><td>Address Line</td> <td> {{ wrappedForm.form.addressLine1 }} </td></tr>
-              <tr><td>City</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
-              <tr><td>Zip</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
+              <tr><td>City</td> <td> {{ wrappedForm.form.city }} </td></tr>
+              <tr><td>Zip</td> <td> {{ wrappedForm.form.zip }} </td></tr>
               <tr><td>Home Phone</td> <td> {{ wrappedForm.form.homePhone }} </td></tr>
               <tr><td>Cell Phone</td> <td> {{ wrappedForm.form.cellPhone }} </td></tr>
               <tr><td>Email</td> <td> {{ wrappedForm.form.email }} </td></tr>
@@ -47,7 +47,7 @@
                 A bit more about student
             </div>
           </div> <!-- panel-heading -->
-          
+
           <div class="panel-body">
             <table class="table table-bordered">
               <tr><td>Gender</td> <td> {{ wrappedForm.form.gender }} </td></tr>
@@ -65,7 +65,7 @@
                 Emergency Contact
             </div>
           </div> <!-- panel-heading -->
-          
+
           <div class="panel-body">
             <table class="table table-bordered">
               <tr><td>Name</td> <td> {{ wrappedForm.form.emergencyContact.name }} </td> </tr>
@@ -83,12 +83,12 @@
                 Student Educational Background and Accommodation Related Information
             </div>
           </div> <!-- panel-heading -->
-          
+
           <div class="panel-body">
             <table class="table table-bordered">
               <tr>
                 <td>High school diploma?</td> <td> {{ wrappedForm.form.hasDiploma }} </td>
-                <td *ngIf="wrappedForm.form.hasDiploma" >High School</td> 
+                <td *ngIf="wrappedForm.form.hasDiploma" >High School</td>
                 <td *ngIf="wrappedForm.form.hasDiploma" > {{ wrappedForm.form.highSchool }} </td>
               </tr>
               <tr>
@@ -99,29 +99,29 @@
               </tr>
               <tr>
                 <td>Has a Mission College counselor?</td> <td> {{ wrappedForm.form.hasCounselor }} </td>
-                <td *ngIf="wrappedForm.form.hasCounselor">Counselor's Name</td> 
+                <td *ngIf="wrappedForm.form.hasCounselor">Counselor's Name</td>
                 <td *ngIf="wrappedForm.form.hasCounselor"> {{ wrappedForm.form.counselorName }} </td>
               </tr>
               <tr>
                 <td>Who referred you to the program?</td> <td> {{ wrappedForm.form.referrer }} </td>
-                <td *ngIf="wrappedForm.form.referrer" >Why?</td> 
+                <td *ngIf="wrappedForm.form.referrer" >Why?</td>
                 <td *ngIf="wrappedForm.form.referrer"> {{ wrappedForm.form.referrerReason }} </td>
               </tr>
               <tr>
                 <td>Are you a Department of Rehabilitation Client?</td> <td> {{ wrappedForm.form.isDeptRehabClient }} </td>
-                <td *ngIf="wrappedForm.form.isDeptRehabClient">Rehab Counselor's Name</td> 
+                <td *ngIf="wrappedForm.form.isDeptRehabClient">Rehab Counselor's Name</td>
                 <td *ngIf="wrappedForm.form.isDeptRehabClient"> {{ wrappedForm.form.rehabCounselorName }} </td>
               </tr>
               <tr>
-                <td>Receives services from:</td> 
-                <td> 
+                <td>Receives services from:</td>
+                <td>
                   <div *ngIf="wrappedForm.form.services.eops == 'yes' "> EOPS </div>
                   <div *ngIf="wrappedForm.form.services.calWorks == 'yes'"> CalWORKS </div>
                   <div *ngIf="wrappedForm.form.services.ssdi == 'yes'"> SSDI </div>
                   <div *ngIf="wrappedForm.form.services.access == 'yes' "> ACCESS </div>
                 </td>
               </tr>
-              
+
               <tr>
                 <td>Would you like information about these programs?</td> <td> {{ wrappedForm.form.wantSevicesInfo }} </td>
               </tr>
@@ -135,39 +135,39 @@
                   Questions
               </div>
           </div> <!-- panel-heading -->
-      
+
           <div class="panel-body">
             <table class="table table-bordered">
               <tr>
-                <td>Currently enrolled at another Community College?</td> 
+                <td>Currently enrolled at another Community College?</td>
                 <td> {{ wrappedForm.form.enrolledInAnotherCC }}</td>
               </tr>
 
               <tr>
-                <td>Currently receiving Financial Aid?</td> 
+                <td>Currently receiving Financial Aid?</td>
                 <td> {{ wrappedForm.form.receivingFinAid }}</td>
               </tr>
 
               <tr>
-                <td>Currently have health, psychological or learning disability?</td> 
+                <td>Currently have health, psychological or learning disability?</td>
                 <td> {{ wrappedForm.form.hasDisability }}</td>
               </tr>
 
               <tr *ngIf="wrappedForm.form.hasDisability && wrappedForm.form.hasDisability == 'yes'">
-                <td>Describe disability</td> 
+                <td>Describe disability</td>
                 <td> {{ wrappedForm.form.disabilityDesc }}</td>
               </tr>
 
               <tr>
-                <td>Educationally related side-effects of Medication</td> 
+                <td>Educationally related side-effects of Medication</td>
                 <td> {{ wrappedForm.form.medSideEffects }}</td>
               </tr>
-           
+
               <tr>
-                <td>Accommodations potentially needed</td> 
+                <td>Accommodations potentially needed</td>
                 <td> {{ wrappedForm.form.accommodationDesc }}</td>
               </tr>
-                
+
             </table>
           </div> <!-- panel-body -->
       </div> <!-- panel, panel-default -->
@@ -179,7 +179,7 @@
                   Signature and Date
               </div>
           </div> <!-- panel-heading -->
-      
+
           <div class="panel-body">
             <div class="col-sm-3">
                 {{ wrappedForm.form.signature }}

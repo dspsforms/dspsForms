@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatPaginatorModule } from "@angular/material";
@@ -19,8 +17,7 @@ import {Ng5BreadcrumbModule} from 'ng5-breadcrumb';
 
 
 import { AppComponent } from './app.component';
-// import { FireDbService } from './shared/fire-db.service';
-import { AjaxService } from './shared/ajax.service';
+
 import { SpinnerComponent } from './shared/spinner.component';
 import { ngProjectRouting } from './app.routing';
 import { NotFoundComponent } from './not-found.component';
@@ -33,9 +30,6 @@ import { AltMediaServiceRequestComponent } from './forms2Submit/alt-media-servic
 import { ApplicationForServicesComponent } from './forms2Submit/application-for-services/application-for-services.component';
 
 
-// import { AngularFireModule } from 'angularfire2';
-// import { AngularFireDatabaseModule } from 'angularfire2/database';
-// import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
 import { DateComponent } from './shared/date/date.component';
@@ -53,6 +47,12 @@ import { AddNewStaffComponent } from './auth/add-new-staff/add-new-staff.compone
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ListUsersComponent } from './user/list-users/list-users.component';
+import { ErrorComponent } from './error/error.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { AngularMaterialModule } from './angular-material.module';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -87,6 +87,7 @@ import { ListUsersComponent } from './user/list-users/list-users.component';
     AddNewStaffComponent,
     LoginComponent,
     ListUsersComponent,
+    ErrorComponent,
 
 
     /* Add these back
@@ -99,36 +100,25 @@ import { ListUsersComponent } from './user/list-users/list-users.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    JsonpModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
     HttpClientModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
+    AngularMaterialModule,
 
-    // Firebase stuff
-    // AngularFireModule.initializeApp(environment.firebaseConfig, 'app-root'),
-    // AngularFireDatabaseModule,
-    // AngularFireAuthModule,
     Ng5BreadcrumbModule.forRoot(),
 
     ngProjectRouting
   ],
   providers: [
-    // FireDbService,
-    // AjaxService,
 
-    // LastOperationStatusService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+     { provide: MatDialogRef, useValue: {} }
 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

@@ -6,7 +6,6 @@ import { BreadcrumbService } from 'ng5-breadcrumb';
   selector: 'app-root',
   template: `
   <nav-bar></nav-bar>
-  
   <breadcrumb></breadcrumb>
   <router-outlet></router-outlet>
   ` ,
@@ -17,7 +16,7 @@ export class AppComponent {
 
   constructor(private breadcrumbService: BreadcrumbService) {
 
-    // breadcrumbs: https://github.com/akiocloud/ng5-breadcrumb 
+    // breadcrumbs: https://github.com/akiocloud/ng5-breadcrumb
     this.initBreadCrumbLabels();
 
   }
@@ -42,7 +41,7 @@ export class AppComponent {
 
     // this.breadcrumbService.hideRoute('/newForm');
     // this.breadcrumbService.hideRoute('/submittedForm');
-    
+
   }
 
   getNameForUser(id: string): string {
