@@ -38,8 +38,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    console.log("testing 123");
+    this.route.queryParams.subscribe(params => {
+      console.log("queryParams in login", params);
+    });
+
     this.querySub =  this.route.queryParams.pipe(filter(params => params.next)).subscribe(params => {
       console.log("next in login:", params.next);
+      console.log("and in login, params=:", params);
       this.next =  params.next;
     });
 

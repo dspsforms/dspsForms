@@ -6,55 +6,20 @@ const IntakeForm = require('../models/intake-form-model');
 const AltMediaRequest = require('../models/alt-media-request-form-model');
 const ApplicationForServices = require('../models/application-for-services-form-model');
 
-// post  "/api/form/:formName"
+const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
+
+
+
 
 exports.postForm = (req, res, next) => {
 
-  let form;
-  const currentTime = new Date();
+  const form = createForm(req);
 
-  const formName = sanitize(req.params.formName);
-
-  if (formName === 'intakeForm') {
-      form = new IntakeForm({
-        formName: formName,
-        user: sanitize(req.body.user),
-        form: sanitize(req.body.form), // "tmp form string",
-        edited: false,
-        created: currentTime,
-        lastMod: currentTime
-      });
-  } else if (req.params.formName === 'altMediaRequest') {
-    form = new AltMediaRequest({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime
-    });
-  }  else if (req.params.formName === 'applicationForServices') {
-    form = new ApplicationForServices({
-      formName: formName,
-      user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
-      edited: false,
-      created: currentTime,
-      lastMod: currentTime
-    });
-  }
-
-  console.log("req.params=", req.params);
-  console.log("req.body=", req.body);
-
-  console.log("req.body.form=", req.body.form);
-
-  console.log("form before save", form);
   form.save().then( createdForm => {
           // success
           console.log("after save, createdForm=", createdForm);
           res.status(201).json({
-              message: 'Form ' + formName + ' added successfully',
+              message: 'Form ' + form.formName + ' added successfully',
               formId: createdForm._id
           });
 
@@ -66,9 +31,6 @@ exports.postForm = (req, res, next) => {
       err: err
     });
   });
-
-
-
 
 }
 
@@ -102,7 +64,7 @@ exports.list = (req, res, next) => {
 
     console.log("filtered=", filtered);
     res.status(200).json({
-      message: "Collections List fethed successfully",
+      message: "Collections List fetched successfully",
       collections: filtered
     });
 
@@ -110,7 +72,7 @@ exports.list = (req, res, next) => {
   .catch((err) => {
       console.log(err);
       res.status(404).json({
-        message: "Eror",
+        message: "Error. Collections list failed",
         err: err
       });
   });
@@ -124,15 +86,7 @@ exports.getFormsForACategory = (req, res, next) => {
   const formName = sanitize(req.params.formName);
   console.log("fetching forms for ", formName);
 
-  let form;
-
-  if (formName == 'intakeForm') {
-    form = IntakeForm;
-  } else if (formName === 'altMediaRequest') {
-    form = AltMediaRequest;
-  } else if (formName === 'applicationForServices') {
-    form = ApplicationForServices;
-  }
+  const form = getFormModel(formName);
 
     // TODO fetch only some select fields from db; also (limit, offeset)
   form.find().then(
@@ -143,23 +97,23 @@ exports.getFormsForACategory = (req, res, next) => {
           listOfForms: documents
         });
       }
-    );
+  )
+  .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        message: "Form fetched for a category failed",
+        err: err
+      });
+  });
 }
 
 // get "/api/form/:formName/:_id"  -- with this pattern, need staff level perm
 exports.getAForm = (req, res, next) => {
 
-  let form;
-
   const formName = sanitize(req.params.formName);
 
-  if (formName == 'intakeForm') {
-    form = IntakeForm;
-  } else if (formName === 'altMediaRequest') {
-    form = AltMediaRequest;
-  } else if (formName === 'applicationForServices') {
-    form = ApplicationForServices;
-  }
+
+  const form = getFormModel(formName);
 
   console.log("fetched data for _id=", req.params._id);
 
@@ -172,7 +126,14 @@ exports.getAForm = (req, res, next) => {
           formData: document
         });
       }
-  );
+  )
+  .catch((err) => {
+    console.log(err);
+    res.status(404).json({
+      message: "Fetching form data failed",
+      err: err
+    });
+  });
 
 }
 
@@ -181,18 +142,11 @@ exports.deleteAForm = (req, res, next) => {
   console.log(req.params.id);
   // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
 
-  let form;
 
   const formName = sanitize(req.params.formName);
   const id = sanitize(req.params._id);
 
-  if (formName == 'intakeForm') {
-    form = IntakeForm;
-  } else if (formName === 'altMediaRequest') {
-    form = AltMediaRequest;
-  } else if (formName === 'applicationForServices') {
-    form = ApplicationForServices;
-  }
+  const form = getFormModel(formName);
 
   form.deleteOne({
       _id: mongoose.Types.ObjectId(id)
@@ -202,6 +156,85 @@ exports.deleteAForm = (req, res, next) => {
         res.status(200).json({
           message: "form deleted"
         });
+    })
+    .catch((err) => {
+    console.log(err);
+    res.status(404).json({
+      message: "Form delete failed",
+      err: err
+    });
   });
+
+}
+
+// return the mongoose model correspoding to formName
+getFormModel = formName => {
+  let form;
+  if (formName == 'intakeForm') {
+    form = IntakeForm;
+  } else if (formName === 'altMediaRequest') {
+    form = AltMediaRequest;
+  } else if (formName === 'applicationForServices') {
+    form = ApplicationForServices;
+  } else if (formName === 'emergencyEvacInfo') {
+    form = EmergencyEvacInfo;
+  }
+
+  return form;
+}
+
+createForm = req => {
+
+  let form;
+  const currentTime = new Date();
+
+  const formName = sanitize(req.params.formName);
+
+  if (formName === 'intakeForm') {
+      form = new IntakeForm({
+        formName: formName,
+        user: sanitize(req.body.user),
+        form: sanitize(req.body.form), // "tmp form string",
+        edited: false,
+        created: currentTime,
+        lastMod: currentTime
+      });
+  } else if (req.params.formName === 'altMediaRequest') {
+    form = new AltMediaRequest({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(req.body.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime
+    });
+  }  else if (req.params.formName === 'applicationForServices') {
+    form = new ApplicationForServices({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(req.body.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime
+    });
+  } else if (req.params.formName === 'emergencyEvacInfo') {
+    form = new EmergencyEvacInfo({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(req.body.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime
+    });
+  }
+
+  console.log("req.params=", req.params);
+  console.log("req.body=", req.body);
+
+  console.log("req.body.form=", req.body.form);
+
+  console.log("form before save", form);
+
+  return form;
 
 }

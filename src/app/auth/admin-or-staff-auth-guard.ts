@@ -26,7 +26,7 @@ export class AdminOrStaffAuthGuard implements CanActivate {
 
     const authStatus = isAdminAuth || isStaffAuth;
     if (!authStatus) {
-      const nextUrl = route.url.join('');
+      const nextUrl = route.url.join('/');
       this.router.navigate(['/login'], {queryParams: {next: nextUrl }} );
     }
     return authStatus;

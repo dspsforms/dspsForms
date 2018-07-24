@@ -23,7 +23,7 @@ export class AdminAuthGuard implements CanActivate {
 
     const isAdminAuth = this.authService.getIsAdminAuth();
     if (!isAdminAuth) {
-      const nextUrl = route.url.join('');
+      const nextUrl = route.url.join('/');
       this.router.navigate(['/login'], {queryParams: {next: nextUrl }} );
     }
     return isAdminAuth;

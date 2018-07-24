@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const intakeFormSchema = mongoose.Schema({
+const emergencyEvacInfoSchema = mongoose.Schema({
   formName: { type: String, required: true },
   user: { type: String },
   form: { type: mongoose.Schema.Types.Mixed },
@@ -9,4 +9,4 @@ const intakeFormSchema = mongoose.Schema({
   lastMod: { type: Date }
 });
 
-module.exports = mongoose.model('intakeForm', intakeFormSchema);
+module.exports = mongoose.model('emergencyEvacInfo', emergencyEvacInfoSchema);

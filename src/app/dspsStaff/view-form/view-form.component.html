@@ -20,6 +20,13 @@
        </app-view-application-for-services>
 </div>
 
+<div *ngIf="formInfo.formName == 'emergencyEvacInfo' ">
+    <app-view-emergency-evacuation
+       [formKey]="data._id"
+       [wrappedForm]="data" >
+   </app-view-emergency-evacuation>
+</div>
+
 <div *ngIf="showJson">
     json
     <p></p>

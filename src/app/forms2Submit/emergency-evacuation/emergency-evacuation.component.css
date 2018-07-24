@@ -1,0 +1,10 @@
+.bold{
+  font-weight: bold;
+}
+.space-right {margin-right: 10px;}
+.right {
+    text-align:right;
+}
+.vert-space {
+    padding-top: 20px;
+}

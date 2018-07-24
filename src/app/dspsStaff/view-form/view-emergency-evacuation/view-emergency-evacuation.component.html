@@ -1,0 +1,163 @@
+<div class="container-fluid" *ngIf="wrappedForm.created" >
+
+    <h1>{{ formTitle }} </h1>
+
+    <div class="row">
+      <div class="col-sm-10">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title inline">
+                Student
+            </div>
+          </div> <!-- panel-heading -->
+
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr><td>Full Name</td> <td> {{ wrappedForm.form.fullName }} </td></tr>
+              <tr><td>College ID</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
+            </table>
+          </div> <!-- panel-body -->
+        </div> <!-- panel, panel-default -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title inline">
+                  Student Contact Information
+              </div>
+            </div> <!-- panel-heading -->
+
+            <div class="panel-body">
+
+              <table class="table table-bordered">
+                <tr><td>Home Phone</td> <td> {{ wrappedForm.form.homePhone }} </td></tr>
+                <tr><td>Work Phone</td> <td> {{ wrappedForm.form.workPhone }} </td></tr>
+                <tr><td>Address Line</td> <td> {{ wrappedForm.form.addressLine1 }} </td></tr>
+                <tr><td>City</td> <td> {{ wrappedForm.form.city }} </td></tr>
+                <tr><td>Zip</td> <td> {{ wrappedForm.form.zip }} </td></tr>
+              </table>
+            </div> <!-- panel-body -->
+        </div> <!-- panel panel-default-->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title inline">
+                  Mission College Counselor/Advisor
+              </div>
+            </div> <!-- panel-heading -->
+
+            <div class="panel-body">
+                {{ wrappedForm.form.collegeCounselor }}
+            </div>
+        </div> <!-- panel panel-default-->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title inline">
+                  Student Emergency Accommodation Related Information
+              </div>
+            </div> <!-- panel-heading -->
+
+            <div class="panel-body">
+              <table class="table table-bordered">
+                <tr>
+                  <td>Ambulatory?</td> <td> {{ wrappedForm.form.ambulatory }} </td>
+                  <td *ngIf="!wrappedForm.form.ambulatory" >Preferred Positioning</td>
+                  <td *ngIf="!wrappedForm.form.ambulatory" > {{ wrappedForm.form.preferredPositioning }} </td>
+                </tr>
+                <tr>
+                  <td>Normal transportation modes for attending school:</td>
+                  <td>
+                    <div *ngIf="wrappedForm.form.transportation.vtaBus == 'yes' "> VTA Bus </div>
+                    <div *ngIf="wrappedForm.form.transportation.outreach == 'yes'"> Outreach </div>
+                    <div *ngIf="wrappedForm.form.transportation.taxi == 'yes' "> Taxi / Ride Share </div>
+                    <div *ngIf="wrappedForm.form.transportation.other"> {{ wrappedForm.form.transportation.other }} </div>
+                  </td>
+                </tr>
+                <tr>
+                    <td>Need assistance during an emergency?</td>
+                    <td>
+                      <div *ngIf="wrappedForm.form.needEmergencyAssist">
+                          {{ wrappedForm.form.assistDesc }}
+                      </div>
+                    </td>
+                  </tr>
+              </table>
+            </div> <!-- panel-body -->
+        </div> <!-- panel panel-default -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title inline">
+                  Emergency Contacts
+              </div>
+            </div> <!-- panel-heading -->
+
+            <div class="panel-body">
+              <table class="table table-bordered">
+                <thead>
+                  <th>Name</th><th>Phone</th>
+                </thead>
+                <tr>
+                  <td> {{ wrappedForm.form.emergencyContact1?.name }} </td>
+                  <td> {{ wrappedForm.form.emergencyContact1?.phone }} </td>
+                </tr>
+                <tr>
+                    <td> {{ wrappedForm.form.emergencyContact2?.name }} </td>
+                    <td> {{ wrappedForm.form.emergencyContact2?.phone }} </td>
+                  </tr>
+              </table>
+            </div> <!-- panel-body -->
+        </div> <!-- panel panel-default -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title inline">
+                    Signature and Date
+                </div>
+            </div> <!-- panel-heading -->
+
+            <div class="panel-body">
+              <div class="col-sm-3">
+                  {{ wrappedForm.form.signature }}
+              </div>
+              <div class="col-sm-4">
+                  {{ date2Use | date:'medium' }}
+              </div>
+            </div> <!-- panel-body-->
+        </div> <!-- panel, panel-default -->
+
+      </div> <!-- col -->
+    </div> <!-- row -->
+  </div> <!-- container -->
+
+
+
+<!--
+
+  createdForm= { _id: 5b57952555da210bcf4dc8b1,
+  formName: 'emergencyEvacInfo',
+  user: 'nobody',
+  form:
+   { fullName: 'Evac 1',
+     collegeId: 'G01234567',
+     homePhone: 'Home Phone 1',
+     workPhone: 'Work Phone 1',
+     addressLine1: 'Addr 1',
+     city: 'City 1',
+     zip: 'Zip 2',
+     collegeCounselor: 'Counsellor 1',
+     ambulatory: 'no',
+     preferredPositioning: 'Postion 1',
+     transportation: { vtaBus: true, outreach: false, taxi: true, other: 'Friend' },
+     needEmergencyAssist: 'yes',
+     assistDesc: 'Emergency Assist 1',
+     emergencyContact1: { name: 'Contact Name 1', phone: 'Contact Phone 1' },
+     emergencyContact2: { name: 'Contact Name 2', phone: 'Contact Phone 2' },
+     signature: 'Evac 1 Sig' },
+  edited: false,
+  created: 2018-07-24T21:07:49.188Z,
+  lastMod: 2018-07-24T21:07:49.188Z,
+  __v: 0 }
+
+-->

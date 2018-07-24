@@ -1,0 +1,327 @@
+<div class="container-fluid">
+
+    <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
+
+    <h1>{{ title }} </h1>
+
+
+    <div class="row">
+        <div class="col-sm-8">
+
+            <legend class="small">Fields marked with * are required.</legend>
+
+
+    <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+    <div class="well">
+
+
+
+    <fieldset>
+      <legend>You</legend>
+
+      <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input
+                      type="text"
+                      class="form-control"
+                      formControlName="fullName"
+                      >
+            <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
+                      class="alert alert-danger" >
+                      Name is required
+            </div>
+      </div> <!-- form-group, full name -->
+
+      <div class="form-group">
+        <label for="collegeId">College ID *</label>
+          <input
+                      type="text"
+                      class="form-control"
+                      placeholder="G0 followed by 7 digits"
+                      formControlName="collegeId"
+                      >
+        <div *ngIf="collegeId.touched && collegeId.hasError('required')"
+                          class="alert alert-danger" >
+                          College ID is required
+        </div>
+        <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
+              class="alert alert-danger" >
+              College ID is of the format G0 followed by 7 digits
+        </div>
+
+      </div> <!-- form-group, college id -->
+    </fieldset>
+
+    </div> <!-- well-->
+
+    <div class="well">
+
+    <fieldset>
+      <legend>Your Contact Information</legend>
+
+      <div class="form-group">
+          <label for="homePhone">Home Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="homePhone"
+            >
+      </div>
+
+      <div class="form-group">
+          <label for="workPhone">Work Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="workPhone"
+            >
+      </div>
+
+      <div class="form-group">
+        <label for="addressLine1">Address Line</label>
+
+        <input
+                  type="text"
+                    class="form-control"
+                    formControlName="addressLine1"
+                    >
+      </div>  <!-- form-group, addressLine1 -->
+
+      <div class="form-group">
+        <label for="city" >City</label>
+        <input
+              type="text"
+              class="form-control"
+              formControlName="city"
+              >
+      </div> <!-- form-group, city -->
+
+      <div class="form-group">
+        <label for="zip">Zip</label>
+        <input
+            type="text"
+            class="form-control"
+            formControlName="zip"
+            >
+      </div> <!-- form-group, zip -->
+
+    </fieldset>
+    </div> <!-- well, contact info-->
+
+    <div class="well">
+      <fieldset>
+
+        <div class="form-group">
+              <label for="collegeCounselor">Mission College Counselor/Advisor</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  formControlName="collegeCounselor"
+                  >
+        </div> <!-- form-group, zip -->
+
+      </fieldset>
+    </div>
+
+
+
+    <div class="well">
+
+    <fieldset>
+
+      <legend>Ambulatory? Be sure to update any changes with DSPS</legend>
+
+      <div class="form-group">
+        <label> Ambulatory?</label>
+        <label for="ambulatory" class="radio-inline">
+            <input type="radio" formControlName="ambulatory" value="yes">Yes
+        </label>
+        <label for="ambulatory" class="radio-inline">
+            <input type="radio" formControlName="ambulatory" value="no">No
+        </label>
+      </div>
+      <div class="form-group" *ngIf="form.get('ambulatory').value == 'no'">
+        <label for="ambulatory" >Preferred Positioning</label>
+         <input
+              type="text"
+              class="form-control"
+              formControlName="preferredPositioning"
+            >
+
+      </div>  <!-- form-group , ambulatory -->
+
+
+
+    </fieldset>
+
+    </div> <!-- well, ambulatory -->
+
+    <div class="well">
+      <fieldset>
+
+        <legend>A bit more about you</legend>
+
+      <!-- some vertical space -->
+      <div style="height:20px;"></div>
+
+      <div formGroupName="transportation">
+
+        <div class="form-group">
+          <label>What mode of transportation do you normally use to attend school?</label> <br>
+          <label for="eops" class="checkbox-inline">
+              <input type="checkbox" formControlName="vtaBus" >VTA Bus
+          </label>
+          <label for="calWorks" class="checkbox-inline ">
+              <input type="checkbox" formControlName="outreach" >Outreach
+          </label>
+          <label for="ssdi" class="checkbox-inline ">
+              <input type="checkbox" formControlName="taxi" >Taxi/Ride Share
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="numSemsAtMission">Other</label>
+              <input
+                    type="text"
+                    class="form-control"
+                    formControlName="other"
+              >
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label class="space-right">Do you need assistance during an emergency?</label>
+          <label for="needEmergencyAssist" class="radio-inline">
+              <input type="radio" formControlName="needEmergencyAssist" value="yes">Yes
+          </label>
+          <label for="needEmergencyAssist" class="radio-inline ">
+              <input type="radio" formControlName="needEmergencyAssist" value="no">No
+          </label>
+      </div>
+
+      <div class="form-group" *ngIf="form.get('needEmergencyAssist').value == 'yes'">
+          <label for="ambulatory" >Describe the type of assistance you anticipate needing</label>
+            <textarea
+                placeholder="Type of Emergency Assitance"
+                class="form-control"
+                formControlName="assistDesc"
+                rows="3">
+            </textarea>
+
+        </div>  <!-- form-group , emergency assistance -->
+
+    </fieldset>
+
+    </div> <!-- well, a bit more about you -->
+
+    <div class="well">  <!-- two emergency contacts -->
+
+      <fieldset>
+          <legend>List two emergency contacts</legend>
+
+          <div formGroupName="emergencyContact1">
+
+              <div class="form-group col-sm-6">
+                      <input
+                      type="text"
+                      class="form-control"
+                      placeHolder="Name 1"
+                      formControlName="name"
+                      >
+              </div>
+
+
+              <div class="form-group col-sm-6">
+                  <input
+                      type="text"
+                      class="form-control"
+                      placeHolder="Phone 1"
+                      formControlName="phone"
+                  >
+              </div>
+
+          </div> <!-- emergencyContact1 -->
+
+          <div formGroupName="emergencyContact2">
+
+            <div class="form-group col-sm-6">
+                  <input
+                  type="text"
+                  class="form-control"
+                  placeHolder="Name 2"
+                  formControlName="name"
+                  >
+            </div>
+
+
+            <div class="form-group col-sm-6">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeHolder="Phone 2"
+                    formControlName="phone"
+                >
+            </div>
+
+          </div> <!-- emergencyContact2-->
+
+
+
+      </fieldset>
+      </div> <!-- well, emergency contacts -->
+
+      <div class="bold">
+          If you are a wheelchair user, please label your wheelchair with
+          identification information.  The information on this form will be shared
+          only with the appropriate personnel on a need to know basis.
+
+      </div>
+
+      <!-- some vertical space -->
+      <div style="height:20px;"></div>
+
+            <div class="form-group" class="col-sm-6">
+                <label for="signature">Signature (type your name) * </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="signature"
+                    >
+                    <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
+                            class="alert alert-danger" >
+                            Signature is required
+                    </div>
+            </div> <!-- form-group signature -->
+
+
+
+            <div class="form-row right vert-space">
+                <button type="submit"
+                        [disabled]="!form.valid || !form.dirty"
+                        class="btn btn-primary"
+                >Submit</button>
+                <div *ngIf="!form.valid || !form.dirty">
+                    <br>
+                    <legend class="small">
+                      You can submit only if required fields are filled
+                    </legend>
+                </div>
+
+            </div>
+
+
+      </form>
+
+    </div> <!-- outer col-sm-6 well -->
+    </div> <!-- outer row -->
+
+    </div> <!-- container -->
+
+    <div> &nbsp;
+        <!-- some space-->
+        <p> &nbsp;</p>
+        <p> &nbsp;</p>
+    </div>
+
+

@@ -53,6 +53,8 @@ import { AngularMaterialModule } from './angular-material.module';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EmergencyEvacuationComponent } from './forms2Submit/emergency-evacuation/emergency-evacuation.component';
+import { ViewEmergencyEvacuationComponent } from './dspsStaff/view-form/view-emergency-evacuation/view-emergency-evacuation.component';
 
 
 
@@ -73,6 +75,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     IntakeInterviewFormComponent,
     AltMediaServiceRequestComponent,
     ApplicationForServicesComponent,
+    EmergencyEvacuationComponent,
+    ViewEmergencyEvacuationComponent,
 
     DateComponent,
     ListEmptyFormTypesComponent,
