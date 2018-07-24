@@ -45,22 +45,38 @@
       </div> <!-- form-group, college id -->
 
       <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">Email *</label>
           <input
               type="text"
               class="form-control"
               formControlName="email"
               >
+          <div *ngIf="email.touched">
+            <div *ngIf="email.hasError('required')"
+              class="alert alert-danger" >
+              Email is required
+            </div>
+            <div *ngIf="email.errors?.email"
+                class="alert alert-danger" >
+                Email is required
+            </div>
+          </div>
+
+
       </div>
 
-      <!-- changed phone to cell phone. is that ok? -->
+
       <div class="form-group">
-        <label for="cellPhone">Cell Phone</label>
+        <label for="cellPhone">Phone *</label>
         <input
           type="text"
           class="form-control"
           formControlName="cellPhone"
           >
+        <div *ngIf="form.get('cellPhone').touched && form.get('cellPhone').hasError('required')"
+          class="alert alert-danger" >
+           Phone is required
+        </div>
       </div>
 
     </fieldset>

@@ -54,8 +54,8 @@ export class AltMediaServiceRequestComponent implements OnInit, OnDestroy {
 
       fullName: ['', Validators.required],
       collegeId: ['', Validators.required],
-      email: [''],
-      cellPhone: [''],
+      email: ['', [Validators.required, Validators.email]],
+      cellPhone: ['', Validators.required],
 
       // Choose a specific file format from the list below.
       // You may choose first and second choice.
@@ -189,40 +189,7 @@ export class AltMediaServiceRequestComponent implements OnInit, OnDestroy {
     } // if this.myForm.dirty
   }
 
-  /*
-  createOrEditForm0() {
 
-    console.log(this.myForm.value);
-
-
-    if (this.myForm.dirty) {
-
-
-      this.savedForm = new SavedForm({
-        formName: this.formName,
-        user: 'nobody',
-        form: this.myForm.value,
-        edited: false,
-        // created: curTime,
-        // lastMod: curTime,
-
-      });
-
-      // this.newKey = this.itemsRef.push(this.savedForm).key;
-
-      // set the status message that will be shown in the newForm page
-      this.lastOpStatusService.setStatus(StatusMessage.FORM_SUBMIT_SUCCESS);
-
-      // goto /newForm
-      this.router.navigate([UrlConfig.NEW_FORM_ABSOLUTE ]);
-
-
-    }
-
-
-
-  }
-  */
 
   showForm() {
     console.log(this.form);
@@ -232,7 +199,11 @@ export class AltMediaServiceRequestComponent implements OnInit, OnDestroy {
     SubscriptionUtil.unsubscribe(this.formSaveStatusSub);
   }
 
-  get formAltFormatDetail() { return <FormArray> this.form.get('altFormatDetail'); }
+  get formAltFormatDetail() { return <FormArray>this.form.get('altFormatDetail'); }
+
+  get email() {
+    return this.form.get('email');
+  }
 
 
 
