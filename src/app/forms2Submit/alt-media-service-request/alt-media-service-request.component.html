@@ -36,12 +36,20 @@
         <input
                   type="text"
                   class="form-control"
+                  placeholder="G0 followed by 7 digits"
                   formControlName="collegeId"
                   >
-        <div *ngIf="form.get('collegeId').touched && form.get('collegeId').hasError('required')"
-                      class="alert alert-danger" >
-                      College ID is required
+        <div *ngIf="collegeId.touched">
+            <div *ngIf="collegeId.hasError('required')"
+            class="alert alert-danger" >
+              College ID is required
+            </div>
+            <div *ngIf="collegeId.errors?.collegeIdFormat"
+            class="alert alert-danger" >
+              College ID is of the format G0 followed by 7 digits
+            </div>
         </div>
+
       </div> <!-- form-group, college id -->
 
       <div class="form-group">

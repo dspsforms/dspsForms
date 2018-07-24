@@ -19,6 +19,7 @@ import { FormUtil, FormName } from '../../model/form.util';
 import { FormsService } from '../../service/forms.service';
 import { Subscription } from '../../../../node_modules/rxjs';
 import { SubscriptionUtil } from '../../shared/subscription-util';
+import { FormValidators } from '../../service/form-validators';
 
 @Component({
   selector: 'app-alt-media-service-request',
@@ -53,7 +54,7 @@ export class AltMediaServiceRequestComponent implements OnInit, OnDestroy {
       altFormatDetail: this.fb.array([]),
 
       fullName: ['', Validators.required],
-      collegeId: ['', Validators.required],
+      collegeId: ['', [Validators.required, FormValidators.collegeIdFormat] ],
       email: ['', [Validators.required, Validators.email]],
       cellPhone: ['', Validators.required],
 
@@ -206,6 +207,9 @@ export class AltMediaServiceRequestComponent implements OnInit, OnDestroy {
   }
 
 
+  get collegeId() {
+    return this.form.get('collegeId');
+  }
 
 
 }
