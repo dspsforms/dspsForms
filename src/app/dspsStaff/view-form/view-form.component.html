@@ -27,6 +27,13 @@
    </app-view-emergency-evacuation>
 </div>
 
+<div *ngIf="formInfo.formName == 'feedback' ">
+    <app-view-feedback
+       [formKey]="data._id"
+       [wrappedForm]="data" >
+   </app-view-feedback>
+</div>
+
 <div *ngIf="showJson">
     json
     <p></p>

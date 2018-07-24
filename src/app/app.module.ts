@@ -55,6 +55,8 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmergencyEvacuationComponent } from './forms2Submit/emergency-evacuation/emergency-evacuation.component';
 import { ViewEmergencyEvacuationComponent } from './dspsStaff/view-form/view-emergency-evacuation/view-emergency-evacuation.component';
+import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
+import { ViewFeedbackComponent } from './dspsStaff/view-form/view-feedback/view-feedback.component';
 
 
 
@@ -76,7 +78,8 @@ import { ViewEmergencyEvacuationComponent } from './dspsStaff/view-form/view-eme
     AltMediaServiceRequestComponent,
     ApplicationForServicesComponent,
     EmergencyEvacuationComponent,
-    ViewEmergencyEvacuationComponent,
+    FeedbackComponent,
+
 
     DateComponent,
     ListEmptyFormTypesComponent,
@@ -88,6 +91,9 @@ import { ViewEmergencyEvacuationComponent } from './dspsStaff/view-form/view-eme
     ViewIntakeComponent,
     ViewAltMediaRequestComponent,
     ViewApplicationForServicesComponent,
+    ViewEmergencyEvacuationComponent,
+    ViewFeedbackComponent,
+
     AddNewStaffComponent,
     LoginComponent,
     ListUsersComponent,

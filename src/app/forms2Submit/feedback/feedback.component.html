@@ -1,0 +1,133 @@
+<div class="container-fluid">
+
+    <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
+
+    <h1>{{ title }} </h1>
+
+    <!-- layout based on
+        https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
+    -->
+
+    <div class="row">
+      <div class="col-sm-8">
+
+      <legend class="small">Fields maked * are required.</legend>
+
+
+      <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+      <div class="well">
+
+        <fieldset>
+
+          <div class="form-group">
+            <label for="fullName">Name *</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  formControlName="fullName" >
+
+              <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
+                  class="alert alert-danger" >
+                  Name is required
+              </div>
+          </div> <!-- form-group, full name -->
+
+          <div class="form-group">
+            <label for="collegeId">College ID *</label>
+            <input
+                type="text"
+                class="form-control"
+                placeholder="G0 followed by 7 digits"
+                formControlName="collegeId" >
+
+            <div *ngIf="collegeId.touched && collegeId.hasError('required')"
+                class="alert alert-danger" >
+                College ID is required
+            </div>
+            <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
+                class="alert alert-danger" >
+                College ID is of the format G0 followed by 7 digits
+            </div>
+          </div> <!-- form-group -->
+
+          <div class="form-group">
+            <label for="collegeId">Phone </label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="phone" >
+          </div> <!-- form-group -->
+
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Email"
+                  formControlName="email" >
+
+              <div *ngIf="email.touched && email.errors?.email"
+                  class="alert alert-danger" >
+                  Please check your email format
+              </div>
+            </div> <!-- form-group -->
+
+        </fieldset>
+      </div> <!-- well -->
+
+      <div class="well">
+        <fieldset>
+
+          <div class="form-group" >
+              <label for="feedbackMessage" >Feedback -- suggestions, complaints, compliments, etc. </label>
+                <textarea
+                    placeholder="Please tell us how we can improve DSPS Services"
+                    class="form-control"
+                    formControlName="feedbackMessage"
+                    rows="5">
+                </textarea>
+
+            </div>  <!-- form-group , emergency assistance -->
+        </fieldset>
+      </div>
+
+      <div class="well">
+        <fieldset>
+          <legend>Please type your name to sign</legend>
+          <div class="form-group">
+            <label for="studentSignature">Sign *</label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="studentSignature" >
+
+            <div *ngIf="form.get('studentSignature').touched && form.get('studentSignature').hasError('required')"
+                class="alert alert-danger" >
+                Student signature is required
+            </div>
+          </div> <!-- form-group -->
+        </fieldset>
+      </div>
+
+      <div class="form-row right vert-space">
+          <button type="submit"
+                  [disabled]="!form.valid || !form.dirty"
+                  class="btn btn-primary"
+          >Submit</button>
+          <div *ngIf="!form.valid || !form.dirty">
+              <br>
+              <legend class="small">
+                This button will be enabled only after all fields are filled.
+              </legend>
+          </div>
+
+      </div>
+
+      </form>
+
+      </div> <!-- col-sm-8 -->
+    </div> <!-- row -->
+
+  </div> <!-- container -->
+

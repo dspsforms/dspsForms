@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormUtil } from '../../../model/form.util';
 
 @Component({
-  selector: 'app-view-application-for-services',
-  templateUrl: './view-application-for-services.component.html',
-  styleUrls: ['./view-application-for-services.component.css']
+  selector: 'app-view-feedback',
+  templateUrl: './view-feedback.component.html',
+  styleUrls: ['./view-feedback.component.css']
 })
-export class ViewApplicationForServicesComponent implements OnInit, OnChanges {
+export class ViewFeedbackComponent implements OnInit, OnChanges {
   @Input() wrappedForm;
   @Input() formKey; // not really needed, but just in case
 

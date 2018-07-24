@@ -13,11 +13,11 @@ import { FormValidators } from '../../service/form-validators';
 import { SubscriptionUtil } from '../../shared/subscription-util';
 
 @Component({
-  selector: 'app-application-for-services',
-  templateUrl: './application-for-services.component.html',
-  styleUrls: ['./application-for-services.component.css']
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.css']
 })
-export class ApplicationForServicesComponent implements OnInit, OnDestroy {
+export class FeedbackComponent implements OnInit , OnDestroy {
 
   title: string;
   form: FormGroup;
@@ -27,7 +27,7 @@ export class ApplicationForServicesComponent implements OnInit, OnDestroy {
   errMsg: string;
   formSaveStatusSub: Subscription;
 
-  formName: string = FormName.APPLICATION_FOR_SERVICES; // 'applicationForServices';
+  formName: string = FormName.FEEDBACK; // 'feedback';
 
   constructor(fb: FormBuilder,
     private router: Router,
@@ -36,10 +36,11 @@ export class ApplicationForServicesComponent implements OnInit, OnDestroy {
     private lastOpStatusService: LastOperationStatusService)
   {
     this.form = fb.group({
-      initialDate: ['', Validators.required],
       fullName: ['', Validators.required],
       collegeId: ['', [Validators.required, FormValidators.collegeIdFormat]] ,
-      phone: ['', Validators.required],
+      phone: [''],
+      email: ['', Validators.email],
+      feedbackMessage: ['', Validators.required],
       studentSignature: ['', Validators.required],
     });
 
@@ -101,6 +102,10 @@ export class ApplicationForServicesComponent implements OnInit, OnDestroy {
 
   get collegeId() {
     return this.form.get('collegeId');
+  }
+
+  get email() {
+    return this.form.get('email');
   }
 
 }

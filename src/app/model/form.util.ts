@@ -4,12 +4,14 @@ export class FormName {
   static ALT_MEDIA_REQUEST = 'altMediaRequest';
   static APPLICATION_FOR_SERVICES = 'applicationForServices';
   static EMERGENCY_EVAC_INFO = 'emergencyEvacInfo';
+  static FEEDBACK = 'feedback';
 
   static formNames = [
     FormName.INTAKE_FORM,
     FormName.ALT_MEDIA_REQUEST,
     FormName.APPLICATION_FOR_SERVICES,
-    FormName.EMERGENCY_EVAC_INFO
+    FormName.EMERGENCY_EVAC_INFO,
+    FormName.FEEDBACK
   ];
 
 
@@ -36,12 +38,16 @@ export class FormUtil {
 
           FormUtil.formMap[FormName.EMERGENCY_EVAC_INFO] = "Emergency Evacuation Information";
 
+          FormUtil.formMap[FormName.FEEDBACK] = "Feedback";
+
 
           // mongo collections are named intakeforms, etc.
           FormUtil.mongo2FormNameMap["intakeforms"] = FormName.INTAKE_FORM;
           FormUtil.mongo2FormNameMap["altmediarequests"] = FormName.ALT_MEDIA_REQUEST;
           FormUtil.mongo2FormNameMap["applicationforservices"] = FormName.APPLICATION_FOR_SERVICES;
           FormUtil.mongo2FormNameMap["emergencyevacinfos"] = FormName.EMERGENCY_EVAC_INFO;
+          FormUtil.mongo2FormNameMap["feedbacks"] = FormName.FEEDBACK;
+
 
           FormUtil.initialized = true;
         }

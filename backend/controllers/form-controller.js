@@ -7,6 +7,7 @@ const AltMediaRequest = require('../models/alt-media-request-form-model');
 const ApplicationForServices = require('../models/application-for-services-form-model');
 
 const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
+const Feedback = require('../models/feedback-model');
 
 
 
@@ -178,6 +179,8 @@ getFormModel = formName => {
     form = ApplicationForServices;
   } else if (formName === 'emergencyEvacInfo') {
     form = EmergencyEvacInfo;
+  } else if (formName === 'feedback') {
+    form = Feedback;
   }
 
   return form;
@@ -219,6 +222,15 @@ createForm = req => {
     });
   } else if (req.params.formName === 'emergencyEvacInfo') {
     form = new EmergencyEvacInfo({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(req.body.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime
+    });
+  } else if (req.params.formName === 'feedback') {
+    form = new Feedback({
       formName: formName,
       user: sanitize(req.body.user),
       form: sanitize(req.body.form), // "tmp form string",

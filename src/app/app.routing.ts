@@ -26,6 +26,7 @@ import { StaffAuthGuard } from './auth/staff-auth-guard';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { AdminOrStaffAuthGuard } from './auth/admin-or-staff-auth-guard';
 import { EmergencyEvacuationComponent } from './forms2Submit/emergency-evacuation/emergency-evacuation.component';
+import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
 
 
 /* temporarily commented out
@@ -51,6 +52,9 @@ export const ngProjectRouting = RouterModule.forRoot([
 
      // 'newForm/emergencyEvacInfo'
      { path: UrlConfig.NEW_FORM + '/' + UrlConfig.EMERGENCY_EVAC_INFO , component: EmergencyEvacuationComponent },
+
+     // 'newForm/feedback'
+     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.FEEDBACK , component: FeedbackComponent },
 
 
     // 'submittedForm'

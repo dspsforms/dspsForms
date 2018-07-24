@@ -13,6 +13,7 @@ export class UrlConfig {
   static ALT_MEDIA_REQUEST = FormName.ALT_MEDIA_REQUEST;  // 'altMediaRequest';
   static APPLICATION_FOR_SERVICES = FormName.APPLICATION_FOR_SERVICES; // 'applicationForServices';
   static EMERGENCY_EVAC_INFO = FormName.EMERGENCY_EVAC_INFO; // 'emergencyEvacInfo' ;
+  static FEEDBACK = FormName.FEEDBACK;
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
