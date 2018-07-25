@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SubscriptionUtil } from '../../../shared/subscription-util';
 import { LastOperationStatusService } from '../../../service/last-operation-status.service';
 import { UrlConfig } from '../../../model/url-config';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -20,12 +21,16 @@ export class ListEmptyFormTypesComponent implements OnInit {
   newFormAbsolute2 = UrlConfig.NEW_FORM_ABSOLUTE2;
 
 
+  server: string; // e.g., http://www.missioncollege.edu:3001 , no slash at end
+
   constructor(private route: ActivatedRoute,
     private lastOpStatusService: LastOperationStatusService, ) { }
 
   lastOpStatus;
-  
+
   ngOnInit() {
+
+    this.server = environment.server;
 
     /*
     if we reach here from another service that has just completed, get its
@@ -34,7 +39,7 @@ export class ListEmptyFormTypesComponent implements OnInit {
     */
     this.lastOpStatus = this.lastOpStatusService.getStatusAndClear();
     console.log("ListEmptyFormTypesComponent: lastOpStatus=", this.lastOpStatus);
-    
+
 
   }
 
@@ -42,6 +47,6 @@ export class ListEmptyFormTypesComponent implements OnInit {
     return FormUtil.formTitle(formName);
   }
 
-  
+
 
 }
