@@ -1,4 +1,5 @@
-<nav aria-label="Page navigation" class="pagination-container">
+<nav *ngIf="totalPages && totalPages > 1"
+  aria-label="Page navigation" class="pagination-container">
 
     <ul class="pagination nav-child pagination-child">
         <li [class.disabled]="currentPage == 1" aria-label="Previous" >

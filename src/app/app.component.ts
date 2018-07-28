@@ -38,6 +38,14 @@ export class AppComponent {
 
     this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/applicationForServices/[a-zA-Z0-9_\-]', this.getAppServicesReqLeaf);
 
+    // login?next=...  -- nothing
+    this.breadcrumbService.hideRouteRegex('/login');
+
+    // feedback. if we don't want to show the last node in the tree.
+    // however, this will remove the link to "all feedbacks" in the breadcrumb, which is not desirable
+    // this.breadcrumbService.hideRouteRegex('/submittedForm/feedback/[a-zA-Z0-9_\-]');
+
+    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/feedback/[a-zA-Z0-9_\-]', this.getFeedback);
 
     // this.breadcrumbService.hideRoute('/newForm');
     // this.breadcrumbService.hideRoute('/submittedForm');
@@ -45,24 +53,24 @@ export class AppComponent {
   }
 
   getNameForUser(id: string): string {
-    console.log("getNameForUser", id);
     return 'student';
   }
 
   getIntakeLeaf(id: string): string {
-    console.log("getNameForUser", id);
     return 'student';
   }
 
+
   getAltReqLeaf(id: string): string {
-    console.log("getNameForUser", id);
     return 'request';
   }
 
   getAppServicesReqLeaf(id: string): string {
-    console.log("getAppServicesReqLeaf", id);
     return 'student';
   }
 
-  // <sr-chef-image></sr-chef-image>
+  getFeedback(id: string): string {
+    return 'aFeedback';
+  }
+
 }
