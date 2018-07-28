@@ -7,32 +7,33 @@ import { FormsService } from '../../service/forms.service';
 import { Subscription } from 'rxjs';
 import { WrappedForm } from '../../model/wrapped-form.model';
 import { PaginationService } from '../pagination/pagination.service';
+import { Constants } from '../../constants/constants';
 
 // list forms of a give type -- intakeForm, etc.
 @Component({
-  selector: 'list-forms',
+  selector: 'app-list-forms',
   templateUrl: './list-forms.component.html',
   styleUrls: ['./list-forms.component.css']
 })
 export class ListFormsComponent implements OnInit, OnDestroy {
 
-    list;
-    private dbSubscription: Subscription;
-    private paramSubscription: Subscription;
+  list;
+  private dbSubscription: Subscription;
+  private paramSubscription: Subscription;
 
-    busy = false;
+  busy = false;
 
-    jsonFormat = false;
-    foo = true;
+  jsonFormat = false;
 
-    formInfo = { formName: '', formTitle: ''};
+
+  formInfo = { formName: '', formTitle: ''};
 
     // /submitted2
   submittedAbs = UrlConfig.SUBMITTED_FORM_ABSOLUTE;
 
   maxItems: number;
 
-  pageSize = 5;
+  pageSize = Constants.DEFAULT_PAGE_SIZE;
   numPages: number;
 
   currentPage = 1; // starting at index == 1
@@ -60,26 +61,6 @@ export class ListFormsComponent implements OnInit, OnDestroy {
 
       this.list = [];
 
-          /*
-
-          this works. the functionality has now been moved to FormsService
-
-          this.dbSubscription = this.formService.listForms(this.formInfo.formName)
-            .pipe(map(wrappedList => {
-              console.log("wrappedList", wrappedList);
-
-              const foo = wrappedList as { message: string; listOfForms: any };
-
-              return foo.listOfForms.map(aForm => {
-                return aForm;
-              });
-            })).subscribe(listOfForms => {
-              console.log("listOfForms", listOfForms);
-              this.list = listOfForms;
-              this.busy = false;
-            });
-
-          */
 
       this.dbSubscription = this.formService.getFormUpdatedListener(this.formInfo.formName)
             .subscribe(formsData => {

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { Subject } from '../../../../node_modules/rxjs';
 import { PaginationService } from './pagination.service';
+import { Constants } from '../../constants/constants';
 
 @Component({
   selector: 'app-pagination',
@@ -18,7 +19,6 @@ export class PaginationComponent implements OnChanges {
 
 
   totalPages: number;
-  private static defaultPageSize = 2;
   currentPage: number;
 
   selectedPageSize; // dummy
@@ -35,7 +35,7 @@ export class PaginationComponent implements OnChanges {
 
       // page size
     if (!this.pageSize || this.pageSize <= 0) {
-      this.pageSize2use = PaginationComponent.defaultPageSize;
+      this.pageSize2use = Constants.DEFAULT_PAGE_SIZE;
     } else {
       this.pageSize2use = this.pageSize;
     }
