@@ -1,0 +1,45 @@
+<nav aria-label="Page navigation" class="pagination-container">
+
+    <ul class="pagination nav-child pagination-child">
+        <li [class.disabled]="currentPage == 1" aria-label="Previous" >
+            <a (click)="navigateTo(currentPage-1)" >
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let page of pages; let i = index;"
+            [class.active]="currentPage == (i+1)" >
+            <a  (click)="navigateTo(i+1)"  >
+                {{ i+1 }}
+            </a>
+        </li>
+        <li [class.disabled]="currentPage == totalPages" aria-label="Next">
+            <a (click)="navigateTo(currentPage + 1)" >
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+
+    <form class="pagination-child vert-space" onsubmit="onPageSizeFormSubmit(pageSizeForm)" #pageSizeForm="ngForm">
+
+        <!--
+        <label>Page size: </label>
+        <select [compareWith]="compareFn"
+          name="selectedPageSize" ngModel selectedPageSize="ngModel" (change)="onPageSizeChange($event)">
+          <option *ngFor="let size of pageSizeOptions; let i=index"
+          [selected]="size == pageSize2use"
+          [value]="size">{{size}}</option>
+        </select>
+      -->
+
+      <mat-form-field>
+          <mat-select placeholder="Page Size"  (selectionChange)="onPageSizeChange($event)">
+            <mat-option *ngFor="let size of pageSizeOptions; let i=index" [value]="size" >
+              {{size}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+    </form>
+
+
+</nav>

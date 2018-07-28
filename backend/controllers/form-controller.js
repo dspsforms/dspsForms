@@ -86,18 +86,41 @@ exports.getFormsForACategory = (req, res, next) => {
 
   const formName = sanitize(req.params.formName);
   console.log("fetching forms for ", formName);
+  const pageSize = +sanitize(req.query.pagesize);
+  const currentPage = +sanitize(req.query.page);
+  console.log("pageSize=", pageSize, ", currentPage=", currentPage);
 
   const form = getFormModel(formName);
 
-    // TODO fetch only some select fields from db; also (limit, offeset)
-  form.find().then(
-      documents => {
-        console.log("form from db", documents);
-        res.status(200).json({
-          message: "Forms fetched successfully!",
-          listOfForms: documents
-        });
-      }
+  const query = form.find();
+  let fetchedItems;
+  if (pageSize && currentPage) {
+    // page numbers start at 1
+    query.skip(pageSize * (currentPage-1));
+  }
+  if (pageSize) {
+    query.limit(pageSize);
+  }
+
+    // TODO fetch only some select fields from db
+
+  // chain multiple queries. first the documents with given (offset, limit), then the count
+  query.then(
+    documents => {
+      fetchedItems = documents;
+      return form.count();
+    }
+  ).then(
+    count => {
+      console.log("fetchedItems from db", fetchedItems);
+      console.log("maxItems from db", count);
+      res.status(200).json({
+        message: "Forms fetched successfully!",
+        listOfForms: fetchedItems,
+        maxItems: count
+      });
+
+    }
   )
   .catch((err) => {
       console.log(err);

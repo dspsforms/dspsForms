@@ -138,9 +138,13 @@ exports.list = (req, res, next) => {
         message: "No users could be returned"
       });
     }
+    const cleanUserList = userList.map(user => {
+      delete user.password;
+      return user;
+    });
     return res.status(200).json({
       message: "User List",
-      users: userList
+      users: cleanUserList
 
     });
 

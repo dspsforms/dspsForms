@@ -35,7 +35,7 @@ export class FormsService implements OnInit {
     // key is formNmae. value is a Subject.
     const formNames: string[] = FormName.formNames;
     for (const form of formNames) {
-      this.formsUpdatedMap[form] = new Subject<WrappedForm[]>();
+      this.formsUpdatedMap[form] = new Subject<{ items: WrappedForm[]; maxItems: number }>();
     }
 
   }
@@ -56,7 +56,7 @@ export class FormsService implements OnInit {
   // each formName has a list of forms.
   // return an observable for such a list.
   getFormUpdatedListener(formName: string) {
-    const subject: Subject<WrappedForm[]> = this.formsUpdatedMap[formName];
+    const subject: Subject<{ items: WrappedForm[]; maxItems: number }> = this.formsUpdatedMap[formName];
     if (subject) {
       return subject.asObservable();
     } else {
@@ -129,7 +129,7 @@ export class FormsService implements OnInit {
   }
 
   // /api/form/:formName
-  listForms2(formName: string) {
+  listForms2(formName: string, itemsPerPage: number, currentPage: number) {
 
     // verify formName
     if (! FormName.formNames.includes(formName)) {
@@ -137,10 +137,12 @@ export class FormsService implements OnInit {
       return;
     }
 
+    const queryParams = `?pagesize=${itemsPerPage}&page=${currentPage}`;
+
     // fetch forms from server. TODO add (limit, offset) -- pagination
-    const url = environment.server + '/api/form/' + formName;
+    const url = environment.server + '/api/form/' + formName + queryParams;
     console.log("fetching url=", url);
-    this.http.get<{ message: string; listOfForms: WrappedForm[] }>(url)
+    this.http.get<{ message: string; listOfForms: WrappedForm[]; maxItems: number}>(url)
       .subscribe(msgFormData => {
         console.log(msgFormData);
 
@@ -156,10 +158,10 @@ export class FormsService implements OnInit {
         this.formsMap[formName] = id2FormData; // msgFormData.listOfForms;
 
         // let anyone listening know that the data has been updated
-        const subject: Subject<WrappedForm[]> = this.formsUpdatedMap[formName];
+        const subject: Subject<{ items: WrappedForm[]; maxItems: number } > = this.formsUpdatedMap[formName];
         if (subject) {
           // send a clone of the array so receiver cannot change our copy
-          subject.next([...msgFormData.listOfForms]);
+          subject.next({ items: [...msgFormData.listOfForms], maxItems: msgFormData.maxItems } );
         } else {
           console.log("no Subject found to send out an update event for formName ", formName);
         }

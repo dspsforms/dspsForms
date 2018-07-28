@@ -5,6 +5,8 @@ import { FormUtil } from '../../model/form.util';
 import { UrlConfig } from '../../model/url-config';
 import { FormsService } from '../../service/forms.service';
 import { Subscription } from 'rxjs';
+import { WrappedForm } from '../../model/wrapped-form.model';
+import { PaginationService } from '../pagination/pagination.service';
 
 // list forms of a give type -- intakeForm, etc.
 @Component({
@@ -26,29 +28,37 @@ export class ListFormsComponent implements OnInit, OnDestroy {
     formInfo = { formName: '', formTitle: ''};
 
     // /submitted2
-    submittedAbs = UrlConfig.SUBMITTED_FORM_ABSOLUTE;
+  submittedAbs = UrlConfig.SUBMITTED_FORM_ABSOLUTE;
+
+  maxItems: number;
+
+  pageSize = 5;
+  numPages: number;
+
+  currentPage = 1; // starting at index == 1
+
+  pageInfoChangeSub: Subscription;
 
 
-    constructor(private formService: FormsService,
-        private _route: ActivatedRoute)
-    { }
+  constructor(private formService: FormsService,
+    private paginationService: PaginationService,
+    private _route: ActivatedRoute)
+  { }
 
-    ngOnInit() {
+  ngOnInit() {
 
-        this.paramSubscription = this._route.params.subscribe(params => {
-          this.formInfo.formName = params["formName"];
+    this.paramSubscription = this._route.params.subscribe(params => {
+      this.formInfo.formName = params["formName"];
 
-          if (this.formInfo.formName) {
-                this.formInfo.formTitle = FormUtil.formTitle(this.formInfo.formName);
-          } else {
-              this.formInfo.formTitle = '';
-          }
+      if (this.formInfo.formName) {
+        this.formInfo.formTitle = FormUtil.formTitle(this.formInfo.formName);
+      } else {
+         this.formInfo.formTitle = '';
+      }
 
+      this.busy = true;
 
-
-          this.busy = true;
-
-          this.list = [];
+      this.list = [];
 
           /*
 
@@ -71,42 +81,71 @@ export class ListFormsComponent implements OnInit, OnDestroy {
 
           */
 
-          this.dbSubscription = this.formService.getFormUpdatedListener(this.formInfo.formName)
-            .subscribe(listOfForms => {
-              this.list = listOfForms;
+      this.dbSubscription = this.formService.getFormUpdatedListener(this.formInfo.formName)
+            .subscribe(formsData => {
+              this.list = formsData.items;
+              this.maxItems = formsData.maxItems;
               this.busy = false;
             });
 
-          this.formService.listForms2(this.formInfo.formName);
+      if (!this.pageSize || !this.currentPage) {
+        console.log("listForms: illegal (pageSize, currentPage) during init", this.pageSize, this.currentPage);
+      } else {
+        console.log("listForms: valid (pageSize, currentPage) during init", this.pageSize, this.currentPage);
+        this.formService.listForms2(this.formInfo.formName,
+          this.pageSize, this.currentPage);
+      }
 
-        }); // param subscription
+
+    }); // param subscription
 
 
-    }
+    this.pageInfoChangeSub = this.paginationService.getPageInfoChangeListener()
+      .subscribe(pageInfoData => {
+        this.currentPage = pageInfoData.currentPage;
+        this.pageSize = pageInfoData.pageSize;
 
-    ngOnDestroy() {
-        SubscriptionUtil.unsubscribe(this.dbSubscription);
-        SubscriptionUtil.unsubscribe(this.paramSubscription);
-    }
+        if (!this.pageSize || !this.currentPage) {
+          console.log("listForms: illegal (pageSize, currentPage) from paginationService", this.pageSize, this.currentPage);
+        } else {
+          console.log("listForms: valid (pageSize, currentPage) from paginationService", this.pageSize, this.currentPage);
+          this.formService.listForms2(this.formInfo.formName,
+            this.pageSize, this.currentPage);
+        }
 
-    toggleJsonFormat() {
-        this.jsonFormat = !this.jsonFormat;
-    }
+      });
 
-    getKey(item) {
-        console.log("item for key", item);
 
-        return item._id;
-    }
+  } // ngOnInit
 
-    getVal(item) {
+  /*
+  onPageChange(event) {
+    console.log("listForms, onPageChange, event=", event);
+    this.currentPage = event.currentPage;
+    this.pageSize = event.pageSize;
+    this.formService.listForms2(this.formInfo.formName, this.pageSize, this.currentPage);
+  }
+  */
 
-        return item.form.fullName;
-    }
+  ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.dbSubscription);
+    SubscriptionUtil.unsubscribe(this.paramSubscription);
+  }
 
-    getFormName(item) {
+  toggleJsonFormat() {
+    this.jsonFormat = !this.jsonFormat;
+  }
 
-        return item.formName;
-    }
+  getKey(item) {
+    return item._id;
+  }
+
+  getVal(item) {
+    return item.form.fullName;
+  }
+
+  getFormName(item) {
+    return item.formName;
+  }
 
 }

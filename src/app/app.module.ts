@@ -57,6 +57,7 @@ import { EmergencyEvacuationComponent } from './forms2Submit/emergency-evacuatio
 import { ViewEmergencyEvacuationComponent } from './dspsStaff/view-form/view-emergency-evacuation/view-emergency-evacuation.component';
 import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
 import { ViewFeedbackComponent } from './dspsStaff/view-form/view-feedback/view-feedback.component';
+import { PaginationComponent } from './dspsStaff/pagination/pagination.component';
 
 
 
@@ -98,6 +99,7 @@ import { ViewFeedbackComponent } from './dspsStaff/view-form/view-feedback/view-
     LoginComponent,
     ListUsersComponent,
     ErrorComponent,
+    PaginationComponent,
 
 
     /* Add these back

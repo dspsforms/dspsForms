@@ -61,7 +61,7 @@ export const ngProjectRouting = RouterModule.forRoot([
     { path: UrlConfig.SUBMITTED_FORM, component: ListFormTypesComponent  , canActivate: [StaffAuthGuard] }, // protected
 
     // 'submittedForm/:formName'
-   { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent  , canActivate: [StaffAuthGuard] } ,
+   { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent  , canActivate: [StaffAuthGuard] } , //
 
     // 'submittedForm/:formName/:_id'
     { path: UrlConfig.SUBMITTED_FORM + '/:formName/:_id', component: ViewFormComponent  , canActivate: [StaffAuthGuard] },

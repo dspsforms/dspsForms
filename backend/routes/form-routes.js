@@ -16,7 +16,7 @@ router.post("/:formName", FormController.postForm);
 router.get("/list", checkAuthStaff, FormController.list);
 
 // get "/api/form/:formName"  -- must have staff level perm
-router.get("/:formName", checkAuthStaff, FormController.getFormsForACategory );
+router.get("/:formName", checkAuthStaff,  FormController.getFormsForACategory );
 
 // get "/api/form/:formName/:_id"  -- with this pattern, need staff level perm
 router.get("/:formName/:_id", checkAuthStaff, FormController.getAForm );

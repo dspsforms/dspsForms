@@ -4,6 +4,7 @@ import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from '../../node_modules/rxjs';
 import { AuthType } from './auth/auth-type.model';
+import { SubscriptionUtil } from './shared/subscription-util';
 
 @Component({
     selector: 'nav-bar',
@@ -41,7 +42,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   get loggedIn() {
-    if (this.auth && this.auth.staffAuth || this.auth.adminAuth) {
+    if (this.auth && (this.auth.staffAuth || this.auth.adminAuth) ) {
       return true;
     } else {
       return false;
@@ -49,6 +50,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.authChange);
 
   }
 
