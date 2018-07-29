@@ -139,9 +139,20 @@ exports.list = (req, res, next) => {
       });
     }
     const cleanUserList = userList.map(user => {
-      delete user.password;
-      return user;
+      // deleting the property should work, no? need to debug.
+      // for now, we are recreating the rest of the fields (except _v0)
+      // delete user.password;
+      // return user;
+      return {
+        _id: user._id, email: user.email,
+        name: user.name,
+        isAdmin: user.isAdmin,
+        isStaff: user.isStaff,
+        created: user.created || null,
+        lastMod: user.lastMod || null
+      };
     });
+    console.log("cleanUserList", cleanUserList);
     return res.status(200).json({
       message: "User List",
       users: cleanUserList
