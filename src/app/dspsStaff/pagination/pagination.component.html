@@ -1,7 +1,8 @@
-<nav *ngIf="totalPages && totalPages > 1"
+<nav
   aria-label="Page navigation" class="pagination-container">
 
-    <ul class="pagination nav-child pagination-child">
+    <ul class="pagination nav-child pagination-child"
+      *ngIf="totalPages && totalPages > 1" >
         <li [class.disabled]="currentPage == 1" aria-label="Previous" >
             <a (click)="navigateTo(currentPage-1)" >
                 <span aria-hidden="true">&laquo;</span>
