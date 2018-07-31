@@ -1,0 +1,56 @@
+<div class="container-fluid">
+
+  <app-spinner [visible]="busy"></app-spinner>
+
+  <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
+
+  <h1>{{ title }} </h1>
+
+  <!-- layout based on
+      https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
+  -->
+
+  <div class="row" *ngIf="initialized">
+    <div class="col-sm-8">
+
+
+    <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+    <div class="well">
+      <fieldset>
+
+        <div class="form-group" >
+            <label for="agreement" >Form Description &amp; User Agreement</label>
+              <textarea
+                  placeholder="Please enter this form's description and user agreement"
+                  class="form-control"
+                  formControlName="agreement"
+                  rows="10">
+              </textarea>
+
+            <div *ngIf="form.get('agreement').touched && form.get('agreement').hasError('required')"
+              class="alert alert-danger" >
+              Form description / user agreement is a required field
+          </div>
+
+          </div>  <!-- form-group , agreement -->
+      </fieldset>
+    </div>
+
+    <div class="form-row right vert-space">
+        <button type="submit"
+                [disabled]="!form.valid || !form.dirty"
+                class="btn btn-primary"
+        >Save</button>
+
+    </div>
+
+    </form>
+
+    </div> <!-- col-sm-8 -->
+  </div> <!-- row -->
+
+</div> <!-- container -->
+
+
+

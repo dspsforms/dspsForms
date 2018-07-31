@@ -9,12 +9,37 @@ const ApplicationForServices = require('../models/application-for-services-form-
 const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
 const Feedback = require('../models/feedback-model');
 
+const FormAgreement = require('../models/form-agreement-model');
+
 
 
 
 exports.postForm = (req, res, next) => {
 
   const form = createForm(req);
+
+  form.save().then( createdForm => {
+          // success
+          console.log("after save, createdForm=", createdForm);
+          res.status(201).json({
+              message: 'Form ' + form.formName + ' added successfully',
+              formId: createdForm._id
+          });
+
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(401).json({
+      message: 'Form save failed',
+      err: err
+    });
+  });
+
+}
+
+exports.postFormAgreement = (req, res, next) => {
+
+  const form = createForm(req, true); // true == isAgreement
 
   form.save().then( createdForm => {
           // success
@@ -55,7 +80,7 @@ exports.list = (req, res, next) => {
 
     const filtered = collections.filter(col => {
       // only return form collections. remove users, logs, and anything else that is not a form-collection
-      if (col.name === 'users' || col.name === 'logs') {
+      if (col.name === 'users' || col.name === 'logs' || col.name === 'useragreements') {
         return false;
       }
       else {
@@ -161,6 +186,35 @@ exports.getAForm = (req, res, next) => {
 
 }
 
+// get "/api/form/agreement/:formName"  -- no permission required to get this
+exports.getFormAgreement = (req, res, next) => {
+
+  const formName = sanitize(req.params.formName);
+
+
+  const form = FormAgreement;
+
+  console.log("fetching agreement for =", formName);
+
+  form.findOne({ formName: formName }).sort({ field: 'asc', _id: -1 }).limit(1).then(
+      document => {
+        console.log("forms from db", document);
+        res.status(200).json({
+          message: "Form fetched successfully",
+          formData: document
+        });
+      }
+  )
+  .catch((err) => {
+    console.log(err);
+    res.status(404).json({
+      message: "Fetching form agreement failed",
+      err: err
+    });
+  });
+
+}
+
 // delete "/api/form/:formName/:id"  -- with this pattern, need staff level perm
 exports.deleteAForm = (req, res, next) => {
   console.log(req.params.id);
@@ -209,12 +263,30 @@ getFormModel = formName => {
   return form;
 }
 
-createForm = req => {
+createForm = (req, isAgreement) => {
+
+  // the parameter isAgreement is optional
 
   let form;
   const currentTime = new Date();
 
   const formName = sanitize(req.params.formName);
+
+  if (isAgreement) {
+    form = new FormAgreement({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(req.body.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime
+    });
+
+    return form;
+
+  }
+
+  // else. not user agreement
 
   if (formName === 'intakeForm') {
       form = new IntakeForm({

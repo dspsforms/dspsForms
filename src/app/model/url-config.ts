@@ -22,6 +22,14 @@ export class UrlConfig {
 
   static SHOW_USERS_ABSOLUTE = '/showUsers';
 
+  static AGREEMENT_CREATE_EDIT = 'agreementCreateEdit';
+  static AGREEMENT_CREATE_EDIT_ABSOLUTE = '/agreementCreateEdit';
+  static AGREEMENT_CREATE_EDIT_ABSOLUTE2 = '/agreementCreateEdit/';
+
+  static AGREEMENT_VIEW = 'agreementView';
+  static AGREEMENT_VIEW_ABSOLUTE = '/agreementView';
+  static AGREEMENT_VIEW_ABSOLUTE2 = '/agreementView/';
+
   static LOGIN = 'login';
 
 

@@ -41,6 +41,14 @@ export class AppComponent {
     // login?next=...  -- nothing
     this.breadcrumbService.hideRouteRegex('/login');
 
+    // agreementView/intakeForm
+    this.breadcrumbService.hideRouteRegex('/agreementView');
+    this.breadcrumbService.hideRouteRegex('/agreementView/[a-zA-Z0-9_\-]');
+
+    // /agreementCreateEdit/emergencyEvacInfo
+    this.breadcrumbService.hideRouteRegex('/agreementCreateEdit');
+    this.breadcrumbService.hideRouteRegex('/agreementCreateEdit/[a-zA-Z0-9_\-]');
+
     // feedback. if we don't want to show the last node in the tree.
     // however, this will remove the link to "all feedbacks" in the breadcrumb, which is not desirable
     // this.breadcrumbService.hideRouteRegex('/submittedForm/feedback/[a-zA-Z0-9_\-]');

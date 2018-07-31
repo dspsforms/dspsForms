@@ -58,6 +58,8 @@ import { ViewEmergencyEvacuationComponent } from './dspsStaff/view-form/view-eme
 import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
 import { ViewFeedbackComponent } from './dspsStaff/view-form/view-feedback/view-feedback.component';
 import { PaginationComponent } from './dspsStaff/pagination/pagination.component';
+import { AgreementCreateEditComponent } from './dspsStaff/agreement-create-edit/agreement-create-edit.component';
+import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-view.component';
 
 
 
@@ -100,6 +102,8 @@ import { PaginationComponent } from './dspsStaff/pagination/pagination.component
     ListUsersComponent,
     ErrorComponent,
     PaginationComponent,
+    AgreementCreateEditComponent,
+    AgreementViewComponent,
 
 
     /* Add these back

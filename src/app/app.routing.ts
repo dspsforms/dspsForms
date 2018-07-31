@@ -27,6 +27,8 @@ import { ListUsersComponent } from './user/list-users/list-users.component';
 import { AdminOrStaffAuthGuard } from './auth/admin-or-staff-auth-guard';
 import { EmergencyEvacuationComponent } from './forms2Submit/emergency-evacuation/emergency-evacuation.component';
 import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
+import { AgreementCreateEditComponent } from './dspsStaff/agreement-create-edit/agreement-create-edit.component';
+import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-view.component';
 
 
 /* temporarily commented out
@@ -73,6 +75,13 @@ export const ngProjectRouting = RouterModule.forRoot([
     {path: UrlConfig.LOGIN, component: LoginComponent },
 
     {path: UrlConfig.SHOW_USERS, component: ListUsersComponent, canActivate: [StaffAuthGuard]} ,
+
+    // agreement pages
+    {path: UrlConfig.AGREEMENT_CREATE_EDIT + '/:agreementForForm' , component: AgreementCreateEditComponent} , // , canActivate: [StaffAuthGuard]
+
+    // agreement pages
+    {path: UrlConfig.AGREEMENT_VIEW + '/:agreementForForm', component: AgreementViewComponent} ,
+
 
     { path: 'notfound', component: NotFoundComponent },
     { path: 'foo', component: NotFoundComponent} ,

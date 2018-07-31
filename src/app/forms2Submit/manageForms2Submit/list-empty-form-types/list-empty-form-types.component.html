@@ -19,17 +19,33 @@
 
         <div class="panel-body">
           <p>Please select a form to fill and submit.</p>
-          <ul class="list-group">
-            <li *ngFor="let formName of formNames; let i=index"
-              class="list-group-item" >
+          <table class="table table-bordered">
+            <tr *ngFor="let formName of formNames; let i=index" >
 
-              <a [routerLink]="[newFormAbsolute2 + formName]">
-                {{ getFormTitle(formName) }}
-              </a>
+              <td>
+                <a [routerLink]="[newFormAbsolute2 + formName]">
+                  {{ getFormTitle(formName) }}
+                </a>
+              </td>
+              <td >
+                <a *ngIf="formName !== 'feedback'"  [routerLink]="[agreementView2 + formName]">
+                    <i class="fas fa-file-contract"></i>
+                </a>
+              </td>
 
-            </li>
 
-          </ul>
+              <td *ngIf="auth.adminAuth  ">
+                <!-- edit/create for admin only -->
+                <a *ngIf="formName !== 'feedback'"
+                  [routerLink]="[agreementCreateEdit2 + formName]">
+                  <i class="glyphicon glyphicon-edit" ></i>
+                </a>
+              </td>
+
+
+            </tr>
+
+          </table>
         </div> <!-- panel-body -->
       </div> <!-- panel, panel-default -->
 

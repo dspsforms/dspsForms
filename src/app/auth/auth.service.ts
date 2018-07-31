@@ -190,5 +190,9 @@ export class AuthService {
       isAdminAuthenticated: isAdminAuthenticated === 'true'
     };
   }
+
+  getUser(_id: string) {
+    // TODO
+  }
 }
 
