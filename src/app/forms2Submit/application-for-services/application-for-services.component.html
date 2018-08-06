@@ -24,7 +24,8 @@
             <input
               type="text"
               class="form-control"
-              formControlName="initialDate" >
+              formControlName="initialDate"
+              aria-required="true" >
 
             <div *ngIf="form.get('initialDate').touched && form.get('initialDate').hasError('required')"
                 class="alert alert-danger" >
@@ -37,7 +38,8 @@
             <input
                 type="text"
                 class="form-control"
-                formControlName="fullName" >
+                formControlName="fullName"
+                aria-required="true" >
 
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
                 class="alert alert-danger" >
@@ -51,7 +53,8 @@
               type="text"
               class="form-control"
               placeholder="G0 followed by 7 digits"
-              formControlName="collegeId" >
+              formControlName="collegeId"
+              aria-required="true" >
 
           <div *ngIf="collegeId.touched && collegeId.hasError('required')"
               class="alert alert-danger" >
@@ -68,7 +71,8 @@
           <input
               type="text"
               class="form-control"
-              formControlName="phone" >
+              formControlName="phone"
+              aria-required="true">
 
           <div *ngIf="form.get('phone').touched && form.get('phone').hasError('required')"
               class="alert alert-danger" >
@@ -86,7 +90,8 @@
           <input
               type="text"
               class="form-control"
-              formControlName="studentSignature" >
+              formControlName="studentSignature"
+              aria-required="true" >
 
           <div *ngIf="form.get('studentSignature').touched && form.get('studentSignature').hasError('required')"
               class="alert alert-danger" >

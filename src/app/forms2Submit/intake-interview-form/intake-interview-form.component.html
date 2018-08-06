@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-sm-8">
 
-        <legend class="small">Fields marked with * are required.</legend>
+        <legend class="small">Fields marked with <i class="glyphicon glyphicon-asterisk"></i> are required.</legend>
 
 
 <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
@@ -21,48 +21,43 @@
 
 
 <fieldset>
-  <legend>You</legend>
+  <legend id="you" aria-label="Your" >You</legend>
 
   <div class="form-group">
-      <label for="name">Full Name *</label>
+      <label id="fullName" for="fullName">Full Name <i class="glyphicon glyphicon-asterisk"></i></label>
       <input
                   type="text"
                   class="form-control"
                   formControlName="fullName"
+                  aria-labelledby="you fullName"
+                  aria-required="true"
                   >
+        <!-- aria-live="assertive" means the text will be spoken whenever the value changes -->
         <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
-                  class="alert alert-danger" >
+                  class="alert alert-danger" tabIndex="-1"
+                  aria-live="assertive">
                   Name is required
         </div>
   </div> <!-- form-group, full name -->
 
-  <!--
-    <div class="input-group">
-      <span class="input-group-addon" >G0</span>
-      <input
-                  type="text"
-                  class="form-control"
-                  placeholder="7 digits following G0"
-                  formControlName="collegeIdTmp"
-                  >
-
-
-    </div>
-  -->
   <div class="form-group">
-    <label for="collegeId">College ID *</label>
+    <label id="collegeId" for="collegeId">College ID <i class="glyphicon glyphicon-asterisk"></i></label>
       <input
                   type="text"
                   class="form-control"
                   placeholder="G0 followed by 7 digits"
                   formControlName="collegeId"
+                  id="collegeIdPlaceHolder"
+                  aria-labelledby="you collegeId collegeIdPlaceHolder"
+                  aria-required="true"
+                  aria-placeholder="G0 followed by 7 digits"
                   >
     <div *ngIf="collegeId.touched && collegeId.hasError('required')"
                       class="alert alert-danger" >
                       College ID is required
     </div>
     <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
-          class="alert alert-danger" >
+          class="alert alert-danger" tabIndex="-1" aria-live="assertive">
           College ID is of the format G0 followed by 7 digits
     </div>
 
@@ -74,63 +69,69 @@
 <div class="well">
 
 <fieldset>
-  <legend>Your Contact Information</legend>
+  <legend id="contactInfo" aria-label="Your" >Your Contact Information</legend>
 
   <div class="form-group">
-    <label for="addressLine1">Address Line</label>
+    <label id="addressLine1" for="addressLine1">Address Line</label>
 
     <input
               type="text"
                 class="form-control"
                 formControlName="addressLine1"
+                aria-labelledby="contactInfo addressLine1"
                 >
   </div>  <!-- form-group, addressLine1 -->
 
   <div class="form-group">
-    <label for="city" >City</label>
+    <label id="city" for="city" >City</label>
     <input
           type="text"
           class="form-control"
           formControlName="city"
+          aria-labelledby="contactInfo city"
           >
   </div> <!-- form-group, city -->
 
   <div class="form-group">
-    <label for="zip">Zip</label>
+    <label id="zip" for="zip">Zip</label>
     <input
         type="text"
         class="form-control"
         formControlName="zip"
+        aria-labelledby="contactInfo zip"
         >
 </div> <!-- form-group, zip -->
 
 <div class="form-group">
-    <label for="homePhone">Home Phone</label>
+    <label id="homePhone" for="homePhone">Home Phone</label>
     <input
       type="text"
       class="form-control"
       formControlName="homePhone"
+      aria-labelledby="contactInfo homePhone"
       >
 </div>
 
 <div class="form-group">
-    <label for="cellPhone">Cell Phone</label>
+    <label id="cellPhone" for="cellPhone">Cell Phone</label>
     <input
       type="text"
       class="form-control"
       formControlName="cellPhone"
+      aria-labelledby="contactInfo cellPhone"
       >
 </div>
 
 <div class="form-group">
-    <label for="email">Email</label>
+    <label id="email" for="email">Email</label>
     <input
         type="text"
         class="form-control"
         formControlName="email"
+        aria-labelledby="contactInfo email"
         >
     <div *ngIf="email.touched && email.errors?.email"
-        class="alert alert-danger" >
+        class="alert alert-danger" tabIndex="-1" >
         Please check to make sure your email is correct
     </div>
 </div>
@@ -142,61 +143,69 @@
 
 <!-- see https://angular.io/guide/reactive-forms for radio example -->
 <fieldset>
-    <legend>A Bit About You</legend>
+    <legend id="aBitAboutYou" aria-label="Your" >A Bit About You</legend>
 
     <div class="form-group">
-        <label for="gender" class="space-right" >Gender</label>
-        <label for="gender" class="radio-inline">
-            <input type="radio" formControlName="gender" value="male">Male
+        <label id="gender" for="gender" class="space-right" >Gender</label>
+        <label id="male" for="gender" class="radio-inline">
+            <input  type="radio" formControlName="gender" value="male" aria-labelledby="aBitAboutYou gender male">Male
         </label>
-        <label for="gender" class="radio-inline">
-            <input type="radio" formControlName="gender" value="female">Female
+        <label id="female" for="gender" class="radio-inline">
+            <input type="radio" formControlName="gender" value="female" aria-labelledby="aBitAboutYou gender female">Female
         </label>
     </div>  <!-- form-group, gender -->
 
     <div class="form-group">
-        <label for="dob">Date of Birth</label>
+        <label id="dob" for="dob">Date of Birth</label>
         <input
             type="text"
             class="form-control"
             formControlName="dob"
+            aria-labelledby="aBitAboutYou dob"
         >
     </div>
 
     <!-- occupation + how long -->
 
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <label for="occupation" >Occupation</label>
-                <div>
-                    <input
+    <div class="row">
+      <div class="form-group col-sm-6">
+          <label id="occupation" for="occupation" >Occupation</label>
+            <div>
+              <input
                     type="text"
                     class="form-control"
                     formControlName="occupation"
-                    >
-                </div>
-            </div> <!-- form-group occupation -->
+                    aria-labelledby="aBitAboutYou occupation"
+                    aria-controls="occupationHowLongWrap"
+              >
+            </div>
+      </div> <!-- form-group occupation -->
 
-            <div class="form-group col-sm-6">
-                <label for="occupationHowLong">How Long</label>
-                <div>
-                    <input
+      <!-- this stuff is not hidden with css, it just shows up in the DOM or gets removed from the DOM by Angular's engine
+          so no need for aria-hidden
+      -->
+      <div class="form-group col-sm-6" *ngIf="form.get('occupation').value" id="occupationHowLongWrap">
+          <label id="occupationHowLong" for="occupationHowLong">How Long?</label>
+          <div>
+              <input
                     type="text"
                     class="form-control"
                     formControlName="occupationHowLong"
-                    >
-                </div>
-            </div> <!-- form-group occupationHowLong -->
-        </div>  <!-- row on occupation + how long -->
+                    aria-labelledby="aBitAboutYou occupation occupationHowLong"
+              >
+          </div>
+      </div> <!-- form-group occupationHowLong -->
+    </div>  <!-- row on occupation + how long -->
      <!-- container on occupatino + how long -->
 
     <div class="form-group">
-    <label for="homeLang">Language Spoken at home other than English?</label>
-        <input
-        type="text"
-        class="form-control"
-        formControlName="homeLang"
-        >
+      <label id="homeLang" for="homeLang">Language Spoken at home other than English?</label>
+          <input
+          type="text"
+          class="form-control"
+          formControlName="homeLang"
+          aria-labelledby="homeLang"
+          >
     </div>
 
 </fieldset> <!-- more of You -->
@@ -205,52 +214,57 @@
 <div class="well">
 
 <fieldset>
-    <legend>Person to Notify in Case of Emergency</legend>
+    <legend  >Person to Notify in Case of Emergency</legend>
 
-    <div formGroupName="emergencyContact">
+    <div id="emergencyContact" formGroupName="emergencyContact" aria-label="Emergency contact" >
 
         <div class="form-group">
-            <label for="name">Name</label>
+            <label id="emergencyContactName" for="name">Name</label>
                 <input
-                type="text"
-                class="form-control"
-                formControlName="name"
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  aria-labelledby="emergencyContact emergencyContactName"
                 >
         </div>
 
         <div class="form-group">
-            <label for="relationship">Relationship</label>
+            <label id="emergencyContactRelationship" for="relationship">Relationship</label>
             <input
                     type="text"
                     class="form-control"
                     formControlName="relationship"
+                    aria-labelledby="emergencyContact emergencyContactRelationship"
                 >
         </div>
 
         <div class="form-group">
-            <label for="homePhone">Home Phone</label>
+            <label id="emergencyContactHomePhone" for="homePhone">Home Phone</label>
             <input
                 type="text"
                 class="form-control"
                 formControlName="homePhone"
+                aria-labelledby="emergencyContact emergencyContactHomePhone"
             >
         </div>
 
         <div class="form-group">
-            <label for="workPhone">Work Phone</label>
+            <label id="emergencyContactWorkPhone" for="workPhone">Work Phone</label>
             <input
                     type="text"
                     class="form-control"
                     formControlName="workPhone"
+                    aria-labelledby="emergencyContact emergencyContactWorkPhone"
             >
         </div>
 
         <div class="form-group">
-            <label for="cellPhone">Cell Phone</label>
+            <label id="emergencyContactCellPhone" for="cellPhone">Cell Phone</label>
             <input
                 type="text"
                 class="form-control"
                 formControlName="cellPhone"
+                aria-labelledby="emergencyContact emergencyContactCellPhone"
             >
         </div>
 
@@ -263,78 +277,89 @@
 
 <fieldset>
 
-    <legend>Your Educational Background and Accommodation Related Information</legend>
+  <legend>Your Educational Background and Accommodation Related Information</legend>
 
   <div class="form-group">
-    <label> Do you have a high school diploma?</label>
-    <label for="hasDiploma" class="radio-inline">
-        <input type="radio" formControlName="hasDiploma" value="yes">Yes
+    <label id="highSchoolDiploma" > Do you have a high school diploma?</label>
+    <label id="highSchoolDiplomaYes" for="hasDiploma" class="radio-inline">
+        <input type="radio" formControlName="hasDiploma" value="yes"
+          aria-labelledby="highSchoolDiploma highSchoolDiplomaYes"
+          aria-controls="highSchoolWrap">Yes
     </label>
-    <label for="hasDiploma" class="radio-inline">
-        <input type="radio" formControlName="hasDiploma" value="no">No
+    <label id="highSchoolDiplomaNo" for="hasDiploma" class="radio-inline">
+        <input type="radio" formControlName="hasDiploma" value="no"
+        aria-labelledby="highSchoolDiploma highSchoolDiplomaNo" >No
     </label>
   </div>
-  <div class="form-group" *ngIf="form.get('hasDiploma').value == 'yes'">
-    <label for="highSchool" >High School</label>
+  <div id="highSchoolWrap" class="form-group" *ngIf="form.get('hasDiploma').value == 'yes'">
+    <label id="highSchool" for="highSchool" >High School</label>
      <input
           type="text"
           class="form-control"
           formControlName="highSchool"
+          aria-labelledby="highSchool"
         >
 
   </div>  <!-- form-group , high school -->
 
   <div class="form-group">
-      <label for="numSemsAtMission">Number of Semesters at Mission College</label>
+      <label id-="numSemsAtMission" for="numSemsAtMission">Number of Semesters at Mission College</label>
         <input
               type="text"
               class="form-control"
               formControlName="numSemsAtMission"
+              aria-labelledby="numSemsAtMission"
         >
   </div>
 
   <div class="form-group">
-      <label for="plannedMajor">What is your planned Academic or Vocational major?</label>
+      <label id="plannedMajor" for="plannedMajor">What is your planned Academic or Vocational major?</label>
         <input
               type="text"
               class="form-control"
               formControlName="plannedMajor"
+              aria-labelledby="plannedMajor"
           >
   </div>
 
   <div class="form-group">
-      <label> Do you have a Mission College counselor?</label>
-      <label for="hasCounselor" class="radio-inline">
-          <input type="radio" formControlName="hasCounselor" value="yes">Yes
+      <label id="hasCounselor"> Do you have a Mission College counselor?</label>
+      <label id="hasCounselorYes" for="hasCounselor" class="radio-inline">
+          <input type="radio" formControlName="hasCounselor" value="yes"
+          aria-labelledby="hasCounselor hasCounselorYes">Yes
       </label>
-      <label for="hasCounselor" class="radio-inline">
-          <input type="radio" formControlName="hasCounselor" value="no">No
+      <label id="hasCounselorNo" for="hasCounselor" class="radio-inline">
+          <input type="radio" formControlName="hasCounselor" value="no"
+          aria-labelledby="hasCounselor hasCounselorNo">No
       </label>
     </div>
     <div class="form-group" *ngIf="form.get('hasCounselor').value == 'yes'">
-        <label for="counselorName">Counselor's Name</label>
+        <label id="counselorName" for="counselorName">Counselor's Name</label>
         <input
             type="text"
             class="form-control"
             formControlName="counselorName"
+            aria-labelledby="counselorName"
           >
   </div>  <!-- form-group, counselor -->
 
   <div class="row">
     <div class="form-group" class="col-sm-6">
-        <label for="referrer" >Who referred you to the program?</label>
+        <label id="referrer" for="referrer" >Who referred you to the program?</label>
         <input
           type="text"
           class="form-control"
           formControlName="referrer"
+          aria-labelledby="referrer"
         >
     </div>
     <div class="form-group" class="col-sm-6">
-        <label for="referrerReason">Why?</label>
+        <label id="referrerWhy" for="referrerReason">Why?</label>
         <input
             type="text"
             class="form-control"
             formControlName="referrerReason"
+            aria-labelledby="referrer referrerWhy"
         >
     </div>
   </div>
@@ -343,111 +368,129 @@
   <div style="height:20px;"></div>
 
     <div class="form-group">
-      <label class="space-right">Are you a Department of Rehabilitation Client?</label>
-      <label for="isDeptRehabClient" class="radio-inline">
-          <input type="radio" formControlName="isDeptRehabClient" value="yes">Yes
+      <label id="isDeptRehabClient" class="space-right">Are you a Department of Rehabilitation Client?</label>
+      <label id="isDeptRehabClientYes" for="isDeptRehabClient" class="radio-inline">
+          <input type="radio" formControlName="isDeptRehabClient" value="yes"
+          aria-labelledby="isDeptRehabClient isDeptRehabClientYes">Yes
       </label>
-      <label for="hasCounselor" class="radio-inline ">
-          <input type="radio" formControlName="isDeptRehabClient" value="no">No
+      <label id="isDeptRehabClientNo" for="hasCounselor" class="radio-inline ">
+          <input type="radio" formControlName="isDeptRehabClient" value="no"
+          aria-labelledby="isDeptRehabClient isDeptRehabClientNo">No
       </label>
     </div>
 
     <div class="form-group" *ngIf="form.get('isDeptRehabClient').value == 'yes' ">
 
-        <label for="rehabCounselorName">Rehab Counselor's Name</label>
+        <label id="rehabCounselorName" for="rehabCounselorName">Rehab Counselor's Name</label>
         <input
             type="text"
             class="form-control"
             formControlName="rehabCounselorName"
+            aria-labelledby="rehabCounselorName"
           >
     </div>  <!-- form-group, rehab counselor -->
 
   <div formGroupName="services">
 
     <div class="form-group">
-      <label>Please check each program you receive services from:</label> <br>
-      <label for="eops" class="checkbox-inline">
-          <input type="checkbox" formControlName="eops" >EOPS
+      <label id="servicesFrom" >Please check each program you receive services from:</label> <br>
+      <label id="eops" for="eops" class="checkbox-inline">
+          <input type="checkbox" formControlName="eops"
+                aria-labelledby="servicesFrom eops">EOPS
       </label>
-      <label for="calWorks" class="checkbox-inline ">
-          <input type="checkbox" formControlName="calWorks" >CalWORKS
+      <label id="calworks" for="calWorks" class="checkbox-inline ">
+          <input type="checkbox" formControlName="calWorks"
+                aria-labelledby="servicesFrom calworks">CalWORKS
       </label>
-      <label for="ssdi" class="checkbox-inline ">
-          <input type="checkbox" formControlName="ssdi" >SSDI
+      <label id="ssdi" for="ssdi" class="checkbox-inline ">
+          <input type="checkbox" formControlName="ssdi"
+          aria-labelledby="servicesFrom ssdi">SSDI
       </label>
-      <label for="access" class="checkbox-inline ">
-          <input type="checkbox" formControlName="access" >ACCESS
+      <label id="access" for="access" class="checkbox-inline ">
+          <input type="checkbox" formControlName="access"
+          aria-labelledby="servicesFrom access">ACCESS
       </label>
     </div>
   </div>
 
   <div class="form-group">
-      <label class="space-right">Would you like information about these programs?</label>
-      <label for="wantSevicesInfo" class="radio-inline">
-          <input type="radio" formControlName="wantSevicesInfo" value="yes">Yes
+      <label id="wantSevicesInfo" class="space-right">Would you like information about these programs?</label>
+      <label id="wantSevicesInfoYes" for="wantSevicesInfo" class="radio-inline">
+          <input type="radio" formControlName="wantSevicesInfo" value="yes"
+              aria-labelledby="wantSevicesInfo wantSevicesInfoYes" >Yes
       </label>
-      <label for="wantSevicesInfo" class="radio-inline ">
-          <input type="radio" formControlName="wantSevicesInfo" value="no">No
-      </label>
-  </div>
-
-  <div class="form-group">
-      <label class="space-right">Are you currently enrolled at another Community College?</label>
-      <label for="enrolledInAnotherCC" class="radio-inline">
-          <input type="radio" formControlName="enrolledInAnotherCC" value="yes">Yes
-      </label>
-      <label for="enrolledInAnotherCC" class="radio-inline">
-          <input type="radio" formControlName="enrolledInAnotherCC" value="no">No
+      <label id="wantSevicesInfoNo" for="wantSevicesInfo" class="radio-inline ">
+          <input type="radio" formControlName="wantSevicesInfo" value="no"
+              aria-labelledby="wantSevicesInfo wantSevicesInfoNo" >No
       </label>
   </div>
 
   <div class="form-group">
-      <label class="space-right">Are you currently receiving Financial Aid?</label>
-      <label for="receivingFinAid" class="radio-inline">
-          <input type="radio" formControlName="receivingFinAid" value="yes">Yes
+      <label id="enrolledInAnotherCC" class="space-right">Are you currently enrolled at another Community College?</label>
+      <label id="enrolledInAnotherCCYes" for="enrolledInAnotherCC" class="radio-inline">
+          <input type="radio" formControlName="enrolledInAnotherCC" value="yes"
+              aria-labelledby="enrolledInAnotherCC enrolledInAnotherCCYes" >Yes
       </label>
-      <label for="receivingFinAid" class="radio-inline ">
-          <input type="radio" formControlName="receivingFinAid" value="no">No
+      <label id="enrolledInAnotherCCNo" for="enrolledInAnotherCC" class="radio-inline">
+          <input type="radio" formControlName="enrolledInAnotherCC" value="no"
+              aria-labelledby="enrolledInAnotherCC enrolledInAnotherCCNo" >No
+      </label>
+  </div>
+
+  <div class="form-group">
+      <label id="receivingFinAid" class="space-right">Are you currently receiving Financial Aid?</label>
+      <label id="receivingFinAidYes" for="receivingFinAid" class="radio-inline">
+          <input type="radio" formControlName="receivingFinAid" value="yes"
+              aria-labelledby="receivingFinAid receivingFinAidYes" >Yes
+      </label>
+      <label id="receivingFinAidNo" for="receivingFinAid" class="radio-inline ">
+          <input type="radio" formControlName="receivingFinAid" value="no"
+              aria-labelledby="receivingFinAid receivingFinAidNo">No
       </label>
   </div>
 
     <div class="form-group">
-      <label>Do you currently have a health, psychological or learning disability?</label> <br>
-      <label for="hasDisability" class="radio-inline">
-          <input type="radio" formControlName="hasDisability" value="yes">Yes
+      <label id="hasDisability" >Do you currently have a health, psychological or learning disability?</label> <br>
+      <label id="hasDisabilityYes" for="hasDisability" class="radio-inline">
+          <input type="radio" formControlName="hasDisability" value="yes"
+              aria-labelledby="hasDisability hasDisabilityYes" >Yes
       </label>
-      <label for="hasDisability" class="radio-inline">
-          <input type="radio" formControlName="hasDisability" value="no">No
+      <label id="hasDisabilityNo" for="hasDisability" class="radio-inline">
+          <input type="radio" formControlName="hasDisability" value="no"
+              aria-labelledby="hasDisability hasDisabilityNo" >No
       </label>
     </div>
     <div class="form-group" *ngIf="form.get('hasDisability').value == 'yes' " >
-        <label for="disabilityDesc">Describe your disability</label>
+        <label id="disabilityDesc" for="disabilityDesc">Describe your disability</label>
         <input
             type="text"
             class="form-control"
             formControlName="disabilityDesc"
+            aria-labelledby="disabilityDesc"
           >
     </div>  <!-- form-group, disabilityDesc -->
 
   <div class="form-group">
-      <label for="medSideEffects" >Educationally related side-effects of Medication, if any:</label>
+      <label id="medSideEffects" for="medSideEffects" >Educationally related side-effects of Medication, if any:</label>
          <!--  TODO autosize -->
           <textarea
             placeholder="Medication side effects"
             class="form-control"
             formControlName="medSideEffects"
-            rows="3">
+            rows="3"
+            aria-labelledby="medSideEffects">
           </textarea>
   </div>
 
   <div class="form-group">
-      <label for="accommodationDesc">Briefly explain the accommodations you may require:</label>
+      <label id="accommodationDesc" for="accommodationDesc">Briefly explain the accommodations you may require:</label>
           <!--  TODO autosize -->
           <textarea
             placeholder="Accommodations"
             class="form-control"
             formControlName="accommodationDesc"
-            rows="3">
+            rows="3"
+            aria-labelledby="accommodationDesc">
           </textarea>
   </div>
 
@@ -455,35 +498,25 @@
 
 </div> <!-- well, edu background and accommodation needs -->
 
+    <!-- agreement format: /agreementView/intakeForm -->
 
         <div class="form-group" class="col-sm-6">
-            <label for="signature">Signature (type your name) * </label>
+            <label id="signature" for="signature">Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
+              By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+            </label>
                 <input
                     type="text"
                     class="form-control"
                     formControlName="signature"
+                    aria-required="true"
+                    aria-labelledby="signature"
                 >
                 <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
-                        class="alert alert-danger" >
+                        class="alert alert-danger" aria-live="assertive">
                         Signature is required
                 </div>
         </div> <!-- form-group signature -->
 
-        <!--
-        <div class="form-group" class="col-sm-6">
-            <label for="dateOfSig" >Date</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    formControlName="dateOfSig"
-                >
-                <div *ngIf="form.get('dateOfSig').touched && form.get('dateOfSig').hasError('required')"
-                            class="alert alert-danger" >
-                            Date is required
-                </div>
-        </div>
-        -->
-         <!-- date -->
 
         <div class="form-row right vert-space">
             <button type="submit"

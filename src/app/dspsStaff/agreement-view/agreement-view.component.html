@@ -16,7 +16,9 @@
             <table class="table table-bordered">
               <tr><td>Agreement for</td> <td> {{ formData.agreementForForm }} </td></tr>
               <tr><td>Agreement</td> <td>{{ formData.agreement }}</td></tr>
-              <tr><td>Created / Last Edited By</td> <td> {{ createdOrEditedBy }} </td></tr>
+              <tr *ngIf="loggedIn">
+                <td>Created / Last Edited By</td> <td> {{ createdOrEditedBy }} </td>
+              </tr>
              </table>
           </div> <!-- panel-body -->
         </div> <!-- panel, panel-default -->

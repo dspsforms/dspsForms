@@ -4,16 +4,19 @@ import { Subscription } from '../../../../node_modules/rxjs';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { FormUtil } from '../../model/form.util';
 import { SubscriptionUtil } from '../../shared/subscription-util';
+import { AuthService } from '../../auth/auth.service';
+import { AuthType } from '../../auth/auth-type.model';
 
 @Component({
   selector: 'app-agreement-view',
   templateUrl: './agreement-view.component.html',
   styleUrls: ['./agreement-view.component.css']
 })
-export class AgreementViewComponent implements OnInit , OnDestroy{
+export class AgreementViewComponent implements OnInit , OnDestroy {
 
   constructor(private formService: FormsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private authService: AuthService) { }
 
   paramSub: Subscription;
   getDataSub: Subscription;
@@ -23,10 +26,22 @@ export class AgreementViewComponent implements OnInit , OnDestroy{
   initialized: boolean;
   title: string;
 
+  auth: AuthType;
+
+  authChange: Subscription;
+
   ngOnInit() {
 
     this.busy = true;
     this.initialized = false;
+
+     // initialize with current auth
+     this.auth = this.authService.getAuth();
+
+     // listen to changes
+     this.authChange = this.authService.getAuthStatusListener().subscribe(auth => {
+       this.auth = auth;
+     });
 
     this.paramSub = this.route.params.subscribe(
       params => {
@@ -66,10 +81,19 @@ export class AgreementViewComponent implements OnInit , OnDestroy{
       });
   }
 
+  get loggedIn() {
+    if (this.auth && (this.auth.staffAuth || this.auth.adminAuth) ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   ngOnDestroy() {
 
     SubscriptionUtil.unsubscribe(this.getDataSub);
     SubscriptionUtil.unsubscribe(this.paramSub);
+    SubscriptionUtil.unsubscribe(this.authChange);
 
   }
 

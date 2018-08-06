@@ -26,6 +26,7 @@
                       type="text"
                       class="form-control"
                       formControlName="fullName"
+                      aria-required="true"
                       >
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
                       class="alert alert-danger" >
@@ -40,6 +41,7 @@
                       class="form-control"
                       placeholder="G0 followed by 7 digits"
                       formControlName="collegeId"
+                      aria-required="true"
                       >
         <div *ngIf="collegeId.touched && collegeId.hasError('required')"
                           class="alert alert-danger" >
@@ -287,6 +289,7 @@
                         type="text"
                         class="form-control"
                         formControlName="signature"
+                        aria-required="true"
                     >
                     <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
                             class="alert alert-danger" >

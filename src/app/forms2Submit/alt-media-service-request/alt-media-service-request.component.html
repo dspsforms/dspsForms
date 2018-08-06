@@ -15,15 +15,17 @@
   <div class="well">
 
     <fieldset>
-      <legend>You</legend>
+      <legend id="you">You</legend>
       <legend class="small">Fields marked with * are required.</legend>
 
       <div class="form-group">
-          <label for="name">Name *</label>
+          <label id="name" for="name">Name *</label>
           <input
                       type="text"
                       class="form-control"
                       formControlName="fullName"
+                      aria-labelledby="you name"
+                      aria-required="true"
                       >
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
                       class="alert alert-danger" >
@@ -38,6 +40,7 @@
                   class="form-control"
                   placeholder="G0 followed by 7 digits"
                   formControlName="collegeId"
+                  aria-required="true"
                   >
         <div *ngIf="collegeId.touched">
             <div *ngIf="collegeId.hasError('required')"
@@ -58,6 +61,7 @@
               type="text"
               class="form-control"
               formControlName="email"
+              aria-required="true"
               >
           <div *ngIf="email.touched">
             <div *ngIf="email.hasError('required')"
@@ -80,6 +84,7 @@
           type="text"
           class="form-control"
           formControlName="cellPhone"
+          aria-required="true"
           >
         <div *ngIf="form.get('cellPhone').touched && form.get('cellPhone').hasError('required')"
           class="alert alert-danger" >
@@ -141,7 +146,8 @@
                     placeholder="Course"
                     class="form-control"
                     formControlName="courseTitleAndSection"
-                    rows="3">
+                    rows="3"
+                    aria-required="true" >
                   </textarea>
 
 
@@ -164,7 +170,8 @@
                   placeholder="Book and Author"
                   class="form-control"
                   formControlName="bookTitleAndAuthor"
-                  rows="3">
+                  rows="3"
+                  aria-required="true" >
                 </textarea>
                 <div
                   *ngIf="form.get('altFormatDetail').at(i).get('bookTitleAndAuthor').touched && form.get('altFormatDetail').at(i).get('bookTitleAndAuthor').hasError('required')"
@@ -246,6 +253,7 @@
               type="text"
               class="form-control"
               formControlName="signature"
+              aria-required="true"
           >
           <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
                   class="alert alert-danger" >
