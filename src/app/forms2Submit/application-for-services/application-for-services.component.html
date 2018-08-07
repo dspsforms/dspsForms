@@ -20,12 +20,13 @@
 
       <fieldset>
           <div class="form-group">
-            <label for="name">Initial Date of Application for DSPS Services *</label>
+            <label id="initialDate" for="initialDate">Initial Date of Application for DSPS Services *</label>
             <input
               type="text"
               class="form-control"
               formControlName="initialDate"
-              aria-required="true" >
+              aria-required="true"
+              aria-labelledby="initialDate">
 
             <div *ngIf="form.get('initialDate').touched && form.get('initialDate').hasError('required')"
                 class="alert alert-danger" >
@@ -34,12 +35,13 @@
           </div> <!-- form-group, initial date -->
 
         <div class="form-group">
-          <label for="name">Name *</label>
+          <label for="fullName">Name <i class="glyphicon glyphicon-asterisk"></i> </label>
             <input
                 type="text"
                 class="form-control"
                 formControlName="fullName"
-                aria-required="true" >
+                aria-required="true"
+                aria-labelledby="fullName" >
 
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
                 class="alert alert-danger" >
@@ -48,13 +50,15 @@
         </div> <!-- form-group, full name -->
 
         <div class="form-group">
-          <label for="collegeId">College ID *</label>
+          <label id="collegeId" for="collegeId">College ID <i class="glyphicon glyphicon-asterisk"></i> </label>
           <input
               type="text"
               class="form-control"
               placeholder="G0 followed by 7 digits"
               formControlName="collegeId"
-              aria-required="true" >
+              id="collegeIdPlaceHolder"
+              aria-required="true"
+              aria-labelledby="collegeId collegeIdPlaceHolder">
 
           <div *ngIf="collegeId.touched && collegeId.hasError('required')"
               class="alert alert-danger" >
@@ -67,12 +71,13 @@
         </div> <!-- form-group -->
 
         <div class="form-group">
-          <label for="phone">Phone *</label>
+          <label id="phone" for="phone">Phone <i class="glyphicon glyphicon-asterisk"></i></label>
           <input
               type="text"
               class="form-control"
               formControlName="phone"
-              aria-required="true">
+              aria-required="true"
+              aria-labelledby="phone">
 
           <div *ngIf="form.get('phone').touched && form.get('phone').hasError('required')"
               class="alert alert-danger" >
@@ -86,12 +91,16 @@
       <fieldset>
         <legend>Please type your name to sign</legend>
         <div class="form-group">
-          <label for="studentSignature">Sign *</label>
+            <label id="signature" for="studentSignature">Signature (type your name)
+              <i class="glyphicon glyphicon-asterisk"></i>
+              By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+            </label>
           <input
               type="text"
               class="form-control"
               formControlName="studentSignature"
-              aria-required="true" >
+              aria-required="true"
+              aria-labelledby="signature">
 
           <div *ngIf="form.get('studentSignature').touched && form.get('studentSignature').hasError('required')"
               class="alert alert-danger" >

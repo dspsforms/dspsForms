@@ -34,8 +34,7 @@
                   >
         <!-- aria-live="assertive" means the text will be spoken whenever the value changes -->
         <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
-                  class="alert alert-danger" tabIndex="-1"
-                  aria-live="assertive">
+                  class="alert alert-danger" >
                   Name is required
         </div>
   </div> <!-- form-group, full name -->
@@ -57,7 +56,7 @@
                       College ID is required
     </div>
     <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
-          class="alert alert-danger" tabIndex="-1" aria-live="assertive">
+          class="alert alert-danger" >
           College ID is of the format G0 followed by 7 digits
     </div>
 
@@ -512,7 +511,7 @@
                     aria-labelledby="signature"
                 >
                 <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
-                        class="alert alert-danger" aria-live="assertive">
+                        class="alert alert-danger" >
                         Signature is required
                 </div>
         </div> <!-- form-group signature -->

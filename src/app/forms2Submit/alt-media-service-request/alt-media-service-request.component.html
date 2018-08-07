@@ -15,11 +15,11 @@
   <div class="well">
 
     <fieldset>
-      <legend id="you">You</legend>
-      <legend class="small">Fields marked with * are required.</legend>
+      <legend id="you" aria-label="Your">You</legend>
+      <legend class="small">Fields marked with <i class="glyphicon glyphicon-asterisk"></i> are required.</legend>
 
       <div class="form-group">
-          <label id="name" for="name">Name *</label>
+          <label id="fullName" for="fullName">Name <i class="glyphicon glyphicon-asterisk"></i></label>
           <input
                       type="text"
                       class="form-control"
@@ -34,12 +34,16 @@
       </div> <!-- form-group, full name -->
 
       <div class="form-group">
-        <label for="collegeId">College ID *</label>
+        <label id="collegeId" for="collegeId">College ID
+            <i class="glyphicon glyphicon-asterisk"></i>
+        </label>
         <input
                   type="text"
                   class="form-control"
                   placeholder="G0 followed by 7 digits"
+                  id="collegeIdPlaceHolder"
                   formControlName="collegeId"
+                  aria-labelledby="you collegeId collegeIdPlaceHolder"
                   aria-required="true"
                   >
         <div *ngIf="collegeId.touched">
@@ -56,11 +60,14 @@
       </div> <!-- form-group, college id -->
 
       <div class="form-group">
-          <label for="email">Email *</label>
+          <label id="email" for="email">Email
+             <i class="glyphicon glyphicon-asterisk"></i>
+          </label>
           <input
               type="text"
               class="form-control"
               formControlName="email"
+              aria-labelledby="you email"
               aria-required="true"
               >
           <div *ngIf="email.touched">
@@ -79,11 +86,14 @@
 
 
       <div class="form-group">
-        <label for="cellPhone">Phone *</label>
+        <label id="cellPhone" for="cellPhone">Phone
+          <i class="glyphicon glyphicon-asterisk"></i>
+        </label>
         <input
           type="text"
           class="form-control"
           formControlName="cellPhone"
+          aria-labelledby="you cellPhone"
           aria-required="true"
           >
         <div *ngIf="form.get('cellPhone').touched && form.get('cellPhone').hasError('required')"
@@ -99,7 +109,7 @@
   <div class="well">
 
     <fieldset>
-      <legend>
+      <legend id="altFormatText">
         Alternate Format Textbooks Needed
       </legend>
       <legend class="small">
@@ -110,11 +120,15 @@
 
       <table formArrayName="altFormatDetail" class="table table-bordered">
           <thead>
-              <th>Course Title and Section Number *</th>
-              <th>ISBN #</th>
-              <th>Book Title / Author *</th>
-              <th>Edition</th>
-              <th></th>
+              <th id="courseTitleSection">Course Title and Section Number
+                  <i class="glyphicon glyphicon-asterisk"></i>
+              </th>
+              <th id="isbn" aria-label="ISBN Number">ISBN #</th>
+              <th id="bookTitleAuthor">Book Title / Author
+                  <i class="glyphicon glyphicon-asterisk"></i>
+              </th>
+              <th id="edition">Edition</th>
+              <th id="remove" aria-label="Remove"></th>
               <!--
               if the user were logged on, add edit and delete
              -->
@@ -139,7 +153,7 @@
 
           <!-- <tr *ngFor="let item of myForm.controls.altFormatDetail.controls; let i=index" -->
           <tr *ngFor="let item of formAltFormatDetail.controls; let i=index"
-                  [formGroupName]="i" >
+                  [formGroupName]="i" [id]="i" aria-label="i">
 
               <td class="form-group" >
                   <textarea
@@ -147,7 +161,8 @@
                     class="form-control"
                     formControlName="courseTitleAndSection"
                     rows="3"
-                    aria-required="true" >
+                    aria-required="true"
+                    aria-labelledby="altFormatText courseTitleSection i">
                   </textarea>
 
 
@@ -163,7 +178,8 @@
                   placeholder="ISBN"
                   class="form-control"
                   formControlName="isbn"
-                  rows="3">
+                  rows="3"
+                  aria-labelledby="altFormatText isbn i">
                 </textarea>
               <td class="form-group" >
                 <textarea
@@ -171,6 +187,7 @@
                   class="form-control"
                   formControlName="bookTitleAndAuthor"
                   rows="3"
+                  aria-labelledby="altFormatText bookTitleAuthor i"
                   aria-required="true" >
                 </textarea>
                 <div
@@ -185,14 +202,18 @@
                   placeholder="Edition"
                   class="form-control"
                   formControlName="edition"
-                  rows="3">
+                  rows="3"
+                  aria-labelledby="altFormatText edition i">
                 </textarea>
 
               </td>
               <td>
                   <i (click)="delete(i)"
-                    class="glyphicon glyphicon-remove">
+                    class="glyphicon glyphicon-remove"
+                    role="button"
+                    aria-labelledby="altFormatText remove i" >
                   </i>
+
               </td>
 
           </tr>
@@ -203,36 +224,44 @@
     </fieldset>
 
     <fieldset>
-      <legend>
+      <legend id="preferredFileFormat">
         Preferred File Format
       </legend>
-      <legend class="small">
+      <legend id="preferredFileFormatMore" class="small">
           Choose a specific file format from the list below. You may choose first and second choice.
       </legend>
 
       <div formGroupName="preferredFileFormat">
 
             <div class="form-group">
-              <label for="eops" class="checkbox-inline">
-                  <input type="checkbox" formControlName="kurzWeilFirefly" >Kurzweil/firefly
+              <label id="kurzWeilFirefly" for="kurzWeilFirefly" class="checkbox-inline">
+                  <input type="checkbox" formControlName="kurzWeilFirefly"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore kurzWeilFirefly"
+                  >Kurzweil/firefly
               </label>
-              <label for="calWorks" class="checkbox-inline ">
-                  <input type="checkbox" formControlName="msWord" >MS Word
+              <label id="msWord" for="msWord" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="msWord"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore msWord" >MS Word
               </label>
-              <label for="ssdi" class="checkbox-inline ">
-                  <input type="checkbox" formControlName="pdf" >PDF
+              <label id="pdf" for="pdf" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="pdf"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore pdf" >PDF
               </label>
-              <label for="access" class="checkbox-inline ">
-                  <input type="checkbox" formControlName="learningAlly" >Learning Ally
+              <label id="learningAlly" for="learningAlly" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="learningAlly"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore learningAlly" >Learning Ally
               </label>
-              <label for="access" class="checkbox-inline ">
-                  <input type="checkbox" formControlName="audio" >Audio
+              <label id="audio" for="audio" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="audio"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore audio">Audio
               </label>
-              <label for="access" class="checkbox-inline ">
-                  <input type="checkbox" formControlName="braillePaper" >Braille (paper)
+              <label id="braillePaper" for="braillePaper" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="braillePaper"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore braillePaper">Braille (paper)
               </label>
-              <label for="access" class="checkbox-inline ">
-                  <input type="checkbox" formControlName="largePrint" >Large Print
+              <label id="largePrint" for="largePrint" class="checkbox-inline ">
+                  <input type="checkbox" formControlName="largePrint"
+                  aria-labelledby="preferredFileFormat preferredFileFormatMore largePrint">Large Print
               </label>
             </div>
       </div>
@@ -248,11 +277,14 @@
 
 
     <div class="form-group col-sm-6">
-      <label for="signature">Signature (type your name) *</label>
+      <label id="signature" for="signature">Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
+        By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+      </label>
           <input
               type="text"
               class="form-control"
               formControlName="signature"
+              aria-labelledby="signature"
               aria-required="true"
           >
           <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"

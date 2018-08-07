@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-sm-8">
 
-      <legend class="small">Fields maked * are required.</legend>
+      <legend class="small">Fields maked <i class="glyphicon glyphicon-asterisk" alt="*"></i> are required.</legend>
 
 
       <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
@@ -21,51 +21,58 @@
         <fieldset>
 
           <div class="form-group">
-            <label for="fullName">Name *</label>
+            <label id="fullName" for="fullName">Name <i class="glyphicon glyphicon-asterisk" alt="*"></i> </label>
               <input
                   type="text"
                   class="form-control"
-                  formControlName="fullName" >
+                  formControlName="fullName"
+                  aria-required="true"
+                  aria-labelledby="fullName">
 
               <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
-                  class="alert alert-danger" >
+                  class="alert alert-danger"  >
                   Name is required
               </div>
           </div> <!-- form-group, full name -->
 
           <div class="form-group">
-            <label for="collegeId">College ID *</label>
+            <label id="collegeId" for="collegeId">College ID *</label>
             <input
                 type="text"
                 class="form-control"
                 placeholder="G0 followed by 7 digits"
-                formControlName="collegeId" >
+                id="collegeIdPlaceHolder"
+                formControlName="collegeId"
+                aria-required="true"
+                aria-labelledby="collegeId collegeIdPlaceHolder" >
 
             <div *ngIf="collegeId.touched && collegeId.hasError('required')"
-                class="alert alert-danger" >
+                class="alert alert-danger"  >
                 College ID is required
             </div>
             <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
-                class="alert alert-danger" >
+                class="alert alert-danger"  >
                 College ID is of the format G0 followed by 7 digits
             </div>
           </div> <!-- form-group -->
 
           <div class="form-group">
-            <label for="collegeId">Phone </label>
+            <label id="phone" for="phone">Phone </label>
             <input
                 type="text"
                 class="form-control"
-                formControlName="phone" >
+                formControlName="phone"
+                aria-labelledby="phone">
           </div> <!-- form-group -->
 
           <div class="form-group">
-              <label for="email">Email</label>
+              <label id="email" for="email">Email</label>
               <input
                   type="text"
                   class="form-control"
                   placeholder="Email"
-                  formControlName="email" >
+                  formControlName="email"
+                  aria-labelledby="email">
 
               <div *ngIf="email.touched && email.errors?.email"
                   class="alert alert-danger" >
@@ -80,12 +87,15 @@
         <fieldset>
 
           <div class="form-group" >
-              <label for="feedbackMessage" >Feedback -- suggestions, complaints, compliments, etc. </label>
+              <label id="feedbackMessage" for="feedbackMessage" >Feedback -- suggestions, complaints, compliments, etc.
+                  <i class="glyphicon glyphicon-asterisk" alt="*"></i>  </label>
                 <textarea
                     placeholder="Please tell us how we can improve DSPS Services"
                     class="form-control"
                     formControlName="feedbackMessage"
-                    rows="5">
+                    rows="5"
+                    aria-required="true"
+                    aria-labelledby="feedbackMessage">
                 </textarea>
 
             </div>  <!-- form-group , emergency assistance -->
@@ -96,11 +106,16 @@
         <fieldset>
           <legend>Please type your name to sign</legend>
           <div class="form-group">
-            <label for="studentSignature">Sign *</label>
+            <label id="studentSignature" for="studentSignature">
+                Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
+                By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+            </label>
             <input
                 type="text"
                 class="form-control"
-                formControlName="studentSignature" >
+                formControlName="studentSignature"
+                aria-labelledby="studentSignature"
+                aria-required="true" >
 
             <div *ngIf="form.get('studentSignature').touched && form.get('studentSignature').hasError('required')"
                 class="alert alert-danger" >

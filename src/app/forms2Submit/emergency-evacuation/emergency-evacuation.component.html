@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-sm-8">
 
-            <legend class="small">Fields marked with * are required.</legend>
+            <legend class="small">Fields marked with <i class="glyphicon glyphicon-asterisk" alt="*"></i> are required.</legend>
 
 
     <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
@@ -18,15 +18,18 @@
 
 
     <fieldset>
-      <legend>You</legend>
+      <legend id="you" aria-label="Your">You</legend>
 
       <div class="form-group">
-          <label for="name">Full Name *</label>
+          <label id="fullName" for="fullName">Full Name
+            <i class="glyphicon glyphicon-asterisk" alt="*"></i>
+          </label>
           <input
                       type="text"
                       class="form-control"
                       formControlName="fullName"
                       aria-required="true"
+                      aria-labelledby="you fullName"
                       >
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
                       class="alert alert-danger" >
@@ -35,12 +38,16 @@
       </div> <!-- form-group, full name -->
 
       <div class="form-group">
-        <label for="collegeId">College ID *</label>
+        <label id="collegeId" for="collegeId">College ID
+            <i class="glyphicon glyphicon-asterisk" alt="*"></i>
+        </label>
           <input
                       type="text"
                       class="form-control"
                       placeholder="G0 followed by 7 digits"
+                      id="collegeIdPlaceHolder"
                       formControlName="collegeId"
+                      aria-labelledby="you collegeId collegeIdPlaceHolder"
                       aria-required="true"
                       >
         <div *ngIf="collegeId.touched && collegeId.hasError('required')"
@@ -60,51 +67,56 @@
     <div class="well">
 
     <fieldset>
-      <legend>Your Contact Information</legend>
+      <legend id="emergencyContact">Your Contact Information</legend>
 
       <div class="form-group">
-          <label for="homePhone">Home Phone</label>
+          <label id="homePhone" for="homePhone">Home Phone</label>
           <input
             type="text"
             class="form-control"
             formControlName="homePhone"
+            aria-labelledby="emergencyContact homePhone"
             >
       </div>
 
       <div class="form-group">
-          <label for="workPhone">Work Phone</label>
+          <label id="workPhone" for="workPhone">Work Phone</label>
           <input
             type="text"
             class="form-control"
             formControlName="workPhone"
+            aria-labelledby="emergencyContact workPhone"
             >
       </div>
 
       <div class="form-group">
-        <label for="addressLine1">Address Line</label>
+        <label id="addressLine1" for="addressLine1">Address Line</label>
 
         <input
                   type="text"
                     class="form-control"
                     formControlName="addressLine1"
+                    aria-labelledby="emergencyContact addressLine1"
                     >
       </div>  <!-- form-group, addressLine1 -->
 
       <div class="form-group">
-        <label for="city" >City</label>
+        <label id="city" for="city" >City</label>
         <input
               type="text"
               class="form-control"
               formControlName="city"
+              aria-labelledby="emergencyContact city"
               >
       </div> <!-- form-group, city -->
 
       <div class="form-group">
-        <label for="zip">Zip</label>
+        <label id="zip" for="zip">Zip</label>
         <input
             type="text"
             class="form-control"
             formControlName="zip"
+            aria-labelledby="emergencyContact zip"
             >
       </div> <!-- form-group, zip -->
 
@@ -115,11 +127,12 @@
       <fieldset>
 
         <div class="form-group">
-              <label for="collegeCounselor">Mission College Counselor/Advisor</label>
+              <label id="collegeCounselor" for="collegeCounselor">Mission College Counselor/Advisor</label>
               <input
                   type="text"
                   class="form-control"
                   formControlName="collegeCounselor"
+                  aria-labelledby="collegeCounselor"
                   >
         </div> <!-- form-group, zip -->
 
@@ -135,20 +148,23 @@
       <legend>Ambulatory? Be sure to update any changes with DSPS</legend>
 
       <div class="form-group">
-        <label> Ambulatory?</label>
-        <label for="ambulatory" class="radio-inline">
-            <input type="radio" formControlName="ambulatory" value="yes">Yes
+        <label id="ambulatory"> Ambulatory?</label>
+        <label id="ambulatoryYes" for="ambulatory" class="radio-inline">
+            <input type="radio" formControlName="ambulatory" value="yes"
+            aria-labelledby="ambulatory ambulatoryYes">Yes
         </label>
-        <label for="ambulatory" class="radio-inline">
-            <input type="radio" formControlName="ambulatory" value="no">No
+        <label id="ambulatoryNo" for="ambulatory" class="radio-inline">
+            <input type="radio" formControlName="ambulatory" value="no"
+            aria-labelledby="ambulatory ambulatoryNo" >No
         </label>
       </div>
       <div class="form-group" *ngIf="form.get('ambulatory').value == 'no'">
-        <label for="ambulatory" >Preferred Positioning</label>
+        <label id="preferredPositioning" for="preferredPositioning" >Preferred Positioning</label>
          <input
               type="text"
               class="form-control"
               formControlName="preferredPositioning"
+              aria-labelledby="ambulatory preferredPositioning"
             >
 
       </div>  <!-- form-group , ambulatory -->
@@ -170,45 +186,52 @@
       <div formGroupName="transportation">
 
         <div class="form-group">
-          <label>What mode of transportation do you normally use to attend school?</label> <br>
-          <label for="eops" class="checkbox-inline">
-              <input type="checkbox" formControlName="vtaBus" >VTA Bus
+          <label id="transportation" >What mode of transportation do you normally use to attend school?</label> <br>
+          <label id="vtaBus" for="vtaBus" class="checkbox-inline">
+              <input type="checkbox" formControlName="vtaBus"
+              aria-labelledby="transportation vtaBus">VTA Bus
           </label>
-          <label for="calWorks" class="checkbox-inline ">
-              <input type="checkbox" formControlName="outreach" >Outreach
+          <label id="outreach" for="outreach" class="checkbox-inline ">
+              <input type="checkbox" formControlName="outreach"
+              aria-labelledby="transportation outreach" >Outreach
           </label>
-          <label for="ssdi" class="checkbox-inline ">
-              <input type="checkbox" formControlName="taxi" >Taxi/Ride Share
+          <label id="taxi" for="taxi" class="checkbox-inline ">
+              <input type="checkbox" formControlName="taxi"
+              aria-labelledby="transportation taxi" >Taxi/Ride Share
           </label>
         </div>
 
         <div class="form-group">
-          <label for="numSemsAtMission">Other</label>
+          <label id="transportationOther" for="transportationOther">Other</label>
               <input
                     type="text"
                     class="form-control"
                     formControlName="other"
+                    aria-labelledby="transportation transportationOther"
               >
         </div>
       </div>
 
       <div class="form-group">
-          <label class="space-right">Do you need assistance during an emergency?</label>
-          <label for="needEmergencyAssist" class="radio-inline">
-              <input type="radio" formControlName="needEmergencyAssist" value="yes">Yes
+          <label id="needEmergencyAssist" class="space-right">Do you need assistance during an emergency?</label>
+          <label id="needEmergencyAssistYes" for="needEmergencyAssist" class="radio-inline">
+              <input type="radio" formControlName="needEmergencyAssist" value="yes"
+              aria-labelledby="needEmergencyAssist needEmergencyAssistYes">Yes
           </label>
-          <label for="needEmergencyAssist" class="radio-inline ">
-              <input type="radio" formControlName="needEmergencyAssist" value="no">No
+          <label id="needEmergencyAssistNo" for="needEmergencyAssist" class="radio-inline ">
+              <input type="radio" formControlName="needEmergencyAssist" value="no"
+              aria-labelledby="needEmergencyAssist needEmergencyAssistNo" >No
           </label>
       </div>
 
       <div class="form-group" *ngIf="form.get('needEmergencyAssist').value == 'yes'">
-          <label for="ambulatory" >Describe the type of assistance you anticipate needing</label>
+          <label id="assistDesc" for="assistDesc" >Describe the type of assistance you anticipate needing</label>
             <textarea
                 placeholder="Type of Emergency Assitance"
                 class="form-control"
                 formControlName="assistDesc"
-                rows="3">
+                rows="3"
+                aria-labelledby="assistDesc">
             </textarea>
 
         </div>  <!-- form-group , emergency assistance -->
@@ -220,16 +243,18 @@
     <div class="well">  <!-- two emergency contacts -->
 
       <fieldset>
-          <legend>List two emergency contacts</legend>
+          <legend id="emergencyContact">List two emergency contacts</legend>
 
-          <div formGroupName="emergencyContact1">
+          <div  formGroupName="emergencyContact1">
 
               <div class="form-group col-sm-6">
                       <input
                       type="text"
                       class="form-control"
                       placeHolder="Name 1"
+                      id="emergencyContactName1"
                       formControlName="name"
+                      aria-labelledby="emergencyContact emergencyContactName1"
                       >
               </div>
 
@@ -240,6 +265,8 @@
                       class="form-control"
                       placeHolder="Phone 1"
                       formControlName="phone"
+                      id="emergencyContactPhone1"
+                      aria-labelledby="emergencyContact emergencyContactPhone1"
                   >
               </div>
 
@@ -252,7 +279,9 @@
                   type="text"
                   class="form-control"
                   placeHolder="Name 2"
+                  id="emergencyContactName2"
                   formControlName="name"
+                  aria-labelledby="emergencyContact emergencyContactName2"
                   >
             </div>
 
@@ -263,6 +292,8 @@
                     class="form-control"
                     placeHolder="Phone 2"
                     formControlName="phone"
+                    id="emergencyContactPhone2"
+                    aria-labelledby="emergencyContact emergencyContactPhone2"
                 >
             </div>
 
@@ -284,17 +315,21 @@
       <div style="height:20px;"></div>
 
             <div class="form-group" class="col-sm-6">
-                <label for="signature">Signature (type your name) * </label>
-                    <input
+                <label id="signature" for="signature">Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
+                  By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+                </label>
+
+                <input
                         type="text"
                         class="form-control"
                         formControlName="signature"
                         aria-required="true"
-                    >
-                    <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
+                        aria-labelledby="signature"
+                >
+                <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
                             class="alert alert-danger" >
                             Signature is required
-                    </div>
+                </div>
             </div> <!-- form-group signature -->
 
 
