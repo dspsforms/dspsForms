@@ -87,8 +87,9 @@ export class PaginationComponent implements OnChanges {
       console.log("onPageSizeChange. event.value=", event.value);
      // console.log("onPageSizeChange. value=", event.target.value);
 
+      // when page *size* changes, set currentPage to 1, instead of this.currentPage
       // let anyone listening know
-      this.paginationService.generatePageInfoChange(this.currentPage, event.value);
+      this.paginationService.generatePageInfoChange(1, event.value);
 
     } catch (err) {
       console.log(err);
