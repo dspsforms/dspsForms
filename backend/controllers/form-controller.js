@@ -267,6 +267,8 @@ createForm = (req, isAgreement) => {
 
   // the parameter isAgreement is optional
 
+  const captchaFree = removeCaptcha(req.body.form);
+
   let form;
   const currentTime = new Date();
 
@@ -276,7 +278,7 @@ createForm = (req, isAgreement) => {
     form = new FormAgreement({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
+      form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime
@@ -292,7 +294,7 @@ createForm = (req, isAgreement) => {
       form = new IntakeForm({
         formName: formName,
         user: sanitize(req.body.user),
-        form: sanitize(req.body.form), // "tmp form string",
+        form: sanitize(captchaFree), // "tmp form string",
         edited: false,
         created: currentTime,
         lastMod: currentTime
@@ -301,7 +303,7 @@ createForm = (req, isAgreement) => {
     form = new AltMediaRequest({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
+      form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime
@@ -310,7 +312,7 @@ createForm = (req, isAgreement) => {
     form = new ApplicationForServices({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
+      form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime
@@ -319,7 +321,7 @@ createForm = (req, isAgreement) => {
     form = new EmergencyEvacInfo({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
+      form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime
@@ -328,20 +330,30 @@ createForm = (req, isAgreement) => {
     form = new Feedback({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(req.body.form), // "tmp form string",
+      form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime
     });
   }
 
-  console.log("req.params=", req.params);
-  console.log("req.body=", req.body);
+  // console.log("req.params=", req.params);
+  // console.log("req.body=", req.body);
 
-  console.log("req.body.form=", req.body.form);
+  //  console.log("req.body.form=", req.body.form);
 
   console.log("form before save", form);
 
   return form;
 
+}
+
+removeCaptcha = form => {
+  // remove the captcha field. also sanitize
+  console.log("removeCaptcha: form with captcha", form);
+
+  const form2Save = form;
+  delete form2Save.captcha;
+  console.log("removeCaptcha: form2Save with captcha removed", form2Save);
+  return form2Save;
 }

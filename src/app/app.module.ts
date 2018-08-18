@@ -10,6 +10,12 @@ import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatEx
 // ref: https://www.npmjs.com/package/ng5-breadcrumb
 import {Ng5BreadcrumbModule} from 'ng5-breadcrumb';
 
+// recaptcha v2. not used anymore. we are using v3
+// https://www.npmjs.com/package/ng-recaptcha
+
+// import { RecaptchaModule } from 'ng-recaptcha';
+// import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+
 // these two are provided as .ts files, need to be compiled. currently gives build error
 // import {Autosize} from 'ng-autosize/src/autosize.directive';
 // import { AutosizeDirective } from 'angular-autosize';
@@ -64,7 +70,6 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
 
 
 
-
 @NgModule({
   declarations: [
     // Autosize,
@@ -105,14 +110,6 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
     AgreementCreateEditComponent,
     AgreementViewComponent,
 
-
-    /* Add these back
-
-
-
-
-    */
-
   ],
   imports: [
     BrowserModule,
@@ -124,6 +121,14 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
 
     Ng5BreadcrumbModule.forRoot(),
 
+
+    // recaptcha v2 stuff. we have move to v3.
+    // these are from ng-recaptcha package
+   // RecaptchaModule.forRoot(),
+   // RecaptchaFormsModule,
+
+
+
     ngProjectRouting
   ],
   providers: [
@@ -134,6 +139,9 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
      { provide: MatDialogRef, useValue: {} }
 
   ],
+  // exports: [
+  //   RecaptchaModule
+  // ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent]
 })

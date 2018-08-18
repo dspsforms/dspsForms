@@ -13,8 +13,9 @@
 
     <legend class="small">All fields are required.</legend>
 
+    <!-- (ngSubmit)="createOrEditForm()" -->
 
-    <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+    <form [formGroup]="form"  >
 
     <div class="well">
 
@@ -109,9 +110,24 @@
         </div> <!-- form-group -->
       </fieldset>
     </div>
-
+    <div *ngIf="captchaError" class="alert alert-danger">
+      A correct reCaptcha is needed to submit this form. If you are having
+      difficulty, please contact DSPS.
+    </div>
     <div class="form-row right vert-space">
-        <button type="submit"
+      <!--
+
+
+        <re-captcha
+          size="invisible" #captchaRef="reCaptcha"
+          (resolved)="resolved($event)"
+          siteKey="6LcZBmoUAAAAAI6y6cbQGYhuLkNlg8ingCCIrRYY">
+        </re-captcha>
+      -->
+
+        <!-- removing type="submit" so we don't submit twice -->
+        <!-- (click)="captchaRef.execute()" -->
+        <button
                 [disabled]="!form.valid || !form.dirty"
                 class="btn btn-primary"
         >Submit</button>

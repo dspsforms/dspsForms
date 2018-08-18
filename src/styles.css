@@ -4,3 +4,8 @@
 .glyphicon.glyphicon-asterisk {
   font-size: 8px;
 }
+
+/* hide the recaptcha badge */
+div.grecaptcha-badge {
+  width:0 !important;
+}

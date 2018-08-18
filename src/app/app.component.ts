@@ -1,24 +1,34 @@
-import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'ng5-breadcrumb';
+import { Recaptchav3Service } from './service/recaptchav3.service';
+
 
 @Component({
   selector: 'app-root',
   template: `
   <nav-bar></nav-bar>
   <breadcrumb></breadcrumb>
+
   <router-outlet></router-outlet>
   ` ,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
 
-  constructor(private breadcrumbService: BreadcrumbService) {
+  constructor(private breadcrumbService: BreadcrumbService,
+    private recaptchaV3Service: Recaptchav3Service) {
 
     // breadcrumbs: https://github.com/akiocloud/ng5-breadcrumb
     this.initBreadCrumbLabels();
 
+  }
+
+
+  ngOnInit() {
+
+    // give the recaptcha service some data
+    this.recaptchaV3Service.executeCaptcha('initial');
   }
 
   initBreadCrumbLabels() {
@@ -80,5 +90,6 @@ export class AppComponent {
   getFeedback(id: string): string {
     return 'aFeedback';
   }
+
 
 }

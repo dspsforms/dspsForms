@@ -29,6 +29,7 @@ import { EmergencyEvacuationComponent } from './forms2Submit/emergency-evacuatio
 import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
 import { AgreementCreateEditComponent } from './dspsStaff/agreement-create-edit/agreement-create-edit.component';
 import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-view.component';
+import { CaptchaScorer } from './captcha-scorer';
 
 
 /* temporarily commented out
@@ -38,25 +39,25 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
 
 export const ngProjectRouting = RouterModule.forRoot([
 
-    { path: '', component: ListEmptyFormTypesComponent },
+    { path: '', component: ListEmptyFormTypesComponent , canActivate: [CaptchaScorer]},
 
     // 'newForm'
-    { path: UrlConfig.NEW_FORM, component: ListEmptyFormTypesComponent },
+    { path: UrlConfig.NEW_FORM, component: ListEmptyFormTypesComponent , canActivate: [CaptchaScorer]},
 
     // 'newForm/intakeForm'
-    { path: UrlConfig.NEW_FORM + '/' + UrlConfig.INTAKE_FORM , component: IntakeInterviewFormComponent },
+    { path: UrlConfig.NEW_FORM + '/' + UrlConfig.INTAKE_FORM , component: IntakeInterviewFormComponent , canActivate: [CaptchaScorer]},
 
     // 'newForm/altMediaRequest'
-    { path: UrlConfig.NEW_FORM + '/' + UrlConfig.ALT_MEDIA_REQUEST, component: AltMediaServiceRequestComponent },
+    { path: UrlConfig.NEW_FORM + '/' + UrlConfig.ALT_MEDIA_REQUEST, component: AltMediaServiceRequestComponent , canActivate: [CaptchaScorer] },
 
     // 'newForm/applicationForServices'
-    { path: UrlConfig.NEW_FORM + '/' + UrlConfig.APPLICATION_FOR_SERVICES , component: ApplicationForServicesComponent },
+    { path: UrlConfig.NEW_FORM + '/' + UrlConfig.APPLICATION_FOR_SERVICES , component: ApplicationForServicesComponent , canActivate: [CaptchaScorer] },
 
      // 'newForm/emergencyEvacInfo'
-     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.EMERGENCY_EVAC_INFO , component: EmergencyEvacuationComponent },
+     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.EMERGENCY_EVAC_INFO , component: EmergencyEvacuationComponent , canActivate: [CaptchaScorer]},
 
      // 'newForm/feedback'
-     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.FEEDBACK , component: FeedbackComponent },
+     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.FEEDBACK , component: FeedbackComponent , canActivate: [CaptchaScorer]},
 
 
     // 'submittedForm'
@@ -77,13 +78,13 @@ export const ngProjectRouting = RouterModule.forRoot([
     {path: UrlConfig.SHOW_USERS, component: ListUsersComponent, canActivate: [StaffAuthGuard]} ,
 
     // agreement pages
-    {path: UrlConfig.AGREEMENT_CREATE_EDIT + '/:agreementForForm' , component: AgreementCreateEditComponent} , // , canActivate: [StaffAuthGuard]
+    {path: UrlConfig.AGREEMENT_CREATE_EDIT + '/:agreementForForm' , component: AgreementCreateEditComponent, canActivate: [CaptchaScorer]} , // , canActivate: [StaffAuthGuard]
 
     // agreement pages
-    {path: UrlConfig.AGREEMENT_VIEW + '/:agreementForForm', component: AgreementViewComponent} ,
+    {path: UrlConfig.AGREEMENT_VIEW + '/:agreementForForm', component: AgreementViewComponent , canActivate: [CaptchaScorer]} ,
 
 
-    { path: 'notfound', component: NotFoundComponent },
+    { path: 'notfound', component: NotFoundComponent , canActivate: [CaptchaScorer]},
     { path: 'foo', component: NotFoundComponent} ,
-    { path: '**', redirectTo: 'notfound' },
+    { path: '**', redirectTo: 'notfound' , canActivate: [CaptchaScorer]},
 ]);

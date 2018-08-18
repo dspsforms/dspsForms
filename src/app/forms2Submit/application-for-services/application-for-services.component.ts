@@ -49,13 +49,14 @@ export class ApplicationForServicesComponent implements OnInit, OnDestroy {
 
     this.title = FormUtil.formTitle(this.formName);  // "DSPS Application for Services";
 
+
     // this.itemsRef = this.fireDbService.db.list('formsSubmitted/' + this.formName);
   }
 
 
 
-  createOrEditForm() {
-    console.log(this.form.value);
+  createOrEditForm(captcha) {
+    console.log("createOrEditForm", this.form.value);
 
 
     if (this.form.dirty) {
@@ -65,6 +66,7 @@ export class ApplicationForServicesComponent implements OnInit, OnDestroy {
         user: 'nobody',
         form: this.form.value,
         edited: false,
+        captcha: captcha
         // created: curTime,
         // lastMod: curTime,
 
@@ -101,6 +103,18 @@ export class ApplicationForServicesComponent implements OnInit, OnDestroy {
 
   get collegeId() {
     return this.form.get('collegeId');
+  }
+
+  captchaError = false;
+  resolved(captcha) {
+    console.log("From recaptcha: captcha=", captcha);
+    if (captcha) {
+      this.captchaError = false;
+      this.createOrEditForm(captcha);
+    } else {
+      this.captchaError = true;
+    }
+
   }
 
 }
