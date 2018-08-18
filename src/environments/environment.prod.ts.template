@@ -1,5 +1,13 @@
 export const environment = {
   production: true,
   // server: "http://localhost:3001", // for testing prod in local
-  server: "http://qa.dsps.vannev.com",
+
+  // change this to your production server
+  server: "https://www.dspsforms.com",
+
+  // client side key for reCaptcha V3.
+  // the data here is NOT a valid key. supply your own
+  reCaptchaV3ClientKey: 'asdfghklzxcvbnmqwertyuiop'
+
+
 };

@@ -7,6 +7,10 @@ export const environment = {
 
   server: "http://localhost:3001",
 
+  // client side key for reCaptcha V3.
+  // the data here is NOT a valid key. supply your own
+  reCaptchaV3ClientKey: 'asdfghklzxcvbnmqwertyuiop'
+
 };
 
 /*

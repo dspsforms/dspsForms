@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class Recaptchav3Service {
 
 
   token;
-  CAPTCHA_KEY = '6LfzjGoUAAAAAI3AQKhMdItGds9RbSKlK5gEqrex';
+  CAPTCHA_KEY = environment.reCaptchaV3ClientKey;
 
   grecaptcha;
   constructor()  {
