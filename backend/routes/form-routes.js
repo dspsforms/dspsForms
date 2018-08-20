@@ -17,7 +17,7 @@ const FormController = require('../controllers/form-controller');
 router.post("/:formName", verifyCaptchaV3, FormController.postForm);
 
 // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
-router.post("/agreement/:formName", FormController.postFormAgreement);
+router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);
 
 // "/api/form/list"  -- must have staff permission
 router.get("/list", checkAuthStaff, FormController.list);
