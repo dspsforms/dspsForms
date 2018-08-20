@@ -6,7 +6,8 @@ const formAgreementSchema = mongoose.Schema({
   form: { type: mongoose.Schema.Types.Mixed },
   edited: { type: Boolean },
   created: { type: Date },
-  lastMod: { type: Date }
+  lastMod: { type: Date },
+  captchaScore: {type: String}
 });
 
 module.exports = mongoose.model('formAgreement', formAgreementSchema);

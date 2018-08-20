@@ -6,7 +6,8 @@ const savedFormSchema = mongoose.Schema({
   form: mongoose.Schema.Types.Mixed,
   edited: { type: Boolean },
   created: { type: Date },
-  lastMod: { type: Date }
+  lastMod: { type: Date },
+  captchaScore: {type: String}
 });
 
 module.exports = mongoose.model('SavedForm', savedFormSchema);

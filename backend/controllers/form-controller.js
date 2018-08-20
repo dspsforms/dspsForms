@@ -2,6 +2,8 @@ const sanitize = require('mongo-sanitize');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
+const debug = require('../constants/debug');
+
 const IntakeForm = require('../models/intake-form-model');
 const AltMediaRequest = require('../models/alt-media-request-form-model');
 const ApplicationForServices = require('../models/application-for-services-form-model');
@@ -20,11 +22,15 @@ exports.postForm = (req, res, next) => {
 
   form.save().then( createdForm => {
           // success
-          console.log("after save, createdForm=", createdForm);
-          res.status(201).json({
-              message: 'Form ' + form.formName + ' added successfully',
-              formId: createdForm._id
-          });
+
+    if (debug.POST_FORM) {
+      console.log("after save, createdForm=", createdForm);
+    }
+
+    res.status(201).json({
+      message: 'Form ' + form.formName + ' added successfully',
+      formId: createdForm._id
+    });
 
   })
   .catch(err => {
@@ -267,21 +273,24 @@ createForm = (req, isAgreement) => {
 
   // the parameter isAgreement is optional
 
-  const captchaFree = removeCaptcha(req.body.form);
+  const captchaFree = removeCaptcha(req.body);
 
   let form;
   const currentTime = new Date();
 
   const formName = sanitize(req.params.formName);
 
+  const captchaScore = req.body.captchaScore;
+
   if (isAgreement) {
     form = new FormAgreement({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree), // "tmp form string",
+      form: sanitize(captchaFree.form), // "tmp form string",
       edited: false,
       created: currentTime,
-      lastMod: currentTime
+      lastMod: currentTime,
+      captchaScore: captchaScore
     });
 
     return form;
@@ -297,7 +306,8 @@ createForm = (req, isAgreement) => {
         form: sanitize(captchaFree), // "tmp form string",
         edited: false,
         created: currentTime,
-        lastMod: currentTime
+        lastMod: currentTime,
+        captchaScore: captchaScore
       });
   } else if (req.params.formName === 'altMediaRequest') {
     form = new AltMediaRequest({
@@ -306,7 +316,8 @@ createForm = (req, isAgreement) => {
       form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
-      lastMod: currentTime
+      lastMod: currentTime,
+      captchaScore: captchaScore
     });
   }  else if (req.params.formName === 'applicationForServices') {
     form = new ApplicationForServices({
@@ -315,7 +326,8 @@ createForm = (req, isAgreement) => {
       form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
-      lastMod: currentTime
+      lastMod: currentTime,
+      captchaScore: captchaScore
     });
   } else if (req.params.formName === 'emergencyEvacInfo') {
     form = new EmergencyEvacInfo({
@@ -324,7 +336,8 @@ createForm = (req, isAgreement) => {
       form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
-      lastMod: currentTime
+      lastMod: currentTime,
+      captchaScore: captchaScore
     });
   } else if (req.params.formName === 'feedback') {
     form = new Feedback({
@@ -333,7 +346,8 @@ createForm = (req, isAgreement) => {
       form: sanitize(captchaFree), // "tmp form string",
       edited: false,
       created: currentTime,
-      lastMod: currentTime
+      lastMod: currentTime,
+      captchaScore: captchaScore
     });
   }
 
@@ -342,18 +356,28 @@ createForm = (req, isAgreement) => {
 
   //  console.log("req.body.form=", req.body.form);
 
-  console.log("form before save", form);
+  if (debug.CREATE_FORM) {
+    console.log("createForm: before save", form);
+  }
+
 
   return form;
 
 }
 
 removeCaptcha = form => {
-  // remove the captcha field. also sanitize
-  console.log("removeCaptcha: form with captcha", form);
+  // remove the reCaptchaV3Token field. also sanitize
+
+  if (debug.CREATE_FORM) {
+    console.log("removeCaptcha: form with captcha", form);
+  }
 
   const form2Save = form;
-  delete form2Save.captcha;
-  console.log("removeCaptcha: form2Save with captcha removed", form2Save);
+  delete form2Save.reCaptchaV3Token;
+
+  if (debug.CREATE_FORM) {
+    console.log("removeCaptcha: form2Save with captcha removed", form2Save);
+  }
+
   return form2Save;
 }

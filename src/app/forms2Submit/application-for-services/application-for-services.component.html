@@ -13,9 +13,7 @@
 
     <legend class="small">All fields are required.</legend>
 
-    <!-- (ngSubmit)="createOrEditForm()" -->
-
-    <form [formGroup]="form"  >
+    <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
 
     <div class="well">
 
@@ -115,8 +113,11 @@
       difficulty, please contact DSPS.
     </div>
     <div class="form-row right vert-space">
-      <!--
 
+
+      <!-- this is reCaptcha v2. creates a lot of friction in user experience
+        with repeated challenges, over and over, even if user answers correctly.
+        very annoying.
 
         <re-captcha
           size="invisible" #captchaRef="reCaptcha"
@@ -125,11 +126,14 @@
         </re-captcha>
       -->
 
-        <!-- removing type="submit" so we don't submit twice -->
-        <!-- (click)="captchaRef.execute()" -->
+        <!-- 
+          if using reCaptcha v2, remove type="submit" on the button so we don't submit twice
+          instead, have the button with (click)="captchaRef.execute()" 
+        -->
         <button
-                [disabled]="!form.valid || !form.dirty"
-                class="btn btn-primary"
+          type="submit"
+          [disabled]="!form.valid || !form.dirty"
+          class="btn btn-primary"
         >Submit</button>
         <div *ngIf="!form.valid || !form.dirty">
             <br>

@@ -49,6 +49,8 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
+console.log("RECAPTCHA_SERVER_KEY=", process.env.RECAPTCHA_SERVER_KEY);
+
 const port = normalizePort(process.env.PORT || "3001");
 app.set("port", port);
 

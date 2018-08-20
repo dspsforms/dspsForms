@@ -7,7 +7,8 @@ const formSchema = mongoose.Schema({
   // form: { type: String },
   edited: { type: Boolean },
   created: { type: Date },
-  lastMod: { type: Date }
+  lastMod: { type: Date },
+  captchaScore: {type: String}
 });
 
 /*

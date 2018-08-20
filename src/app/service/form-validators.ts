@@ -8,7 +8,7 @@ export class FormValidators {
     }
     const val: string = control.value;
 
-    console.log("control", control);
+    // console.log("control", control);
 
     // console.log("val", val);
     const trimVal = val.trim();

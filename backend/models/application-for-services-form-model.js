@@ -7,7 +7,8 @@ const applicationForServicesSchema = mongoose.Schema({
   // form: { type: String },
   edited: { type: Boolean },
   created: { type: Date },
-  lastMod: { type: Date }
+  lastMod: { type: Date },
+  captchaScore: {type: String}
 });
 
 module.exports = mongoose.model('applicationForServices', applicationForServicesSchema);

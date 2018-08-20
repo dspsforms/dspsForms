@@ -6,7 +6,7 @@ export class SavedForm {
   edited?: boolean;
   created?: Object;
   lastMod?: Object;
-  captcha?: string;
+  reCaptchaV3Token?: string;
 
     constructor(options: {
       formName?: string,
@@ -15,7 +15,7 @@ export class SavedForm {
       edited?: boolean,
       created?: Object,
       lastMod?: Object;
-      captcha?: string;
+      reCaptchaV3Token?: string;
     }) {
       this.formName = options.formName;
       this.user = options.user;
@@ -23,7 +23,7 @@ export class SavedForm {
       this.edited = options.edited || false;
       this.created = options.created;
       this.lastMod = options.lastMod;
-      this.captcha = options.captcha;
+      this.reCaptchaV3Token = options.reCaptchaV3Token;
     }
 
 }

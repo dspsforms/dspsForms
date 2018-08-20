@@ -4,13 +4,17 @@ const express = require("express");
 // staff guard
 const checkAuthStaff = require("../middleware/check-auth-staff");
 
+// verify captcha
+
+const verifyCaptchaV3 = require("../middleware/verify-captchav3");
+
 const router = express.Router();
 
 const FormController = require('../controllers/form-controller');
 
 
-// post  "/api/form/:formName"
-router.post("/:formName", FormController.postForm);
+// post  "/api/form/:formName" verify captcha v3
+router.post("/:formName", verifyCaptchaV3, FormController.postForm);
 
 // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 router.post("/agreement/:formName", FormController.postFormAgreement);
