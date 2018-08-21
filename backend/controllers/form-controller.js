@@ -303,7 +303,7 @@ createForm = (req, isAgreement) => {
       form = new IntakeForm({
         formName: formName,
         user: sanitize(req.body.user),
-        form: sanitize(captchaFree), // "tmp form string",
+        form: sanitize(captchaFree.form), // "tmp form string",
         edited: false,
         created: currentTime,
         lastMod: currentTime,
@@ -313,7 +313,7 @@ createForm = (req, isAgreement) => {
     form = new AltMediaRequest({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree), // "tmp form string",
+      form: sanitize(captchaFree.form), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime,
@@ -323,7 +323,7 @@ createForm = (req, isAgreement) => {
     form = new ApplicationForServices({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree), // "tmp form string",
+      form: sanitize(captchaFree.form), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime,
@@ -333,7 +333,7 @@ createForm = (req, isAgreement) => {
     form = new EmergencyEvacInfo({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree), // "tmp form string",
+      form: sanitize(captchaFree.form), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime,
@@ -343,7 +343,7 @@ createForm = (req, isAgreement) => {
     form = new Feedback({
       formName: formName,
       user: sanitize(req.body.user),
-      form: sanitize(captchaFree), // "tmp form string",
+      form: sanitize(captchaFree.form), // "tmp form string",
       edited: false,
       created: currentTime,
       lastMod: currentTime,
