@@ -4,6 +4,9 @@ const express = require("express");
 // staff guard
 const checkAuthStaff = require("../middleware/check-auth-staff");
 
+// staff guard
+const checkAuthAdmin = require("../middleware/check-auth-admin");
+
 // verify captcha
 
 const verifyCaptchaV3 = require("../middleware/verify-captchav3");
