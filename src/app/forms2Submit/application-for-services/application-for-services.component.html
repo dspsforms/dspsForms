@@ -92,7 +92,11 @@
         <div class="form-group">
             <label id="signature" for="studentSignature">Signature (type your name)
               <i class="glyphicon glyphicon-asterisk"></i>
-              By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+              <app-agreement-link-dialog [formName]="formName"></app-agreement-link-dialog>
+
+              <!--
+                By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+              -->
             </label>
           <input
               type="text"
@@ -126,9 +130,9 @@
         </re-captcha>
       -->
 
-        <!-- 
+        <!--
           if using reCaptcha v2, remove type="submit" on the button so we don't submit twice
-          instead, have the button with (click)="captchaRef.execute()" 
+          instead, have the button with (click)="captchaRef.execute()"
         -->
         <button
           type="submit"

@@ -108,7 +108,9 @@
           <div class="form-group">
             <label id="studentSignature" for="studentSignature">
                 Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
-                By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+
+                <app-agreement-link-dialog [formName]="formName"></app-agreement-link-dialog>
+
             </label>
             <input
                 type="text"

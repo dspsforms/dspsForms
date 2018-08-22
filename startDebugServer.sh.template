@@ -1,0 +1,9 @@
+
+# replace this with your own server side recaptcha v3 key
+RECAPTCHA_SERVER_KEY=123456789abcdefg
+export RECAPTCHA_SERVER_KEY
+
+echo $RECAPTCHA_SERVER_KEY
+
+npm run start:server
+

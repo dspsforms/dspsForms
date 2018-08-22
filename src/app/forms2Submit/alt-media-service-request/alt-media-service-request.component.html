@@ -274,11 +274,15 @@
       <a class=" btn btn-warning" (click)="addRow()">Add Another Text</a>
   </div>
 
+  <div class="vert-space">&nbsp;</div>
+
+  <div class="row">
 
 
-    <div class="form-group col-sm-6">
+
+    <div class="form-group col-sm-8">
       <label id="signature" for="signature">Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
-        By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+        <app-agreement-link-dialog [formName]="formName"></app-agreement-link-dialog>
       </label>
           <input
               type="text"
@@ -293,11 +297,10 @@
           </div>
     </div> <!-- form-group signature -->
 
-  <div class="clearfix">
+  <!-- <div class="clearfix"></div> -->
 
-  </div>
-
-    <div class="form-row right">
+    <div class="form-group col right">
+      <div class=button-space>
         <button type="submit"
           [disabled]="!form.valid || !form.dirty"
                 class="btn btn-primary"
@@ -309,8 +312,11 @@
             </legend>
         </div>
 
+      </div>
 
     </div>
+
+    </div> <!-- inner row -->
 
 
 

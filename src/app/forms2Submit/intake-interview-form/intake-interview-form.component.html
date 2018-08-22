@@ -501,7 +501,7 @@
 
         <div class="form-group" class="col-sm-6">
             <label id="signature" for="signature">Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
-              By signing, you agree to the <a [routerLink]="['/agreementView', formName]">Terms of Service</a>
+              <app-agreement-link-dialog [formName]="formName"></app-agreement-link-dialog>
             </label>
                 <input
                     type="text"

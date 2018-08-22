@@ -66,6 +66,8 @@ import { ViewFeedbackComponent } from './dspsStaff/view-form/view-feedback/view-
 import { PaginationComponent } from './dspsStaff/pagination/pagination.component';
 import { AgreementCreateEditComponent } from './dspsStaff/agreement-create-edit/agreement-create-edit.component';
 import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-view.component';
+import { AgreementViewDialogComponent } from './dspsStaff/agreement-view-dialog/agreement-view-dialog.component';
+import { AgreementLinkDialogComponent } from './dspsStaff/agreement-link-dialog/agreement-link-dialog.component';
 
 
 
@@ -110,6 +112,9 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
     AgreementCreateEditComponent,
     AgreementViewComponent,
 
+    AgreementViewDialogComponent,
+    AgreementLinkDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -143,6 +148,6 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
   //   RecaptchaModule
   // ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent]
+  entryComponents: [ErrorComponent, AgreementViewDialogComponent]
 })
 export class AppModule { }

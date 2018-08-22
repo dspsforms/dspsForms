@@ -1,9 +1,16 @@
 legend.small{
-    font-size: 15px; 
+    font-size: normal;
 }
 th, .center {
     text-align:center;
 }
 .right {
     text-align:right;
+}
+.vert-space {
+  padding-top: 10px;
+}
+.button-space {
+  padding-top: 20px;
+  margin-right: 19px;
 }
