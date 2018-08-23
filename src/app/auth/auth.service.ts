@@ -19,58 +19,12 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<AuthType>();
 
+  private dataInitialized = false;
   constructor(private http: HttpClient, private router: Router) {}
 
-  getToken() {
-    if (this.token) {
-      return this.token;
-    } else {
-      this.refreshAuthData();
-      return this.token;
-    }
-  }
-
-  getIsAdminAuth() {
-    if (this.isAdminAuthenticated) {
-      return true;
-    } else {
-      this.refreshAuthData();
-      return this.isAdminAuthenticated;
-    }
-
-  }
-
-  getIsStaffAuth() {
-    if (this.isStaffAuthenticated) {
-      return true;
-    } else {
-      this.refreshAuthData();
-      return this.isStaffAuthenticated;
-    }
-  }
-
-  refreshAuthData() {
-
-    // TODO use expirationDate
-    const tmpAuth = this.getAuthData();
-    if (tmpAuth) {
-      this.isAdminAuthenticated = tmpAuth.isAdminAuthenticated;
-      this.isStaffAuthenticated = tmpAuth.isStaffAuthenticated;
-      this.token = tmpAuth.token;
-      this.userId = tmpAuth.userId;
-    }
 
 
-  }
 
-  getUserId() {
-    if (this.userId) {
-      return this.userId;
-    } else {
-      this.refreshAuthData();
-      return this.userId;
-    }
-  }
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
@@ -128,14 +82,14 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
-          this.saveAuthData(token, expirationDate, this.userId, this.isStaffAuthenticated, this.isAdminAuthenticated );
+          this.saveAuthDataLocalStorage(token, expirationDate, this.userId, this.isStaffAuthenticated, this.isAdminAuthenticated );
           this.router.navigate([nextUrl || "/"]);
         }
       });
   }
 
   autoAuthUser() {
-    const authInformation = this.getAuthData();
+    const authInformation = this.getAuthDataLocalStorage();
     if (!authInformation) {
       return;
     }
@@ -162,13 +116,38 @@ export class AuthService {
   }
 
   // return current auth
+  // refresh from local storage, in case user reloads page
   getAuth() {
+
+    this.refreshAuthDataFromLocalStorage();
     const authType: AuthType = {
       staffAuth: this.isStaffAuthenticated,
       adminAuth: this.isAdminAuthenticated
     };
     return authType;
   }
+
+  getToken() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    return this.token;
+  }
+
+  getIsAdminAuth() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    return this.isAdminAuthenticated;
+  }
+
+  getIsStaffAuth() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    return this.isStaffAuthenticated;
+  }
+
 
   logout() {
     this.token = null;
@@ -177,7 +156,7 @@ export class AuthService {
     this.triggerAuthChangeEvent();
     this.userId = null;
     clearTimeout(this.tokenTimer);
-    this.clearAuthData();
+    this.clearAuthDataLocalStorage();
     this.router.navigate(["/"]);
   }
 
@@ -188,7 +167,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string,
+  private saveAuthDataLocalStorage(token: string,
     expirationDate: Date,
     userId: string,
     isStaffAuthenticated: boolean,
@@ -200,7 +179,7 @@ export class AuthService {
     localStorage.setItem("isAdminAuthenticated", String(isAdminAuthenticated));
   }
 
-  private clearAuthData() {
+  private clearAuthDataLocalStorage() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
@@ -208,7 +187,7 @@ export class AuthService {
     localStorage.removeItem("isAdminAuthenticated");
   }
 
-  private getAuthData() {
+  private getAuthDataLocalStorage() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
@@ -226,8 +205,63 @@ export class AuthService {
     };
   }
 
+  refreshAuthDataFromLocalStorage() {
+
+    // TODO use expirationDate
+    const tmpAuth = this.getAuthDataLocalStorage();
+    if (tmpAuth) {
+      this.isAdminAuthenticated = tmpAuth.isAdminAuthenticated;
+      this.isStaffAuthenticated = tmpAuth.isStaffAuthenticated;
+      this.token = tmpAuth.token;
+      this.userId = tmpAuth.userId;
+    }
+
+    // else do nothing? or initialize to empty/false?
+
+    this.dataInitialized = true; // this will help ensure we don't keep reading from localStorage
+  }
+
   getUser(_id: string) {
     // TODO
   }
+
+  // getTokenDeprecated() {
+  //   if (this.token) {
+  //     return this.token;
+  //   } else {
+  //     this.refreshAuthDataDeprecated();
+  //     return this.token;
+  //   }
+  // }
+
+  // getIsAdminAuthDeprecated() {
+  //   if (this.isAdminAuthenticated) {
+  //     return true;
+  //   } else {
+  //     this.refreshAuthDataDeprecated();
+  //     return this.isAdminAuthenticated;
+  //   }
+
+  // }
+
+  // getIsStaffAuthDeprecated() {
+  //   if (this.isStaffAuthenticated) {
+  //     return true;
+  //   } else {
+  //     this.refreshAuthDataDeprecated();
+  //     return this.isStaffAuthenticated;
+  //   }
+  // }
+
+
+
+  // getUserIdDeprecated() {
+  //   if (this.userId) {
+  //     return this.userId;
+  //   } else {
+  //     this.refreshAuthDataDeprecated();
+  //     return this.userId;
+  //   }
+  // }
 }
 

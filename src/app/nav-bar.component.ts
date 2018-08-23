@@ -4,6 +4,7 @@ import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from '../../node_modules/rxjs';
 import { SubscriptionUtil } from './shared/subscription-util';
+import { AuthType } from './auth/auth-type.model';
 
 @Component({
     selector: 'nav-bar',
@@ -21,7 +22,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   active = '';
 
- // auth: AuthType;
+  auth: AuthType;
 
   authChange: Subscription;
 
@@ -31,38 +32,27 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // initialize with current auth
-    // this.auth = this.authService.getAuth();
+    this.auth = this.authService.getAuth();
 
     // listen to changes
-    // this.authChange = this.authService.getAuthStatusListener().subscribe(auth => {
-    //   this.auth = auth;
-    // });
+    this.authChange = this.authService.getAuthStatusListener().subscribe(auth => {
+       this.auth = auth;
+    });
 
   }
 
   get loggedIn() {
-    if (this.authService.getIsAdminAuth() || this.authService.getIsStaffAuth()) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.auth.adminAuth || this.auth.staffAuth;
   }
 
   get staffAuth() {
-    if (this.authService.getIsStaffAuth()) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.auth.staffAuth;
   }
 
   get adminAuth() {
-    if (this.authService.getIsAdminAuth()) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.auth.adminAuth;
   }
+
 
   ngOnDestroy() {
     SubscriptionUtil.unsubscribe(this.authChange);
@@ -106,6 +96,32 @@ export class NavBarComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
   }
+
+  // get loggedInDeprecated() {
+  //   if (this.authService.getIsAdminAuthDeprecated() ||
+  //     this.authService.getIsStaffAuthDeprecated()) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // get staffAuthDeprecated() {
+  //   if (this.authService.getIsStaffAuthDeprecated()) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // get adminAuthDeprecated() {
+  //   if (this.authService.getIsAdminAuthDeprecated()) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
 
 
 }
