@@ -148,6 +148,13 @@ export class AuthService {
     return this.isStaffAuthenticated;
   }
 
+  getUserId() {
+    if (!this.dataInitialized) {
+      this.refreshAuthDataFromLocalStorage();
+    }
+    return this.userId;
+  }
+
 
   logout() {
     this.token = null;
