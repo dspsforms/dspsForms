@@ -28,7 +28,8 @@
                 </a>
               </td>
               <td >
-                <a *ngIf="formName !== 'feedback'"  [routerLink]="[agreementView2 + formName]">
+                <!-- was *ngIf="formName !== 'feedback'" -->
+                <a   [routerLink]="[agreementView2 + formName]">
                     <i class="fas fa-file-contract"></i>
                 </a>
               </td>
@@ -36,7 +37,7 @@
 
               <td *ngIf="auth.adminAuth  ">
                 <!-- edit/create for admin only -->
-                <a *ngIf="formName !== 'feedback'"
+                <a
                   [routerLink]="[agreementCreateEdit2 + formName]">
                   <i class="glyphicon glyphicon-edit" ></i>
                 </a>
