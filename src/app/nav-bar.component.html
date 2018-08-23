@@ -25,24 +25,25 @@
                     <active-link-sr [isActive]="isCurrentlyActive('newForm')"></active-link-sr>
                 </a>
             </li>
-            <li *ngIf="auth.staffAuth"
+            <li *ngIf="staffAuth"
                 [class.active]="isCurrentlyActive('submittedForm')">
                 <a routerLink="/submittedForm">Submitted Forms
                     <active-link-sr [isActive]="isCurrentlyActive('submittedForm')"></active-link-sr>
                 </a>
             </li>
-            <li *ngIf="auth.adminAuth"
+            <li *ngIf="adminAuth"
                 [class.active]="isCurrentlyActive('addNewStaffUser')">
                 <a routerLink="/addNewStaffUser">Add New Staff Member
                     <active-link-sr [isActive]="isCurrentlyActive('addNewStaffUser')"></active-link-sr>
                 </a>
             </li>
-            <li *ngIf="auth.staffAuth"
+            <li *ngIf="staffAuth"
                 [class.active]="isCurrentlyActive('showUsers')">
                 <a routerLink="/showUsers">Show Users
                     <active-link-sr [isActive]="isCurrentlyActive('showUsers')"></active-link-sr>
                 </a>
             </li>
+
 
         </ul> <!-- nav navbar-nav -->
           <div class="navbar-text navbar-right">

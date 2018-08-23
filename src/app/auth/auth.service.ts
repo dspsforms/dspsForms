@@ -22,19 +22,54 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
-    return this.token;
+    if (this.token) {
+      return this.token;
+    } else {
+      this.refreshAuthData();
+      return this.token;
+    }
   }
 
   getIsAdminAuth() {
-    return this.isAdminAuthenticated;
+    if (this.isAdminAuthenticated) {
+      return true;
+    } else {
+      this.refreshAuthData();
+      return this.isAdminAuthenticated;
+    }
+
   }
 
   getIsStaffAuth() {
-    return this.isStaffAuthenticated;
+    if (this.isStaffAuthenticated) {
+      return true;
+    } else {
+      this.refreshAuthData();
+      return this.isStaffAuthenticated;
+    }
+  }
+
+  refreshAuthData() {
+
+    // TODO use expirationDate
+    const tmpAuth = this.getAuthData();
+    if (tmpAuth) {
+      this.isAdminAuthenticated = tmpAuth.isAdminAuthenticated;
+      this.isStaffAuthenticated = tmpAuth.isStaffAuthenticated;
+      this.token = tmpAuth.token;
+      this.userId = tmpAuth.userId;
+    }
+
+
   }
 
   getUserId() {
-    return this.userId;
+    if (this.userId) {
+      return this.userId;
+    } else {
+      this.refreshAuthData();
+      return this.userId;
+    }
   }
 
   getAuthStatusListener() {

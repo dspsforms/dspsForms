@@ -3,7 +3,6 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from '../../node_modules/rxjs';
-import { AuthType } from './auth/auth-type.model';
 import { SubscriptionUtil } from './shared/subscription-util';
 
 @Component({
@@ -22,7 +21,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   active = '';
 
-  auth: AuthType;
+ // auth: AuthType;
 
   authChange: Subscription;
 
@@ -32,17 +31,33 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // initialize with current auth
-    this.auth = this.authService.getAuth();
+    // this.auth = this.authService.getAuth();
 
     // listen to changes
-    this.authChange = this.authService.getAuthStatusListener().subscribe(auth => {
-      this.auth = auth;
-    });
+    // this.authChange = this.authService.getAuthStatusListener().subscribe(auth => {
+    //   this.auth = auth;
+    // });
 
   }
 
   get loggedIn() {
-    if (this.auth && (this.auth.staffAuth || this.auth.adminAuth) ) {
+    if (this.authService.getIsAdminAuth() || this.authService.getIsStaffAuth()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get staffAuth() {
+    if (this.authService.getIsStaffAuth()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get adminAuth() {
+    if (this.authService.getIsAdminAuth()) {
       return true;
     } else {
       return false;
