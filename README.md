@@ -1,27 +1,52 @@
-# Dsps2
+# Dsps Forms
+This web app provides an online workflow for forms that students need to submit to DSPS.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+** Features **
 
-## Development server
+* This is a so-called Single Page Application. What that means is the entire app
+is loaded once, and after that, only data moves between the browser and the server.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Students can submit forms without logging in. Behind the scenes, there is Google's ReCaptcha V3 protecting the site from robot submissions.
 
-## Code scaffolding
+* The submitted data is visible to Admin and Staff users. 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Admin users can create new admin and staff users.
 
-## Build
+* There is support for Accessibility.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+* There is support for error handling. However, if you see error messages that are unclear, please contact us.
 
-## Running unit tests
+** Technologies **
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+At the top level, we are using the following technologies.
 
-## Running end-to-end tests
+* Angular 6 (front end single page app)
+* Node + Express
+* Mongo + Mongoose
+* Bootstrap and Angular Material
+* Aria (accessibility)
+* ReCaptcha V3
+* Apache httpd
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+At a more granular level:
 
-## Further help
+* RxJs Observables
+* Angular Material Dialog (modal) for error messages and showing terms of agreement when submitting a form
+* HttpInterceptor for error handling as well as transmitting headers (JSON web token)
+* Guards for authentication and also for updating recaptha v3 scores
+* A small framework around Node/Express to handle routes, controllers, middleware
+* JSON web token for authenticated users
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Second-order utilities:
+
+* Server side:
+ * dotenv for loading node environment variables
+ * sanitize
+ * bcrypt
+ * jsonwebtoken
+ * bodyparser
+ 
+
+
+
+
