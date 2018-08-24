@@ -27,25 +27,39 @@ At the top level, we are using the following technologies.
 * Aria (accessibility)
 * ReCaptcha V3
 * Apache httpd
+* Support for IE (attempted, need to test)
+* forever for running Node in production
 
 At a more granular level:
+
+Client side.
 
 * RxJs Observables
 * Angular Material Dialog (modal) for error messages and showing terms of agreement when submitting a form
 * HttpInterceptor for error handling as well as transmitting headers (JSON web token)
 * Guards for authentication and also for updating recaptha v3 scores
+* JSON web token for authenticated users
+* Breadcrumbs
+* Pagination
+* A simple class hierarcy for handling common stuff for submitting forms
+
+Server side.
+
 * A small framework around Node/Express to handle routes, controllers, middleware
 * JSON web token for authenticated users
 
-Second-order utilities:
 
-Server side
+Some server side external modules:
 
- * dotenv for loading node environment variables
- * sanitize
+ * bodyparser
  * bcrypt
  * jsonwebtoken
- * bodyparser
+ * mongo-sanitize
+ * request and request-promise for recaptcha V3 server side
+ * dotenv for loading node environment variables
+ 
+ 
+ 
  
 
 
