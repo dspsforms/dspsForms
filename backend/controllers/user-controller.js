@@ -1,6 +1,7 @@
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const config = require("../config/config");
 
 const User = require("../models/user-model");
 
@@ -104,7 +105,7 @@ exports.login = (req, res, next) => {
           isStudent: fetchedUser.isStudent,
           isInstructor: fetchedUser.isInstructor
         },
-        "secret_this_should_be_longer",
+        config.JSON_WEB_TOKEN_SERVER_KEY,
         { expiresIn: "1h" }
       );
       // we are sending back the isAdmin/isStaff etc info, but if client uses these,

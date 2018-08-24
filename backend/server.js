@@ -2,6 +2,16 @@ const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
+// load env variables.
+// const cwd = process.cwd();
+const envPath = './backend/.env';
+console.log("envPath=", envPath);
+require('dotenv').config({ path: envPath });
+
+// check to make sure we have the env variables loaded
+console.log("RECAPTCHA_SERVER_KEY=", process.env.RECAPTCHA_SERVER_KEY);
+console.log("JSON_WEB_TOKEN_SERVER_KEY=", process.env.JSON_WEB_TOKEN_SERVER_KEY);
+
 // https://stackoverflow.com/questions/5999373/how-do-i-prevent-node-js-from-crashing-try-catch-doesnt-work#
 process.on('uncaughtException', function (err) {
   console.error(err);

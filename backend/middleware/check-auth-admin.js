@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
+const config = require("../config/config");
 
 module.exports = (req, res, next) => {
   try {
     console.log("req.headers", req.headers);
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, "secret_this_should_be_longer");
+    const decodedToken = jwt.verify(token, config.JSON_WEB_TOKEN_SERVER_KEY);
     console.log("decodedToken", decodedToken);
     req.userData = {
       email: decodedToken.email,

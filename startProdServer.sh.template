@@ -9,9 +9,16 @@
 # -m 10 : start a max of 10 times
 # watch is causing space overflow on files in node_modules, so disabled
 
+# note: env variables are read from ./backend/.env
+
 forever start -a  -l forever.log -o out.log -e err.log backend/server.js
 
 
 #
 # to stop
 # forever stop backend/server.js
+#
+# or
+# forever stop <id>
+#
+# forever list will show all the ids currently active
