@@ -39,7 +39,8 @@ At a more granular level:
 
 Second-order utilities:
 
-* Server side:
+Server side
+
  * dotenv for loading node environment variables
  * sanitize
  * bcrypt
