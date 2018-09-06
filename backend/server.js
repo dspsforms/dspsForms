@@ -2,11 +2,7 @@ const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
-// load env variables.
-// const cwd = process.cwd();
-const envPath = './backend/.env';
-console.log("envPath=", envPath);
-require('dotenv').config({ path: envPath });
+
 
 // check to make sure we have the env variables loaded
 console.log("RECAPTCHA_SERVER_KEY=", process.env.RECAPTCHA_SERVER_KEY);

@@ -1,7 +1,7 @@
 # Dsps Forms
 This web app provides an online workflow for forms that students need to submit to DSPS.
 
-** Features **
+**Features**
 
 * This is a so-called Single Page Application. What that means is the entire app
 is loaded once, and after that, only data moves between the browser and the server.
@@ -16,7 +16,7 @@ is loaded once, and after that, only data moves between the browser and the serv
 
 * There is support for error handling. However, if you see error messages that are unclear, please contact us.
 
-** Technologies **
+**Technologies**
 
 At the top level, we are using the following technologies.
 

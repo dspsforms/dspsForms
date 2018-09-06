@@ -4,12 +4,22 @@ const path = require("path");
 
 const mongoose = require('mongoose');
 
+// load env variables.
+// const cwd = process.cwd();
+const envPath = './backend/.env';
+console.log("envPath=", envPath);
+require('dotenv').config({ path: envPath });
+const config = require('./config/config');
+
 const formRoutes = require('./routes/form-routes');
 const userRoutes = require('./routes/user-routes');
 
 
+
 // Connection URL
-const uri = 'mongodb://localhost:27017/simpledsps';
+// const uri = 'mongodb://localhost:27017/simpledsps';
+const uri = config.MONGO_URL;
+console.log('mongo url= ', uri);
 
 mongoose.Promise = global.Promise;
 
@@ -26,9 +36,19 @@ mongoose.connect(uri).then(
     }
   );
 
-// make a copy of misc/once.js, call it once.tmp.js, add first admin
-// user, run it once, then delete once.tmp.js
-// const once = require('./misc/once.tmp');
+/*
+make a copy of misc/once.js, call it once.tmp.js, add first admin
+user, run it once, then delete once.tmp.js
+supply FIRST_TIME as an environment variable, but do it only once.
+if it's greater than 0, a new admin will be created if it doesn't already exist
+*/
+
+if (config.FIRST_TIME > 0) {
+  console.log("config.FIRST_TIME > 0, current time=", new Date());
+  const once = require('./misc/once.tmp');
+} else {
+  console.log("config.FIRST_TIME is <= 0, current time=", new Date());
+}
 
 const app = express();
 
