@@ -4,6 +4,7 @@ import { FormUtil } from '../../model/form.util';
 import { SubscriptionUtil } from '../../shared/subscription-util';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormsService } from '../../service/forms.service';
+import { SafeHtmlPipe } from '../../util/safe-html.pipe';
 
 @Component({
   selector: 'app-agreement-view-dialog',
