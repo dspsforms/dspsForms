@@ -6,6 +6,7 @@ import { FormUtil } from '../../model/form.util';
 import { SubscriptionUtil } from '../../shared/subscription-util';
 import { AuthService } from '../../auth/auth.service';
 import { AuthType } from '../../auth/auth-type.model';
+import { SafeHtmlPipe } from '../../util/safe-html.pipe';
 
 @Component({
   selector: 'app-agreement-view',

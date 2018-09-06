@@ -15,7 +15,7 @@
           <div class="panel-body">
             <table class="table table-bordered">
               <tr><td>Agreement for</td> <td> {{ formData.agreementForForm }} </td></tr>
-              <tr><td>Agreement</td> <td>{{ formData.agreement }}</td></tr>
+              <tr><td>Agreement</td> <td> <div [innerHTML]="formData.agreement | safeHtml"></div></td></tr>
               <tr *ngIf="loggedIn">
                 <td>Created / Last Edited By</td> <td> {{ createdOrEditedBy }} </td>
               </tr>
