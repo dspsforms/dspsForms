@@ -73,7 +73,7 @@ export class AgreementViewComponent implements OnInit , OnDestroy {
 
         // this.form.get('agreementForForm').setValue(agreementForForm);
 
-        this.title = "User Agreement - " + FormUtil.formTitle(agreementForForm);  // "Intake Form, etc";
+        this.title = FormUtil.formTitle(agreementForForm);  // "Intake Form, etc";
 
 
         // fetch existing data if it exists

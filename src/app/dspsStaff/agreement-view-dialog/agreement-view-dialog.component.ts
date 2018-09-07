@@ -55,7 +55,7 @@ export class AgreementViewDialogComponent implements OnInit, OnDestroy {
       });
 
 
-    this.title = "User Agreement - " + FormUtil.formTitle(this.formName);  // "Intake Form, etc";
+    this.title = "Student Agreement - " + FormUtil.formTitle(this.formName);  // "Intake Form, etc";
 
 
     // fetch existing data if it exists
