@@ -2,7 +2,7 @@
 
 <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
 
-<h1>{{ title }} </h1>
+<h1 id="formTitle">{{ title }} </h1>
 
 <!-- layout based on
   https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
@@ -29,7 +29,7 @@
                   type="text"
                   class="form-control"
                   formControlName="fullName"
-                  aria-labelledby="you fullName"
+                  aria-labelledby="formTitle you fullName"
                   aria-required="true"
                   >
         <!-- aria-live="assertive" means the text will be spoken whenever the value changes -->
@@ -144,13 +144,15 @@
 <fieldset>
     <legend id="aBitAboutYou" aria-label="Your" >A Bit About You</legend>
 
-    <div class="form-group">
-        <label id="gender" for="gender" class="space-right" >Gender</label>
-        <label id="male" for="gender" class="radio-inline">
-            <input  type="radio" formControlName="gender" value="male" aria-labelledby="aBitAboutYou gender male">Male
+    <div class="form-group" role="radiogroup" >
+        <label id="gender" class="space-right" >Gender</label>
+        <label id="male" class="radio-inline">
+            <input  type="radio" formControlName="gender" value="male" aria-labelledby="aBitAboutYou gender male"
+            role="radio" >Male
         </label>
-        <label id="female" for="gender" class="radio-inline">
-            <input type="radio" formControlName="gender" value="female" aria-labelledby="aBitAboutYou gender female">Female
+        <label id="female" class="radio-inline">
+            <input type="radio" formControlName="gender" value="female" aria-labelledby="aBitAboutYou gender female"
+            role="radio" >Female
         </label>
     </div>  <!-- form-group, gender -->
 
@@ -278,16 +280,16 @@
 
   <legend>Your Educational Background and Accommodation Related Information</legend>
 
-  <div class="form-group">
+  <div class="form-group" role="radiogroup"  >
     <label id="highSchoolDiploma" > Do you have a high school diploma?</label>
-    <label id="highSchoolDiplomaYes" for="hasDiploma" class="radio-inline">
+    <label id="highSchoolDiplomaYes" class="radio-inline">
         <input type="radio" formControlName="hasDiploma" value="yes"
           aria-labelledby="highSchoolDiploma highSchoolDiplomaYes"
-          aria-controls="highSchoolWrap">Yes
+          aria-controls="highSchoolWrap" role="radio">Yes
     </label>
-    <label id="highSchoolDiplomaNo" for="hasDiploma" class="radio-inline">
+    <label id="highSchoolDiplomaNo" class="radio-inline">
         <input type="radio" formControlName="hasDiploma" value="no"
-        aria-labelledby="highSchoolDiploma highSchoolDiplomaNo" >No
+        aria-labelledby="highSchoolDiploma highSchoolDiplomaNo" role="radio" >No
     </label>
   </div>
   <div id="highSchoolWrap" class="form-group" *ngIf="form.get('hasDiploma').value == 'yes'">
@@ -321,7 +323,7 @@
           >
   </div>
 
-  <div class="form-group">
+  <div class="form-group" role="radiogroup">
       <label id="hasCounselor"> Do you have a Mission College counselor?</label>
       <label id="hasCounselorYes" for="hasCounselor" class="radio-inline">
           <input type="radio" formControlName="hasCounselor" value="yes"
@@ -366,7 +368,7 @@
   <!-- some vertical space -->
   <div style="height:20px;"></div>
 
-    <div class="form-group">
+    <div class="form-group" role="radiogroup">
       <label id="isDeptRehabClient" class="space-right">Are you a Department of Rehabilitation Client?</label>
       <label id="isDeptRehabClientYes" for="isDeptRehabClient" class="radio-inline">
           <input type="radio" formControlName="isDeptRehabClient" value="yes"
@@ -412,7 +414,7 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" role="radiogroup">
       <label id="wantSevicesInfo" class="space-right">Would you like information about these programs?</label>
       <label id="wantSevicesInfoYes" for="wantSevicesInfo" class="radio-inline">
           <input type="radio" formControlName="wantSevicesInfo" value="yes"
@@ -424,7 +426,7 @@
       </label>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" role="radiogroup">
       <label id="enrolledInAnotherCC" class="space-right">Are you currently enrolled at another Community College?</label>
       <label id="enrolledInAnotherCCYes" for="enrolledInAnotherCC" class="radio-inline">
           <input type="radio" formControlName="enrolledInAnotherCC" value="yes"
@@ -436,7 +438,7 @@
       </label>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" role="radiogroup">
       <label id="receivingFinAid" class="space-right">Are you currently receiving Financial Aid?</label>
       <label id="receivingFinAidYes" for="receivingFinAid" class="radio-inline">
           <input type="radio" formControlName="receivingFinAid" value="yes"
@@ -448,7 +450,7 @@
       </label>
   </div>
 
-    <div class="form-group">
+    <div class="form-group" role="radiogroup">
       <label id="hasDisability" >Do you currently have a health, psychological or learning disability?</label> <br>
       <label id="hasDisabilityYes" for="hasDisability" class="radio-inline">
           <input type="radio" formControlName="hasDisability" value="yes"
