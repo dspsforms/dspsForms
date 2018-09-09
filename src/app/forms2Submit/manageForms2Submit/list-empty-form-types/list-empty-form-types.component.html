@@ -6,24 +6,26 @@
       {{ lastOpStatus }}
     </div>
 
-    <h2>DSPS Forms</h2>
+    <h1>DSPS Forms</h1>
   <div class="row">
     <div class="col-sm-8">
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <div class="panel-title inline">
+          <div class="panel-title inline" id="dsps-forms" aria-label="DSPS Online Forms">
              Online Forms.
           </div>
         </div> <!-- panel-heading -->
 
         <div class="panel-body">
-          <p>Please select a form to fill and submit.</p>
+          <p id="online-form-2">Please select a form to fill and submit.</p>
           <table class="table table-bordered">
             <tr *ngFor="let formName of formNames; let i=index" >
 
-              <td>
-                <a [routerLink]="[newFormAbsolute2 + formName]">
+              <td [id]="'onlineForm' + i" [attr.aria-label]="getAria(formName)">
+                <a [routerLink]="[newFormAbsolute2 + formName]"
+                [attr.aria-labelledby]="'dsps-forms online-form-2 onlineForm'  + i"
+                >
                   {{ getFormTitle(formName) }}
                 </a>
               </td>
@@ -54,14 +56,17 @@
 
       <div class="panel panel-default">
           <div class="panel-heading">
-            <div class="panel-title inline">
+            <div id="pdf-forms" class="panel-title inline">
                 PDF Forms.
             </div>
           </div> <!-- panel-heading -->
 
           <div class="panel-body">
-            <p>These forms require coordination with an outside professional or your instructor.
-                Please print, fill them out, and bring it to DSPS.</p>
+            <div id="sub-pdf-forms">
+                <p>These forms require coordination with an outside professional or your instructor.
+                    Please print, fill them out, and bring it to DSPS.</p>
+            </div>
+
             <ul class="list-group">
               <li class="list-group-item" >
                 <a [href]="server + '/pdf/Disability_Verification.pdf'">Disability Verification By Outside Resource </a>

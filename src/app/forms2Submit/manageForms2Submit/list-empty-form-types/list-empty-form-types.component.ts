@@ -66,6 +66,12 @@ export class ListEmptyFormTypesComponent implements OnInit {
     return FormUtil.formTitle(formName);
   }
 
+  getAria(formName) {
+    // return "DSPS Online Form " + FormUtil.formTitle(formName);
+    return FormUtil.formTitle(formName);
+  }
+
+
 
 
 }
