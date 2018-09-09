@@ -11,7 +11,8 @@ import { Recaptchav3Service } from './service/recaptchav3.service';
 
   <router-outlet></router-outlet>
   ` ,
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'
+  ]
 })
 export class AppComponent implements OnInit {
   title = 'app';

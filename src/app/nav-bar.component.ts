@@ -9,11 +9,7 @@ import { AuthType } from './auth/auth-type.model';
 @Component({
     selector: 'nav-bar',
     templateUrl: "./nav-bar.component.html" ,
-    styles: [`
-        .own-logo {
-            height : 200px;
-        }
-    `]
+    styleUrls: ['./nav-bar.component.css']
 
 })
 export class NavBarComponent implements OnInit, OnDestroy {

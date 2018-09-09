@@ -7,5 +7,5 @@
 
 /* hide the recaptcha badge */
 div.grecaptcha-badge {
-  width:0 !important;
+  /* width:0 !important; */
 }

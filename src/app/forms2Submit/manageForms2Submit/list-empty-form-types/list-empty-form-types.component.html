@@ -29,8 +29,10 @@
               </td>
               <td >
                 <!-- was *ngIf="formName !== 'feedback'" -->
-                <a   [routerLink]="[agreementView2 + formName]">
-                    <i class="fas fa-file-contract"></i>
+                <a   [routerLink]="[agreementView2 + formName]" aria-label="view student agreement">
+                    <i class="fas fa-file-contract"
+                    aria-label="view student agreement"
+                    ></i>
                 </a>
               </td>
 

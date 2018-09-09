@@ -2,6 +2,10 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { Subscription, Subject } from 'rxjs';
+import { ErrorService } from '../error/error.service';
+
+declare var jquery: any;
+declare var $: any;
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +30,18 @@ export class Recaptchav3Service {
   public executeCaptcha(page: string, sequenceNumber?: number) {
     if (this.grecaptcha) {
       this.grecaptcha.ready(() => {
+        $("div.grecaptcha-badge").attr("aria-hidden", true);
         this.grecaptcha
           .execute(this.CAPTCHA_KEY, {
             action: page
           })
           .then((token: string) => {
+            try {
+              $("div.grecaptcha-badge").attr("aria-hidden", true);
+            } catch (err) {
+              console.log("jq-aria errror", err);
+            }
+
             this.token = token;
 
             if (environment.debug.RECAPTCHA_V3) {
