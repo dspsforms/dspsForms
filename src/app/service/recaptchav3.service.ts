@@ -31,6 +31,7 @@ export class Recaptchav3Service {
     if (this.grecaptcha) {
       this.grecaptcha.ready(() => {
         $("div.grecaptcha-badge").attr("aria-hidden", true);
+        $("div.grecaptcha-badge").attr("role", "presentation");
         this.grecaptcha
           .execute(this.CAPTCHA_KEY, {
             action: page
@@ -38,6 +39,7 @@ export class Recaptchav3Service {
           .then((token: string) => {
             try {
               $("div.grecaptcha-badge").attr("aria-hidden", true);
+              $("div.grecaptcha-badge").attr("role", "presentation");
             } catch (err) {
               console.log("jq-aria errror", err);
             }
