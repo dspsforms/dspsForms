@@ -130,7 +130,7 @@
         aria-labelledby="contactInfo email"
         >
     <div *ngIf="email.touched && email.errors?.email"
-        class="alert alert-danger" tabIndex="-1" >
+        class="alert alert-danger" >
         Please check to make sure your email is correct
     </div>
 </div>
@@ -141,9 +141,10 @@
 
 
 <!-- see https://angular.io/guide/reactive-forms for radio example -->
-<fieldset>
+
     <legend id="aBitAboutYou" aria-label="Your" >A Bit About You</legend>
 
+  <fieldset>
     <div class="form-group" role="radiogroup" >
         <label id="gender" class="space-right" >Gender</label>
         <label id="male" class="radio-inline">
@@ -155,6 +156,7 @@
             role="radio" >Female
         </label>
     </div>  <!-- form-group, gender -->
+  </fieldset>
 
     <div class="form-group">
         <label id="dob" for="dob">Date of Birth</label>
@@ -209,12 +211,12 @@
           >
     </div>
 
-</fieldset> <!-- more of You -->
+ <!-- more of You -->
 </div> <!-- well, more about you -->
 
 <div class="well">
 
-<fieldset>
+
     <legend  >Person to Notify in Case of Emergency</legend>
 
     <div id="emergencyContact" formGroupName="emergencyContact" aria-label="Emergency contact" >
@@ -271,46 +273,47 @@
 
     </div> <!-- emergencyContact -->
 
-</fieldset>
+
 </div> <!-- well, emergency contact -->
 
 <div class="well">
 
-<fieldset>
 
   <legend>Your Educational Background and Accommodation Related Information</legend>
 
-  <div class="form-group" role="radiogroup"  >
+
+
+
+  <div class="form-group"  >
     <label id="highSchoolDiploma" > Do you have a high school diploma?</label>
-    <label id="highSchoolDiplomaYes" class="radio-inline">
+    <label id="highSchoolDiplomaYes" class="radio-inline" aria-label="yes">
         <input type="radio" formControlName="hasDiploma" value="yes"
-          aria-labelledby="highSchoolDiploma highSchoolDiplomaYes"
-          aria-controls="highSchoolWrap" role="radio">Yes
+          aria-labelledby="highSchoolDiploma highSchoolDiplomaYes">Yes
     </label>
-    <label id="highSchoolDiplomaNo" class="radio-inline">
+    <label id="highSchoolDiplomaNo" class="radio-inline" aria-label="no">
         <input type="radio" formControlName="hasDiploma" value="no"
-        aria-labelledby="highSchoolDiploma highSchoolDiplomaNo" role="radio" >No
+        aria-labelledby="highSchoolDiploma highSchoolDiplomaNo"  >No
     </label>
   </div>
-  <div id="highSchoolWrap" class="form-group" *ngIf="form.get('hasDiploma').value == 'yes'">
-    <label id="highSchool" for="highSchool" >High School</label>
+  <div class="form-group" *ngIf="form.get('hasDiploma').value == 'yes'">
+    <label >High School</label>
      <input
           type="text"
           class="form-control"
           formControlName="highSchool"
-          aria-labelledby="highSchool"
+          aria-label="High School"
         >
 
   </div>  <!-- form-group , high school -->
 
   <div class="form-group">
-      <label id-="numSemsAtMission" for="numSemsAtMission">Number of Semesters at Mission College</label>
+      <label id="numSemsAtMission" for="numSemsAtMission">Number of semesters at Mission College?</label>
         <input
               type="text"
               class="form-control"
               formControlName="numSemsAtMission"
               aria-labelledby="numSemsAtMission"
-        >
+          >
   </div>
 
   <div class="form-group">
@@ -323,26 +326,29 @@
           >
   </div>
 
-  <div class="form-group" role="radiogroup">
+
+  <div class="form-group" >
       <label id="hasCounselor"> Do you have a Mission College counselor?</label>
-      <label id="hasCounselorYes" for="hasCounselor" class="radio-inline">
+      <label id="hasCounselorYes" class="radio-inline" aria-label="yes">
           <input type="radio" formControlName="hasCounselor" value="yes"
           aria-labelledby="hasCounselor hasCounselorYes">Yes
       </label>
-      <label id="hasCounselorNo" for="hasCounselor" class="radio-inline">
+      <label id="hasCounselorNo" class="radio-inline" aria-label="no">
           <input type="radio" formControlName="hasCounselor" value="no"
           aria-labelledby="hasCounselor hasCounselorNo">No
       </label>
     </div>
     <div class="form-group" *ngIf="form.get('hasCounselor').value == 'yes'">
-        <label id="counselorName" for="counselorName">Counselor's Name</label>
+        <label for="counselorName" >Counselor's Name</label>
         <input
             type="text"
             class="form-control"
             formControlName="counselorName"
-            aria-labelledby="counselorName"
+            aria-label="Counselor Name"
           >
   </div>  <!-- form-group, counselor -->
+
+
 
   <div class="row">
     <div class="form-group" class="col-sm-6">
@@ -368,6 +374,7 @@
   <!-- some vertical space -->
   <div style="height:20px;"></div>
 
+
     <div class="form-group" role="radiogroup">
       <label id="isDeptRehabClient" class="space-right">Are you a Department of Rehabilitation Client?</label>
       <label id="isDeptRehabClientYes" for="isDeptRehabClient" class="radio-inline">
@@ -380,6 +387,7 @@
       </label>
     </div>
 
+
     <div class="form-group" *ngIf="form.get('isDeptRehabClient').value == 'yes' ">
 
         <label id="rehabCounselorName" for="rehabCounselorName">Rehab Counselor's Name</label>
@@ -389,7 +397,11 @@
             formControlName="rehabCounselorName"
             aria-labelledby="rehabCounselorName"
           >
-    </div>  <!-- form-group, rehab counselor -->
+    </div>
+
+     <!-- form-group, rehab counselor -->
+
+
 
   <div formGroupName="services">
 
@@ -399,81 +411,127 @@
           <input type="checkbox" formControlName="eops"
                 aria-labelledby="servicesFrom eops">EOPS
       </label>
-      <label id="calworks" for="calWorks" class="checkbox-inline ">
+      <label id="calworks" for="calWorks" class="checkbox-inline">
           <input type="checkbox" formControlName="calWorks"
                 aria-labelledby="servicesFrom calworks">CalWORKS
       </label>
-      <label id="ssdi" for="ssdi" class="checkbox-inline ">
+      <label id="ssdi" for="ssdi" class="checkbox-inline">
           <input type="checkbox" formControlName="ssdi"
           aria-labelledby="servicesFrom ssdi">SSDI
       </label>
-      <label id="access" for="access" class="checkbox-inline ">
+      <label id="access" for="access" class="checkbox-inline">
           <input type="checkbox" formControlName="access"
           aria-labelledby="servicesFrom access">ACCESS
       </label>
     </div>
   </div>
 
-  <div class="form-group" role="radiogroup">
-      <label id="wantSevicesInfo" class="space-right">Would you like information about these programs?</label>
-      <label id="wantSevicesInfoYes" for="wantSevicesInfo" class="radio-inline">
+<!--
+
+  for testing
+
+  <div class="form-group" >
+      <label id="foo"> Foo?</label>
+      <label id="fooYes" class="radio-inline" aria-label="yes">
+          <input type="radio" formControlName="foo" value="yes"
+          aria-labelledby="foo fooYes">Yes
+      </label>
+      <label id="fooNo" class="radio-inline" aria-label="no">
+          <input type="radio" formControlName="foo" value="no"
+          aria-labelledby="foo fooNo">No
+      </label>
+  </div>
+
+  <div class="form-group" >
+      <label id="bar"> Bar?</label>
+      <label id="barYes" class="radio-inline" aria-label="yes">
+          <input type="radio" formControlName="foo" value="yes"
+          aria-labelledby="bar barYes">Yes
+      </label>
+      <label id="barBo" class="radio-inline" aria-label="no">
+          <input type="radio" formControlName="foo" value="no"
+          aria-labelledby="bar barBo">No
+      </label>
+  </div>
+
+  -->
+
+
+  <div class="form-group" >
+      <label id="wantSevicesInfo" >Would you like information about these programs?</label>
+      <label id="wantSevicesInfoYes"  class="radio-inline" aria-label="yes">
           <input type="radio" formControlName="wantSevicesInfo" value="yes"
               aria-labelledby="wantSevicesInfo wantSevicesInfoYes" >Yes
       </label>
-      <label id="wantSevicesInfoNo" for="wantSevicesInfo" class="radio-inline ">
+      <label id="wantSevicesInfoNo"  class="radio-inline" aria-label="no">
           <input type="radio" formControlName="wantSevicesInfo" value="no"
               aria-labelledby="wantSevicesInfo wantSevicesInfoNo" >No
       </label>
   </div>
 
-  <div class="form-group" role="radiogroup">
-      <label id="enrolledInAnotherCC" class="space-right">Are you currently enrolled at another Community College?</label>
-      <label id="enrolledInAnotherCCYes" for="enrolledInAnotherCC" class="radio-inline">
+
+
+
+  <div class="form-group" >
+      <label id="enrolledInAnotherCC" >Are you currently enrolled at another Community College?</label>
+      <label id="enrolledInAnotherCCYes"  class="radio-inline" aria-label="yes">
           <input type="radio" formControlName="enrolledInAnotherCC" value="yes"
               aria-labelledby="enrolledInAnotherCC enrolledInAnotherCCYes" >Yes
       </label>
-      <label id="enrolledInAnotherCCNo" for="enrolledInAnotherCC" class="radio-inline">
+      <label id="enrolledInAnotherCCNo"  class="radio-inline" aria-label="no" >
           <input type="radio" formControlName="enrolledInAnotherCC" value="no"
               aria-labelledby="enrolledInAnotherCC enrolledInAnotherCCNo" >No
       </label>
   </div>
 
-  <div class="form-group" role="radiogroup">
-      <label id="receivingFinAid" class="space-right">Are you currently receiving Financial Aid?</label>
-      <label id="receivingFinAidYes" for="receivingFinAid" class="radio-inline">
+
+  <div class="form-group" >
+      <label id="receivingFinAid" >Are you currently receiving Financial Aid?</label>
+      <label id="receivingFinAidYes" class="radio-inline" aria-label="yes">
           <input type="radio" formControlName="receivingFinAid" value="yes"
               aria-labelledby="receivingFinAid receivingFinAidYes" >Yes
       </label>
-      <label id="receivingFinAidNo" for="receivingFinAid" class="radio-inline ">
+      <label id="receivingFinAidNo"  class="radio-inline" aria-label="no">
           <input type="radio" formControlName="receivingFinAid" value="no"
               aria-labelledby="receivingFinAid receivingFinAidNo">No
       </label>
   </div>
 
-    <div class="form-group" role="radiogroup">
+
+    <div class="form-group" >
       <label id="hasDisability" >Do you currently have a health, psychological or learning disability?</label> <br>
-      <label id="hasDisabilityYes" for="hasDisability" class="radio-inline">
+      <label id="hasDisabilityYes"  class="radio-inline" aria-label="yes">
           <input type="radio" formControlName="hasDisability" value="yes"
               aria-labelledby="hasDisability hasDisabilityYes" >Yes
       </label>
-      <label id="hasDisabilityNo" for="hasDisability" class="radio-inline">
+      <label id="hasDisabilityNo"  class="radio-inline" aria-label="no">
           <input type="radio" formControlName="hasDisability" value="no"
               aria-labelledby="hasDisability hasDisabilityNo" >No
       </label>
     </div>
+
+
+
+
     <div class="form-group" *ngIf="form.get('hasDisability').value == 'yes' " >
-        <label id="disabilityDesc" for="disabilityDesc">Describe your disability</label>
+        <label >Describe your disability</label>
         <input
             type="text"
             class="form-control"
             formControlName="disabilityDesc"
-            aria-labelledby="disabilityDesc"
+            aria-label="Describe your disability"
+
           >
-    </div>  <!-- form-group, disabilityDesc -->
+    </div>
+
+    <!-- form-group, disabilityDesc -->
+
+
+
+
 
   <div class="form-group">
-      <label id="medSideEffects" for="medSideEffects" >Educationally related side-effects of Medication, if any:</label>
-         <!--  TODO autosize -->
+      <label id="medSideEffects" >Educationally related side-effects of Medication, if any:</label>
           <textarea
             placeholder="Medication side effects"
             class="form-control"
@@ -484,8 +542,7 @@
   </div>
 
   <div class="form-group">
-      <label id="accommodationDesc" for="accommodationDesc">Briefly explain the accommodations you may require:</label>
-          <!--  TODO autosize -->
+      <label id="accommodationDesc" >Briefly explain the accommodations you may require:</label>
           <textarea
             placeholder="Accommodations"
             class="form-control"
@@ -495,7 +552,7 @@
           </textarea>
   </div>
 
-</fieldset>
+
 
 </div> <!-- well, edu background and accommodation needs -->
 

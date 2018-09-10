@@ -89,11 +89,15 @@ export class IntakeInterviewFormComponent  extends AbstractFormSubmit implements
       rehabCounselorName: [''],
 
       services: fb.group({
-        eops: [''],
-        calWorks: [''],
-        ssdi: [''],
-        access: [''],
+        eops: [false],
+        calWorks: [false],
+        ssdi: [false],
+        access: [false],
       }),
+
+
+      // foo: [''],
+      // bar: [''],
 
       wantSevicesInfo: [''],
 
