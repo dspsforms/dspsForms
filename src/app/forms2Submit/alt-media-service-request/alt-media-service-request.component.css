@@ -14,3 +14,13 @@ th, .center {
   padding-top: 20px;
   margin-right: 19px;
 }
+/* http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+not working */
+.vert-center0 {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.vert-center {
+  margin-top: 30px;
+}
