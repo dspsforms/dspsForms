@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,13 +10,16 @@ import { FormsService } from '../../service/forms.service';
 import { FormValidators } from '../../service/form-validators';
 import { AbstractFormSubmit } from '../abstract-form-submit';
 import { Recaptchav3Service } from '../../service/recaptchav3.service';
+import { Subscription } from 'rxjs';
+import { SubscriptionUtil } from '../../shared/subscription-util';
 
 @Component({
   selector: 'app-alt-media-service-request',
   templateUrl: './alt-media-service-request.component.html',
   styleUrls: ['./alt-media-service-request.component.css']
 })
-export class AltMediaServiceRequestComponent extends AbstractFormSubmit implements OnInit, OnDestroy {
+export class AltMediaServiceRequestComponent extends AbstractFormSubmit
+  implements OnInit, OnDestroy , AfterViewInit {
 
   /*
   title: string;
@@ -29,6 +32,13 @@ export class AltMediaServiceRequestComponent extends AbstractFormSubmit implemen
 
   formName: string = FormName.ALT_MEDIA_REQUEST; // 'altMediaRequest';
   */
+
+  @ViewChildren('altFormatItem') childChildren: QueryList<ElementRef>;
+
+  afterViewInitSubscription: Subscription;
+
+  // number of elements in formArray
+  prevSizeFormArray = 0;
 
 
   constructor(public fb: FormBuilder,
@@ -105,8 +115,37 @@ export class AltMediaServiceRequestComponent extends AbstractFormSubmit implemen
 
     // add one row. if more rows are added, form validation will need all rows to be valid
 
+    this.prevSizeFormArray = 1;
     this.addRow();
 
+  }
+
+  /*
+  ideas from https://stackoverflow.com/questions/41190075/how-do-i-programmatically-set-focus-to-dynamically-created-formcontrol-in-angula#
+
+  */
+
+
+  ngAfterViewInit() {
+    console.log("ngAfterViewInit outer");
+    this.afterViewInitSubscription = this.childChildren.changes.subscribe(children => {
+
+      // get current number of elements in formArray
+      const control = <FormArray>this.form.controls['altFormatDetail'];
+
+      // check if prevSize is same or different. if different, change focus. otherwise leave as is
+      if (this.prevSizeFormArray !== control.length) {
+        console.log("ngAfterViewInit: changing focus children.last=", children.last);
+        children.last.nativeElement.focus();
+        this.prevSizeFormArray = control.length;
+      }
+    });
+  }
+
+  // need for dynamic adds of elements to re
+ // focus may not be needed by others
+ trackByFn(index: any, item: any) {
+    return index;
   }
 
 
@@ -145,6 +184,10 @@ export class AltMediaServiceRequestComponent extends AbstractFormSubmit implemen
     return this.form.get('collegeId');
   }
 
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    SubscriptionUtil.unsubscribe(this.afterViewInitSubscription);
+  }
 
 }
 

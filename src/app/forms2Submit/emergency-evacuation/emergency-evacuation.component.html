@@ -32,7 +32,7 @@
                       aria-labelledby="you fullName"
                       >
             <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
-                      class="alert alert-danger" >
+                      class="alert alert-danger" tabindex="0" >
                       Name is required
             </div>
       </div> <!-- form-group, full name -->
@@ -51,11 +51,11 @@
                       aria-required="true"
                       >
         <div *ngIf="collegeId.touched && collegeId.hasError('required')"
-                          class="alert alert-danger" >
+                          class="alert alert-danger" tabindex="0" >
                           College ID is required
         </div>
         <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
-              class="alert alert-danger" >
+              class="alert alert-danger" tabindex="0" >
               College ID is of the format G0 followed by 7 digits
         </div>
 
@@ -67,7 +67,7 @@
     <div class="well">
 
     <fieldset>
-      <legend id="emergencyContact">Your Contact Information</legend>
+      <legend id="yourContactInfo" aria-label="Your" >Your Contact Information</legend>
 
       <div class="form-group">
           <label id="homePhone" for="homePhone">Home Phone</label>
@@ -75,7 +75,7 @@
             type="text"
             class="form-control"
             formControlName="homePhone"
-            aria-labelledby="emergencyContact homePhone"
+            aria-labelledby="yourContactInfo homePhone"
             >
       </div>
 
@@ -85,7 +85,7 @@
             type="text"
             class="form-control"
             formControlName="workPhone"
-            aria-labelledby="emergencyContact workPhone"
+            aria-labelledby="yourContactInfo workPhone"
             >
       </div>
 
@@ -96,7 +96,7 @@
                   type="text"
                     class="form-control"
                     formControlName="addressLine1"
-                    aria-labelledby="emergencyContact addressLine1"
+                    aria-labelledby="yourContactInfo addressLine1"
                     >
       </div>  <!-- form-group, addressLine1 -->
 
@@ -106,7 +106,7 @@
               type="text"
               class="form-control"
               formControlName="city"
-              aria-labelledby="emergencyContact city"
+              aria-labelledby="yourContactInfo city"
               >
       </div> <!-- form-group, city -->
 
@@ -116,7 +116,7 @@
             type="text"
             class="form-control"
             formControlName="zip"
-            aria-labelledby="emergencyContact zip"
+            aria-labelledby="yourContactInfo zip"
             >
       </div> <!-- form-group, zip -->
 
@@ -150,11 +150,11 @@
       <div class="form-group">
         <label id="ambulatory"> Ambulatory?</label>
         <label id="ambulatoryYes" for="ambulatory" class="radio-inline">
-            <input type="radio" formControlName="ambulatory" value="yes"
+            <input type="radio" name="ambulatory" formControlName="ambulatory" value="yes"
             aria-labelledby="ambulatory ambulatoryYes">Yes
         </label>
         <label id="ambulatoryNo" for="ambulatory" class="radio-inline">
-            <input type="radio" formControlName="ambulatory" value="no"
+            <input type="radio" name="ambulatory" formControlName="ambulatory" value="no"
             aria-labelledby="ambulatory ambulatoryNo" >No
         </label>
       </div>
@@ -215,11 +215,11 @@
       <div class="form-group">
           <label id="needEmergencyAssist" class="space-right">Do you need assistance during an emergency?</label>
           <label id="needEmergencyAssistYes" for="needEmergencyAssist" class="radio-inline">
-              <input type="radio" formControlName="needEmergencyAssist" value="yes"
+              <input type="radio" name="needEmergencyAssist" formControlName="needEmergencyAssist" value="yes"
               aria-labelledby="needEmergencyAssist needEmergencyAssistYes">Yes
           </label>
           <label id="needEmergencyAssistNo" for="needEmergencyAssist" class="radio-inline ">
-              <input type="radio" formControlName="needEmergencyAssist" value="no"
+              <input type="radio" name="needEmergencyAssist" formControlName="needEmergencyAssist" value="no"
               aria-labelledby="needEmergencyAssist needEmergencyAssistNo" >No
           </label>
       </div>
@@ -327,7 +327,7 @@
                         aria-labelledby="signature"
                 >
                 <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
-                            class="alert alert-danger" >
+                            class="alert alert-danger" tabindex="0" >
                             Signature is required
                 </div>
             </div> <!-- form-group signature -->
