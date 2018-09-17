@@ -10,3 +10,13 @@ div.grecaptcha-badge {
  /* width:0 !important; */
  display: none;
 }
+/* increase contrast */
+.breadcrumb > .active {
+  color: #000;
+}
+.breadcrumb {
+  font-size: 100%;
+}
+legend.small{
+  font-size: 100%;
+}
