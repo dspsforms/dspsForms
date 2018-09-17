@@ -58,7 +58,7 @@ export class EmergencyEvacuationComponent extends AbstractFormSubmit  implements
 
       transportation: fb.group({
         vtaBus: [false],
-        outreach: [false],
+        vtaAccess: [false],
         taxi: [false],
         other: [''],
       }),

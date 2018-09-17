@@ -145,8 +145,9 @@
 
     <fieldset>
 
-      <legend>Ambulatory? Be sure to update any changes with DSPS</legend>
-
+      <legend>Ambulatory?
+        <span id="updateAmbulatory"> Be sure to update any changes with DSPS</span>
+      </legend>
       <div class="form-group">
         <label id="ambulatory"> Ambulatory?</label>
         <label id="ambulatoryYes" for="ambulatory" class="radio-inline">
@@ -162,9 +163,10 @@
         <label id="preferredPositioning" for="preferredPositioning" >Preferred Positioning</label>
          <input
               type="text"
+              aria-placeholder="Not Ambulatory? Be sure to update any changes with DSPS"
               class="form-control"
               formControlName="preferredPositioning"
-              aria-labelledby="ambulatory preferredPositioning"
+              aria-labelledby="preferredPositioning"
             >
 
       </div>  <!-- form-group , ambulatory -->
@@ -191,9 +193,9 @@
               <input type="checkbox" formControlName="vtaBus"
               aria-labelledby="transportation vtaBus">VTA Bus
           </label>
-          <label id="outreach" for="outreach" class="checkbox-inline ">
-              <input type="checkbox" formControlName="outreach"
-              aria-labelledby="transportation outreach" >Outreach
+          <label id="vtaAccess" for="vtaAccess" class="checkbox-inline ">
+              <input type="checkbox" formControlName="vtaAccess"
+              aria-labelledby="transportation vtaAccess" >VTA Access
           </label>
           <label id="taxi" for="taxi" class="checkbox-inline ">
               <input type="checkbox" formControlName="taxi"
