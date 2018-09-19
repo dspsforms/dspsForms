@@ -28,7 +28,7 @@ export class PaginationComponent implements OnChanges {
   // an array of numbers. each entry has the value of its index, plus 1
   pages;
 
-  pageSizeOptions = [2, 5, 10, 50];
+  pageSizeOptions = [10, 25, 50, 100];
   pageSize2use;
 
   ngOnChanges(changes: SimpleChanges) {
