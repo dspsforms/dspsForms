@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { WrappedForm } from 'src/app/model/wrapped-form.model';
 import { FormsService } from 'src/app/service/forms.service';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
+import { SubscriptionUtil } from 'src/app/shared/subscription-util';
 
 @Component({
   selector: 'app-mark-archive',
   templateUrl: './mark-archive.component.html',
   styleUrls: ['./mark-archive.component.css']
 })
-export class MarkArchiveComponent implements OnInit {
+export class MarkArchiveComponent implements OnInit , OnDestroy{
 
   @Input() data: WrappedForm;
 
@@ -18,7 +20,7 @@ export class MarkArchiveComponent implements OnInit {
 
   busy = false;
 
-  constructor(private formsService: FormsService) { }
+  constructor(private formsService: FormsService, private location: Location) { }
 
   ngOnInit() {
 
@@ -31,6 +33,9 @@ export class MarkArchiveComponent implements OnInit {
           console.log(res.err);
         } else {
           this.data.state = res.data.state;
+
+          // if (this.data.state !== 'current')
+          this.location.back();
         }
 
       }
@@ -76,6 +81,10 @@ export class MarkArchiveComponent implements OnInit {
   deleteCancelled() {
     this.deleteClicked = false;
 
+  }
+
+  ngOnDestroy() {
+    SubscriptionUtil.unsubscribe(this.patchSubscription);
   }
 
 }
