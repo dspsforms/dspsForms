@@ -13,15 +13,21 @@
             {{ formTitle(item) }}
           </a>
 
+          <div class="floatR">
+
+
           <!-- /submittedForm/archived/formName -->
-          <a [routerLink]="[submittedAbs,  item, 'archived']">
+          <a [routerLink]="[submittedAbs,  item, 'archived']" class="space">
             Archived
           </a>
 
+          <span class="space"> | </span>
           <!-- /submittedForm/deleted/formName -->
-          <a [routerLink]="[submittedAbs,  item, 'deleted']">
+          <a [routerLink]="[submittedAbs,  item, 'deleted']" class="space">
             Deleted
           </a>
+
+        </div>
 
         </li>
 
