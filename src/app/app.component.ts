@@ -40,14 +40,18 @@ export class AppComponent implements OnInit {
 
 
     this.breadcrumbService.addFriendlyNameForRoute('/submittedForm', 'Submitted');
+
     this.breadcrumbService.addFriendlyNameForRoute('/submittedForm/intakeForm', 'Intake');
+
+
     this.breadcrumbService.addFriendlyNameForRoute('/submittedForm/altMediaRequest', 'Alt Media Request');
+    this.breadcrumbService.addFriendlyNameForRoute('/submittedForm/altMediaRequest/[a-zA-Z0-9_\-]', 'Alt Media Request');
 
-    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/intakeForm/[a-zA-Z0-9_\-]', this.getIntakeLeaf);
+    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/intakeForm/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]', this.getIntakeLeaf);
 
-    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/altMediaRequest/[a-zA-Z0-9_\-]', this.getAltReqLeaf);
+    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/altMediaRequest/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]', this.getAltReqLeaf);
 
-    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/applicationForServices/[a-zA-Z0-9_\-]', this.getAppServicesReqLeaf);
+    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/applicationForServices/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]', this.getAppServicesReqLeaf);
 
     // login?next=...  -- nothing
     this.breadcrumbService.hideRouteRegex('/login');
@@ -55,16 +59,18 @@ export class AppComponent implements OnInit {
     // agreementView/intakeForm
     this.breadcrumbService.hideRouteRegex('/agreementView');
     this.breadcrumbService.hideRouteRegex('/agreementView/[a-zA-Z0-9_\-]');
+    this.breadcrumbService.hideRouteRegex('/agreementView/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]');
 
     // /agreementCreateEdit/emergencyEvacInfo
     this.breadcrumbService.hideRouteRegex('/agreementCreateEdit');
     this.breadcrumbService.hideRouteRegex('/agreementCreateEdit/[a-zA-Z0-9_\-]');
+    this.breadcrumbService.hideRouteRegex('/agreementCreateEdit/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]');
 
     // feedback. if we don't want to show the last node in the tree.
     // however, this will remove the link to "all feedbacks" in the breadcrumb, which is not desirable
     // this.breadcrumbService.hideRouteRegex('/submittedForm/feedback/[a-zA-Z0-9_\-]');
 
-    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/feedback/[a-zA-Z0-9_\-]', this.getFeedback);
+    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/feedback/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]', this.getFeedback);
 
     // this.breadcrumbService.hideRoute('/newForm');
     // this.breadcrumbService.hideRoute('/submittedForm');

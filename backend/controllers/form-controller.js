@@ -66,6 +66,61 @@ exports.postFormAgreement = (req, res, next) => {
 
 }
 
+exports.patchForm = (req, res, next) => {
+
+  // https://coursework.vschool.io/mongoose-crud/
+
+  console.log(req.params.id);
+  // https://stackoverflow.com/questions/17223517/mongoose-casterror-cast-to-objectid-failed-for-value-object-object-at-path
+
+
+  const formName = sanitize(req.params.formName);
+
+  /*
+  _id?: string;
+  state?: string;
+  */
+  const id = sanitize(req.body._id);
+  const state = sanitize(req.body.state);
+
+  const form = getFormModel(formName);
+
+
+
+  form.findByIdAndUpdate(
+    // the id of the item to find
+    mongoose.Types.ObjectId(id),
+
+    // the change to be made. Mongoose will smartly combine your existing
+    // document with this change, which allows for partial updates too
+    // req.body,
+    { state: state },
+
+    // an option that asks mongoose to return the updated version
+    // of the document instead of the pre-updated one.
+    { new: true },
+
+    // the callback function
+    (err, result) => {
+      console.log(result);
+
+      // Handle any possible database errors
+      // formId: string, message: string, err?: string
+      if (err) return res.status(500).send({
+        data: { _id: id },
+        message: "form update error",
+        err: err
+      });
+      return res.status(200).json({
+        data: { _id: id, state: state },
+        message: "form updated"
+      });
+    }
+
+  );
+
+}
+
 // "/api/form/list"  -- must have staff permission
 exports.list = (req, res, next) => {
   console.log("in /api/form/list");
@@ -117,13 +172,24 @@ exports.getFormsForACategory = (req, res, next) => {
 
   const formName = sanitize(req.params.formName);
   console.log("fetching forms for ", formName);
+  const state = sanitize(req.query.state);
   const pageSize = +sanitize(req.query.pagesize);
   const currentPage = +sanitize(req.query.page);
-  console.log("pageSize=", pageSize, ", currentPage=", currentPage);
+  console.log("state=", state, ", pageSize=", pageSize, ", currentPage=", currentPage);
 
   const form = getFormModel(formName);
 
-  const query = form.find();
+  let query;
+  if (!state || state == 'current') {
+    query = form.find({
+      $or:
+        [{ state: { $exists: false } },
+          { state: 'current' }
+        ]
+    }); // also include non existing
+  } else {
+    query = form.find({ state: state });
+  }
   let fetchedItems;
   if (pageSize && currentPage) {
     // page numbers start at 1
@@ -139,7 +205,7 @@ exports.getFormsForACategory = (req, res, next) => {
   query.then(
     documents => {
       fetchedItems = documents;
-      return form.count();
+      return query.count(); // was form.count
     }
   ).then(
     count => {
@@ -381,3 +447,5 @@ removeCaptcha = form => {
 
   return form2Save;
 }
+
+

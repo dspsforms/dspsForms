@@ -13,20 +13,50 @@
 
 <div class="container-fluid">
     <h3>Submitted Forms: {{ formInfo.formTitle }} </h3>
+    <div class="vert-spacing">
+      Showing {{ state}} forms.
+
+      <!-- /submittedForm/formName/current -->
+      <a *ngIf="state !== 'current'"  class="btn btn-default horz-spacing"
+          [routerLink]="[submittedAbs, formInfo.formName, 'current']">
+            Show Current
+      </a>
+
+      <a *ngIf="state !== 'archived'" class="btn btn-primary horz-spacing"
+          [routerLink]="[submittedAbs, formInfo.formName, 'archived']">
+            Show Archived
+      </a>
+
+      <a *ngIf="state !== 'deleted'" class="btn btn-warning horz-spacing"
+        [routerLink]="[submittedAbs, formInfo.formName, 'deleted']">
+          Show Deleted
+      </a>
+
+
+
+    </div>
   <div class="row">
     <div class="col-sm-8">
 
+      <div *ngIf="!list || list.length == 0">
+        There is no form to show here.
+      </div>
 
-      <ul class="list-group">
+      <ul class="list-group" *ngIf="list && list.length > 0">
         <div *ngFor="let item of list; let i=index">
 
-          <!-- ngIf will skip placeHolder node if any -->
-          <li *ngIf="item.formName"
+          <!-- ngIf will skip placeHolder node if any
+
+            1/2019: show only if
+            item.state is undefined or
+            item.state == state
+          -->
+          <li *ngIf="item.formName && isCorrectState(item.state)"
             class="list-group-item" >
 
             <!-- /submittedForm/formName/formKey -->
             <a
-              [routerLink]="[submittedAbs, getFormName(item), getKey(item)]">
+              [routerLink]="[submittedAbs, getFormName(item), state, getKey(item)]">
               {{ getVal(item) }}
             </a>
 

@@ -69,6 +69,7 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
 import { AgreementViewDialogComponent } from './dspsStaff/agreement-view-dialog/agreement-view-dialog.component';
 import { AgreementLinkDialogComponent } from './dspsStaff/agreement-link-dialog/agreement-link-dialog.component';
 import { SafeHtmlPipe } from './util/safe-html.pipe';
+import { MarkArchiveComponent } from './dspsStaff/view-form/mark-archive/mark-archive.component';
 
 
 
@@ -116,6 +117,7 @@ import { SafeHtmlPipe } from './util/safe-html.pipe';
     AgreementViewDialogComponent,
     AgreementLinkDialogComponent,
     SafeHtmlPipe,
+    MarkArchiveComponent,
 
   ],
   imports: [

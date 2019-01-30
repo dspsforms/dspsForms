@@ -63,11 +63,12 @@ export const ngProjectRouting = RouterModule.forRoot([
     // 'submittedForm'
     { path: UrlConfig.SUBMITTED_FORM, component: ListFormTypesComponent  , canActivate: [StaffAuthGuard] }, // protected
 
-    // 'submittedForm/:formName'
-   { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent  , canActivate: [StaffAuthGuard] } , //
+    // 'submittedForm/:formName' and 'submittedForm/:formName/:state'
+  { path: UrlConfig.SUBMITTED_FORM + '/:formName/:state', component: ListFormsComponent, canActivate: [StaffAuthGuard] }, //
+  { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent  , canActivate: [StaffAuthGuard] } , //
 
-    // 'submittedForm/:formName/:_id'
-    { path: UrlConfig.SUBMITTED_FORM + '/:formName/:_id', component: ViewFormComponent  , canActivate: [StaffAuthGuard] },
+    // 'submittedForm/:formName/:state/:_id'
+    { path: UrlConfig.SUBMITTED_FORM + '/:formName/:state/:_id', component: ViewFormComponent  , canActivate: [StaffAuthGuard] },
 
     // change this to a component that redirects out to the main website
     // {path: 'home', component: ListEmptyFormTypesComponent },

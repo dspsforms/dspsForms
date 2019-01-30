@@ -4,6 +4,7 @@
       [formKey]="data._id"
       [wrappedForm]="data" >
  </app-view-alt-media-request>
+ <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
 <div *ngIf="formInfo.formName == 'intakeForm' && data ">
@@ -11,6 +12,7 @@
         [formKey]="data._id"
         [wrappedForm]="data" >
     </app-view-intake>
+    <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
 <div *ngIf="formInfo.formName == 'applicationForServices' ">
@@ -18,6 +20,7 @@
            [formKey]="data._id"
            [wrappedForm]="data" >
        </app-view-application-for-services>
+       <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
 <div *ngIf="formInfo.formName == 'emergencyEvacInfo' ">
@@ -25,6 +28,7 @@
        [formKey]="data._id"
        [wrappedForm]="data" >
    </app-view-emergency-evacuation>
+   <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
 <div *ngIf="formInfo.formName == 'feedback' ">
@@ -32,6 +36,7 @@
        [formKey]="data._id"
        [wrappedForm]="data" >
    </app-view-feedback>
+   <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
 <div *ngIf="showJson">

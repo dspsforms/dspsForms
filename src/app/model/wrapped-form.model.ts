@@ -4,7 +4,9 @@ export class WrappedForm {
 
   formKey?: string;
   _id?: string;
-    form?: any;
+  state?: string;
+  form?: any;
+  formName?: string;
 
   constructor(options: {
         formKey?: string,

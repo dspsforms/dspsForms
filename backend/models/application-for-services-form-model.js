@@ -8,7 +8,8 @@ const applicationForServicesSchema = mongoose.Schema({
   edited: { type: Boolean },
   created: { type: Date },
   lastMod: { type: Date },
-  captchaScore: {type: String}
+  captchaScore: { type: String },
+  state: {type: String}
 });
 
 module.exports = mongoose.model('applicationForServices', applicationForServicesSchema);

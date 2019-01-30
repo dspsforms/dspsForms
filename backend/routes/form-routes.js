@@ -22,6 +22,9 @@ router.post("/:formName", verifyCaptchaV3, FormController.postForm);
 // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);
 
+// patch  "/api/form/:formName"  // add checkAuthStaff or checkAuthAdmin
+router.patch("/:formName", checkAuthStaff, FormController.patchForm);
+
 // "/api/form/list"  -- must have staff permission
 router.get("/list", checkAuthStaff, FormController.list);
 

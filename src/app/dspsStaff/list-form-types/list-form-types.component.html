@@ -8,9 +8,19 @@
         <li *ngFor="let item of list; let i=index"
           class="list-group-item" >
 
-          <!-- /submittedForm/formName -->
-          <a [routerLink]="[submittedAbs, item]">
+          <!-- /submittedForm/current/formName -->
+          <a [routerLink]="[submittedAbs, item, 'current']">
             {{ formTitle(item) }}
+          </a>
+
+          <!-- /submittedForm/archived/formName -->
+          <a [routerLink]="[submittedAbs,  item, 'archived']">
+            Archived
+          </a>
+
+          <!-- /submittedForm/deleted/formName -->
+          <a [routerLink]="[submittedAbs,  item, 'deleted']">
+            Deleted
           </a>
 
         </li>

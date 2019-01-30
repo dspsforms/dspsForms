@@ -1,0 +1,9 @@
+.horz-spacing {
+  margin-right: 10px;
+  padding-right: 10px;
+  display: inline;
+}
+.vert-spacing {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}

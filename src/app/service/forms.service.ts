@@ -34,6 +34,8 @@ export class FormsService implements OnInit {
 
   private formSaveStatus = new Subject<{ formId: string, message: string, err?: string } > ();
 
+  private formPatchStatus = new Subject<{data: WrappedForm, message: string, err?: string }>();
+
   constructor(private http: HttpClient) {
     // initiaze formsUpdateMap. each entry is a key/value pair
     // key is formNmae. value is a Subject.
@@ -76,6 +78,10 @@ export class FormsService implements OnInit {
     return this.formSaveStatus.asObservable();
   }
 
+  getFormPatchStatusListener() {
+    return this.formPatchStatus.asObservable();
+  }
+
 
   // /api/form/:formName/:_id
   getFormData2(formName: string, _id: string) {
@@ -101,6 +107,12 @@ export class FormsService implements OnInit {
         const formName = FormUtil.collection2FormName(collectionName);
         return formName;
 
+      }).filter(formName => {
+        if (formName) {
+          return true;
+        } else {
+          return false;
+        }
       });
 
       // let those listening on it know
@@ -110,7 +122,7 @@ export class FormsService implements OnInit {
   }
 
   // /api/form/:formName
-  listForms2(formName: string, itemsPerPage: number, currentPage: number) {
+  listForms2(formName: string, state: string, itemsPerPage: number, currentPage: number) {
 
     // verify formName
     if (! FormName.formNames.includes(formName)) {
@@ -118,7 +130,7 @@ export class FormsService implements OnInit {
       return;
     }
 
-    const queryParams = `?pagesize=${itemsPerPage}&page=${currentPage}`;
+    const queryParams = `?state=${state}&pagesize=${itemsPerPage}&page=${currentPage}`;
 
     // fetch forms from server. TODO add (limit, offset) -- pagination
     const url = environment.server + '/api/form/' + formName + queryParams;
@@ -172,6 +184,24 @@ export class FormsService implements OnInit {
       err => {
         console.log(err);
         this.formSaveStatus.next({ formId: null, message: 'an error occured',  err: err });
+    });
+  }
+
+  patchForm(formData: WrappedForm, formName: string) {
+
+
+    const url = environment.server + "/api/form/" + formName ;
+
+    this.http
+      .patch < { data: any, message: string, err?: string } > (url, formData)
+      .subscribe( response => {
+         console.log(response);
+         this.formPatchStatus.next({ data: response.data, message: response.message });
+         // this.router.navigate([nextUrl || "/"]);
+      },
+      err => {
+        console.log(err);
+        this.formPatchStatus.next({ data: null, message: 'an error occured',  err: err });
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionUtil } from '../../shared/subscription-util';
 import { FormUtil } from '../../model/form.util';
@@ -24,6 +24,8 @@ export class ListFormsComponent implements OnInit, OnDestroy {
   busy = false;
 
   jsonFormat = false;
+
+  state = "current"; // values: current, archived, deleted. investigate enums
 
 
   formInfo = { formName: '', formTitle: ''};
@@ -57,6 +59,8 @@ export class ListFormsComponent implements OnInit, OnDestroy {
          this.formInfo.formTitle = '';
       }
 
+      this.state = params["state"] || 'current';
+
       this.busy = true;
 
       this.list = [];
@@ -73,7 +77,7 @@ export class ListFormsComponent implements OnInit, OnDestroy {
         console.log("listForms: illegal (pageSize, currentPage) during init", this.pageSize, this.currentPage);
       } else {
         console.log("listForms: valid (pageSize, currentPage) during init", this.pageSize, this.currentPage);
-        this.formService.listForms2(this.formInfo.formName,
+        this.formService.listForms2(this.formInfo.formName, this.state,
           this.pageSize, this.currentPage);
       }
 
@@ -90,7 +94,7 @@ export class ListFormsComponent implements OnInit, OnDestroy {
           console.log("listForms: illegal (pageSize, currentPage) from paginationService", this.pageSize, this.currentPage);
         } else {
           console.log("listForms: valid (pageSize, currentPage) from paginationService", this.pageSize, this.currentPage);
-          this.formService.listForms2(this.formInfo.formName,
+          this.formService.listForms2(this.formInfo.formName, this.state,
             this.pageSize, this.currentPage);
         }
 
@@ -127,6 +131,21 @@ export class ListFormsComponent implements OnInit, OnDestroy {
 
   getFormName(item) {
     return item.formName;
+  }
+
+  isCorrectState(itemState) {
+    // for current: (!itemState || itemState === this.state)
+    // for others: itemState === this.state
+
+    if (!this.state || this.state === 'current') {
+      if (!itemState || itemState === 'current') {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return itemState === this.state;
+    }
   }
 
 }
