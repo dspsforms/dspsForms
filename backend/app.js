@@ -11,6 +11,9 @@ console.log("envPath=", envPath);
 require('dotenv').config({ path: envPath });
 const config = require('./config/config');
 
+
+
+
 const formRoutes = require('./routes/form-routes');
 const userRoutes = require('./routes/user-routes');
 
@@ -118,6 +121,16 @@ app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "angular", "index.html"));
 });
 
+
+// console.log("calling testEmail1");
+// const test = require('./testEmail1');
+// console.log("end testEmail1");
+
+// works
+// console.log("calling testEmail2 async mode");
+// const testSend = require('./testEmail2');
+// testSend().catch(console.error);
+// console.log("caller after testEmail2, but that stuff is running async");
 
 
 module.exports = app;

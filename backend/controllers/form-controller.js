@@ -32,6 +32,8 @@ exports.postForm = (req, res, next) => {
       formId: createdForm._id
     });
 
+    next(); // send email notification that a new form has been submitted
+
   })
   .catch(err => {
     console.log(err);

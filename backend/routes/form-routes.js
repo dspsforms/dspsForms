@@ -11,13 +11,15 @@ const checkAuthAdmin = require("../middleware/check-auth-admin");
 
 const verifyCaptchaV3 = require("../middleware/verify-captchav3");
 
+const emailNotify = require("../middleware/email-notify");
+
 const router = express.Router();
 
 const FormController = require('../controllers/form-controller');
 
 
 // post  "/api/form/:formName" verify captcha v3
-router.post("/:formName", verifyCaptchaV3, FormController.postForm);
+router.post("/:formName", verifyCaptchaV3, FormController.postForm, emailNotify);
 
 // post  "/api/form/agreement/:formName"  // add checkAuthStaff or checkAuthAdmin
 router.post("/agreement/:formName", checkAuthAdmin, FormController.postFormAgreement);
