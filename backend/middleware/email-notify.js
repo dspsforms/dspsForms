@@ -14,6 +14,12 @@ module.exports = (req, res, next) => {
   try {
     console.log("emailConfig= ", emailConfig);
 
+    if (emailConfig.emailNoEmail) {
+      // do not send email
+      console.log("no email sent, in accordance with emailConfig");
+      return;
+    }
+
     formName = sanitize(req.params.formName);
     console.log("formName= ", formName);
 

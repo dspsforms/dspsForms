@@ -94,7 +94,9 @@ export class AltMediaServiceRequestComponent extends AbstractFormSubmit
       const newAltFormatReq: FormGroup = this.initItems();
 
       // Add it to our formArray
-      control.push(newAltFormatReq);
+    control.push(newAltFormatReq);
+
+    return false;
   }
 
   initItems(): FormGroup {

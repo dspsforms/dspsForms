@@ -19,5 +19,7 @@ emailConfig['port'] = config.EMAIL_PORT;
 emailConfig['authUser'] = config.EMAIL_AUTH_USER;
 emailConfig['authPassword'] = config.EMAIL_AUTH_PASS;
 
+emailConfig['emailNoEmail'] = config.EMAIL_NO_EMAIL;
+
 
 module.exports = emailConfig;
