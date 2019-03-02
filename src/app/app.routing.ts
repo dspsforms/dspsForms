@@ -30,6 +30,7 @@ import { FeedbackComponent } from './forms2Submit/feedback/feedback.component';
 import { AgreementCreateEditComponent } from './dspsStaff/agreement-create-edit/agreement-create-edit.component';
 import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-view.component';
 import { CaptchaScorer } from './captcha-scorer';
+import { ComplaintComponent } from './forms2Submit/complaint/complaint.component';
 
 
 /* temporarily commented out
@@ -58,6 +59,10 @@ export const ngProjectRouting = RouterModule.forRoot([
 
      // 'newForm/feedback'
      { path: UrlConfig.NEW_FORM + '/' + UrlConfig.FEEDBACK , component: FeedbackComponent , canActivate: [CaptchaScorer]},
+
+     // 'newForm/complaint'
+     // 'newForm/feedback'
+     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.COMPLAINT , component: ComplaintComponent , canActivate: [CaptchaScorer]},
 
 
     // 'submittedForm'

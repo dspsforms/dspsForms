@@ -1,0 +1,308 @@
+<div class="container-fluid">
+
+  <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
+
+  <h1 id="formTitle">{{ title }} </h1>
+
+  <!-- layout based on
+    https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
+  -->
+
+  <div class="row">
+      <div class="col-sm-8">
+
+          <legend class="small">Fields marked with <i class="glyphicon glyphicon-asterisk"></i> are required.</legend>
+
+
+  <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+  <div class="well">
+
+  <fieldset>
+    <legend id="you" aria-label="Your" >You</legend>
+
+    <div class="form-group">
+        <label id="firstName" for="firstName">First Name <i class="glyphicon glyphicon-asterisk"></i></label>
+        <input
+                    type="text"
+                    class="form-control"
+                    formControlName="firstName"
+                    aria-labelledby="formTitle you firstName"
+                    aria-required="true"
+                    >
+          <!-- aria-live="assertive" means the text will be spoken whenever the value changes -->
+          <div *ngIf="form.get('firstName').touched && form.get('firstName').hasError('required')"
+                    class="alert alert-danger" tabindex="0" >
+                    First Name is required
+          </div>
+    </div> <!-- form-group, first name -->
+
+    <div class="form-group">
+        <label id="middle" for="middle">Middle</label>
+        <input
+                    type="text"
+                    class="form-control"
+                    formControlName="middle"
+                    aria-labelledby="formTitle you middle"
+                    aria-required="true"
+                    >
+    </div> <!-- form-group, middle -->
+
+    <div class="form-group">
+        <label id="lastName" for="lastName">Last Name <i class="glyphicon glyphicon-asterisk"></i></label>
+        <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lastName"
+                    aria-labelledby="formTitle you lastName"
+                    aria-required="true"
+                    >
+          <!-- aria-live="assertive" means the text will be spoken whenever the value changes -->
+          <div *ngIf="form.get('lastName').touched && form.get('lastName').hasError('required')"
+                    class="alert alert-danger" tabindex="0" >
+                    Last Name is required
+          </div>
+    </div> <!-- form-group, first name -->
+
+    <div class="form-group">
+        <label id="addressLine1" for="addressLine1">Address Line <i class="glyphicon glyphicon-asterisk"></i></label>
+
+        <input
+                  type="text"
+                    class="form-control"
+                    formControlName="addressLine1"
+                    aria-labelledby="you addressLine1"
+                    >
+                    <div *ngIf="form.get('addressLine1').touched && form.get('addressLine1').hasError('required')"
+                      class="alert alert-danger" tabindex="0" >
+                      Address Line is required
+                    </div>
+      </div>  <!-- form-group, addressLine1 -->
+
+      <div class="form-group">
+        <label id="city" for="city" >City <i class="glyphicon glyphicon-asterisk"></i></label>
+        <input
+              type="text"
+              class="form-control"
+              formControlName="city"
+              aria-labelledby="you city"
+              >
+              <div *ngIf="form.get('city').touched && form.get('city').hasError('required')"
+                      class="alert alert-danger" tabindex="0" >
+                      City is required
+              </div>
+      </div> <!-- form-group, city -->
+
+      <div class="form-group">
+          <label id="state" for="state" >State <i class="glyphicon glyphicon-asterisk"></i></label>
+          <input
+                type="text"
+                class="form-control"
+                formControlName="state"
+                aria-labelledby="you state"
+                >
+                <div *ngIf="form.get('state').touched && form.get('state').hasError('required')"
+                  class="alert alert-danger" tabindex="0" >
+                  State is required
+                </div>
+        </div> <!-- form-group, state -->
+
+      <div class="form-group">
+        <label id="zip" for="zip">Zip <i class="glyphicon glyphicon-asterisk"></i></label>
+        <input
+            type="text"
+            class="form-control"
+            formControlName="zip"
+            aria-labelledby="you zip"
+            >
+            <div *ngIf="form.get('zip').touched && form.get('zip').hasError('required')"
+                  class="alert alert-danger" tabindex="0" >
+                  Zip is required
+            </div>
+      </div> <!-- form-group, zip -->
+
+      <div class="form-group">
+          <label id="phone" for="phone">Phone <i class="glyphicon glyphicon-asterisk"></i>  (preferred)</label>
+          <input
+              type="text"
+              class="form-control"
+              formControlName="phone"
+              aria-labelledby="you phone"
+              >
+              <div *ngIf="form.get('phone').touched && form.get('phone').hasError('required')"
+                    class="alert alert-danger" tabindex="0" >
+                    Phone is required
+              </div>
+        </div> <!-- form-group, telephone -->
+
+        <div class="form-group">
+            <label id="email" for="email">Email <i class="glyphicon glyphicon-asterisk"></i></label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+                aria-labelledby="you email"
+                >
+                <div *ngIf="form.get('email').touched && form.get('email').hasError('required')"
+                      class="alert alert-danger" tabindex="0" >
+                      Email is required
+                </div>
+
+                <div *ngIf="email.touched && email.errors?.email"
+                  class="alert alert-danger" tabindex="0" >
+                  Please check to make sure your email is correct
+                </div>
+          </div> <!-- form-group, email -->
+
+  </fieldset>
+</div> <!-- well, you-->
+
+<div class="well">
+    <fieldset>
+
+      <div class="form-group" >
+          <label id="incidentDesc" for="incidentDesc" >Describe the incident
+              <i class="glyphicon glyphicon-asterisk" alt="*"></i>  </label>
+            <textarea
+                placeholder="Describe the incident"
+                class="form-control"
+                formControlName="incidentDesc"
+                rows="5"
+                aria-required="true"
+                aria-labelledby="incidentDesc">
+            </textarea>
+
+            <div *ngIf="form.get('incidentDesc').touched && form.get('incidentDesc').hasError('required')"
+                      class="alert alert-danger" tabindex="0" >
+                      Description of the incident is required
+            </div>
+
+        </div>  <!-- form-group , complaint message -->
+    </fieldset>
+</div> <!-- well -->
+
+<div class="well">
+
+      <div class="form-group"  >
+        <label id="otherSteps"> Have efforts been made to resolve this complaint
+          through another grievance procedure of the college?
+          <i class="glyphicon glyphicon-asterisk" alt="*"></i>
+        </label>
+        <label id="otherStepsYes" class="radio-inline" aria-label="yes">
+            <input type="radio" name="otherSteps" formControlName="otherSteps" value="yes"
+              aria-labelledby="otherSteps otherStepsYes">Yes
+        </label>
+        <label id="otherStepsNo" class="radio-inline" aria-label="no">
+            <input type="radio" name="otherSteps" formControlName="otherSteps" value="no"
+            aria-labelledby="otherSteps otherStepsNo"  >No
+        </label>
+
+        <div *ngIf="form.get('otherSteps').touched && form.get('otherSteps').hasError('required')"
+                      class="alert alert-danger" tabindex="0" >
+                      This field is required
+        </div>
+
+      </div>
+      <div class="form-group" *ngIf="form.get('otherSteps').value == 'yes'">
+        <label >Indicate what steps have been taken</label>
+
+        <textarea
+                placeholder="Steps taken"
+                class="form-control"
+                formControlName="stepsTaken"
+                rows="5"
+                aria-labelledby="stepsTaken">
+        </textarea>
+
+      </div>  <!-- form-group , steps taken -->
+
+      <div class="form-group"  >
+          <label id="legalSteps"> Has the complaint been filed with the Department of Justice or any
+            other Federal, State, or local civil rights agency or court?
+            <i class="glyphicon glyphicon-asterisk" alt="*"></i>
+          </label>
+          <label id="legalStepsYes" class="radio-inline" aria-label="yes">
+              <input type="radio" name="legalSteps" formControlName="legalSteps" value="yes"
+                aria-labelledby="legalSteps legalStepsYes">Yes
+          </label>
+          <label id="legalStepsNo" class="radio-inline" aria-label="no">
+              <input type="radio" name="legalSteps" formControlName="legalSteps" value="no"
+              aria-labelledby="legalSteps legalStepsNo"  >No
+          </label>
+
+          <div *ngIf="form.get('legalSteps').touched && form.get('legalSteps').hasError('required')"
+                        class="alert alert-danger" tabindex="0" >
+                        This field is required
+          </div>
+
+        </div>
+        <div class="form-group" *ngIf="form.get('legalSteps').value == 'yes'">
+          <label >If so, which agency or court?</label>
+
+          <input
+                type="text"
+                class="form-control"
+                formControlName="legalStepsTaken"
+                aria-labelledby="legalStepsTaken"
+                >
+
+
+        </div>  <!-- form-group , legal steps taken -->
+
+</div> <!-- well -->
+
+<div>Other resources for filing complaints
+
+  <ul>
+    <li>WVMCCD District Discrimination Complaint Form (need link)</li>
+    <li><a href="http://extranet.cccco.edu/Divisions/Legal/Discrimination.aspx#Resources">California Community Colleges Chancellor's Office</a></li>
+    <li><a href="https://www2.ed.gov/about/offices/list/ocr/complaintintro.html">Office for Civil Rights of the U.S. Department of Education (OCR)</a> 1-800-421-3481 or 1-415-486-5555</li>
+  </ul>
+
+</div>
+
+
+<div class="form-group" class="col-sm-6">
+    <label id="signature" for="signature">Signature (type your name) <i class="glyphicon glyphicon-asterisk"></i>
+      <app-agreement-link-dialog [formName]="formName"></app-agreement-link-dialog>
+    </label>
+        <input
+            type="text"
+            class="form-control"
+            formControlName="signature"
+            aria-required="true"
+            aria-labelledby="signature"
+        >
+        <div *ngIf="form.get('signature').touched && form.get('signature').hasError('required')"
+                class="alert alert-danger" tabindex="0" >
+                Signature is required
+        </div>
+</div> <!-- form-group signature -->
+
+
+<div class="form-row right vert-space">
+    <button type="submit"
+            [disabled]="!form.valid || !form.dirty"
+            class="btn btn-primary"
+    >Submit</button>
+    <div *ngIf="!form.valid || !form.dirty">
+        <br>
+        <legend class="small">
+          You can submit only if required fields are filled
+        </legend>
+    </div>
+
+</div>
+
+
+</form>
+
+<button type="button" (click)="showForm()">Show Log</button>
+
+</div> <!-- outer col-sm-6 well -->
+</div> <!-- outer row -->
+
+
+</div> <!-- container -->
+
+

@@ -126,7 +126,21 @@ export class ListFormsComponent implements OnInit, OnDestroy {
   }
 
   getVal(item) {
-    return item.form.fullName;
+    if (item.form.fullName) {
+      return item.form.fullName;
+    }
+
+    // for complaint, it's firstName middle lastName
+    else {
+      let c = item.form.firstName;
+      if (item.form.middle) {
+        c += " " + item.form.middle;
+      }
+      c += " " + item.form.lastName;
+
+      return c;
+    }
+
   }
 
   getFormName(item) {

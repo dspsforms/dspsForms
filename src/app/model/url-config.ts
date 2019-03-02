@@ -14,6 +14,7 @@ export class UrlConfig {
   static APPLICATION_FOR_SERVICES = FormName.APPLICATION_FOR_SERVICES; // 'applicationForServices';
   static EMERGENCY_EVAC_INFO = FormName.EMERGENCY_EVAC_INFO; // 'emergencyEvacInfo' ;
   static FEEDBACK = FormName.FEEDBACK;
+  static COMPLAINT = FormName.COMPLAINT;
 
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 

@@ -5,13 +5,16 @@ export class FormName {
   static APPLICATION_FOR_SERVICES = 'applicationForServices';
   static EMERGENCY_EVAC_INFO = 'emergencyEvacInfo';
   static FEEDBACK = 'feedback';
+  static COMPLAINT = 'complaint';
+
 
   static formNames = [
     FormName.INTAKE_FORM,
     FormName.ALT_MEDIA_REQUEST,
     FormName.APPLICATION_FOR_SERVICES,
     FormName.EMERGENCY_EVAC_INFO,
-    FormName.FEEDBACK
+    FormName.FEEDBACK,
+    FormName.COMPLAINT
   ];
 
 
@@ -40,6 +43,8 @@ export class FormUtil {
 
           FormUtil.formMap[FormName.FEEDBACK] = "Feedback";
 
+          FormUtil.formMap[FormName.COMPLAINT] = "DSPS Complaint/Grievance Form";
+
 
           // mongo collections are named intakeforms, etc.
           FormUtil.mongo2FormNameMap["intakeforms"] = FormName.INTAKE_FORM;
@@ -47,6 +52,7 @@ export class FormUtil {
           FormUtil.mongo2FormNameMap["applicationforservices"] = FormName.APPLICATION_FOR_SERVICES;
           FormUtil.mongo2FormNameMap["emergencyevacinfos"] = FormName.EMERGENCY_EVAC_INFO;
           FormUtil.mongo2FormNameMap["feedbacks"] = FormName.FEEDBACK;
+          FormUtil.mongo2FormNameMap["complaints"] = FormName.COMPLAINT;
 
 
           FormUtil.initialized = true;

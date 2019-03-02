@@ -53,6 +53,12 @@ export class AppComponent implements OnInit {
 
     this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/applicationForServices/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]', this.getAppServicesReqLeaf);
 
+    this.breadcrumbService.addFriendlyNameForRoute('/submittedForm/complaint', 'Complaint/Grievance');
+    this.breadcrumbService.addFriendlyNameForRoute('/submittedForm/complaint/[a-zA-Z0-9_\-]', 'Complaint/Grievance');
+    this.breadcrumbService.addCallbackForRouteRegex('/submittedForm/complaint/[a-zA-Z0-9_\-]/[a-zA-Z0-9_\-]', this.getComplaintLeaf);
+
+    // /submittedForm/complaint/current/5c79cc7b34e9b60be3b4d7e9
+
     // login?next=...  -- nothing
     this.breadcrumbService.hideRouteRegex('/login');
 
@@ -96,6 +102,11 @@ export class AppComponent implements OnInit {
 
   getFeedback(id: string): string {
     return 'aFeedback';
+  }
+
+  getComplaintLeaf(id: string): string {
+    console.log("in getCompaintLeaf");
+    return 'aComplaint';
   }
 
 

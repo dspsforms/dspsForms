@@ -8,6 +8,7 @@ module.exports = {
   EMAIL_SENDER_INTAKE: process.env.EMAIL_SENDER_INTAKE || '',
   EMAIL_SENDER_ALT_MEDIA: process.env.EMAIL_SENDER_ALT_MEDIA || '',
   EMAIL_SENDER_FEEDBACK: process.env.EMAIL_SENDER_FEEDBACK || '',
+  EMAIL_SENDER_COMPLAINT: process.env.EMAIL_SENDER_COMPLAINT || '',
   EMAIL_HOST: process.env.EMAIL_HOST || '',
   EMAIL_PORT: process.env.EMAIL_PORT || 0,
   EMAIL_AUTH_USER: process.env.EMAIL_AUTH_USER || '',

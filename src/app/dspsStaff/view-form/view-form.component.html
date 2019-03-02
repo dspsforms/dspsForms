@@ -39,6 +39,14 @@
    <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
+<div *ngIf="formInfo.formName == 'complaint' ">
+    <app-view-complaint
+       [formKey]="data._id"
+       [wrappedForm]="data" >
+   </app-view-complaint>
+   <app-mark-archive [data]="data" ></app-mark-archive>
+</div>
+
 <div *ngIf="showJson">
     json
     <p></p>

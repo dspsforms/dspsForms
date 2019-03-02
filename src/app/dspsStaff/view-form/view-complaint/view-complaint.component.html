@@ -1,0 +1,75 @@
+<div class="container-fluid" *ngIf="wrappedForm.created" >
+
+  <h1>{{ formTitle }} </h1>
+
+  <div class="row">
+    <div class="col-sm-10">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title inline">
+                  Applicant
+              </div>
+            </div> <!-- panel-heading -->
+
+            <div class="panel-body">
+              <table class="table table-bordered">
+                <tr><td>First Name</td> <td> {{ wrappedForm.form.firstName }} </td></tr>
+                <tr><td>Middle</td> <td> {{ wrappedForm.form.middle }} </td></tr>
+                <tr><td>Last Name</td> <td> {{ wrappedForm.form.lastName }} </td></tr>
+                <tr><td>Address Line</td> <td> {{ wrappedForm.form.addressLine1 }} </td></tr>
+                <tr><td>City</td> <td> {{ wrappedForm.form.city }} </td></tr>
+                <tr><td>State</td> <td> {{ wrappedForm.form.state }} </td></tr>
+                <tr><td>Zip</td> <td> {{ wrappedForm.form.zip }} </td></tr>
+                <tr><td>Phone</td> <td> {{ wrappedForm.form.phone }} </td></tr>
+                <tr><td>Email</td> <td> {{ wrappedForm.form.email }} </td></tr>
+              </table>
+            </div> <!-- panel-body -->
+          </div> <!-- panel, panel-default -->
+
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-title inline">
+                    Incident Info
+                </div>
+              </div> <!-- panel-heading -->
+
+              <div class="panel-body">
+                <dl class="dl-horizontal" >
+                  <dt>Incident Description</dt>
+                  <dd> {{ wrappedForm.form.incidentDesc }} </dd>
+                </dl>
+
+                <dl class="dl-horizontal" >
+                    <dt>Have efforts been made to resolve this complaint
+                          through another grievance procedure of the government, institution, or business?</dt>
+                    <dd> {{ wrappedForm.form.otherSteps }} </dd>
+                </dl>
+
+                <dl *ngIf="wrappedForm.form.stepsTaken"  class="dl-horizontal" >
+                    <dt>Steps Taken</dt>
+                    <dd> {{ wrappedForm.form.stepsTaken }} </dd>
+                </dl>
+
+                <dl class="dl-horizontal" >
+                    <dt>Has the complaint been filed with the Department of Justice or any
+                        other Federal, State, or local civil rights agency or court?</dt>
+                    <dd> {{ wrappedForm.form.legalSteps }} </dd>
+                </dl>
+
+                <dl *ngIf="wrappedForm.form.legalStepsTaken"  class="dl-horizontal" >
+                    <dt>Legal Steps Taken</dt>
+                    <dd> {{ wrappedForm.form.legalStepsTaken }} </dd>
+                </dl>
+
+                <dl class="dl-horizontal" >
+                    <dt>Signature</dt>
+                    <dd> {{ wrappedForm.form.signature }} </dd>
+                </dl>
+
+              </div> <!-- panel-body -->
+            </div> <!-- panel, panel-default -->
+
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container -->

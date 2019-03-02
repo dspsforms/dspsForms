@@ -11,6 +11,8 @@ const ApplicationForServices = require('../models/application-for-services-form-
 const EmergencyEvacInfo = require('../models/emergency-evac-info-model');
 const Feedback = require('../models/feedback-model');
 
+const Complaint = require('../models/complaint-model');
+
 const FormAgreement = require('../models/form-agreement-model');
 
 
@@ -332,6 +334,8 @@ getFormModel = formName => {
     form = EmergencyEvacInfo;
   } else if (formName === 'feedback') {
     form = Feedback;
+  } else if (formName === 'complaint') {
+    form = Complaint;
   }
 
   return form;
@@ -368,15 +372,15 @@ createForm = (req, isAgreement) => {
   // else. not user agreement
 
   if (formName === 'intakeForm') {
-      form = new IntakeForm({
-        formName: formName,
-        user: sanitize(req.body.user),
-        form: sanitize(captchaFree.form), // "tmp form string",
-        edited: false,
-        created: currentTime,
-        lastMod: currentTime,
-        captchaScore: captchaScore
-      });
+    form = new IntakeForm({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(captchaFree.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime,
+      captchaScore: captchaScore
+    });
   } else if (req.params.formName === 'altMediaRequest') {
     form = new AltMediaRequest({
       formName: formName,
@@ -387,7 +391,7 @@ createForm = (req, isAgreement) => {
       lastMod: currentTime,
       captchaScore: captchaScore
     });
-  }  else if (req.params.formName === 'applicationForServices') {
+  } else if (req.params.formName === 'applicationForServices') {
     form = new ApplicationForServices({
       formName: formName,
       user: sanitize(req.body.user),
@@ -409,6 +413,16 @@ createForm = (req, isAgreement) => {
     });
   } else if (req.params.formName === 'feedback') {
     form = new Feedback({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(captchaFree.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime,
+      captchaScore: captchaScore
+    });
+  } else if (req.params.formName === 'complaint') {
+    form = new Complaint({
       formName: formName,
       user: sanitize(req.body.user),
       form: sanitize(captchaFree.form), // "tmp form string",
