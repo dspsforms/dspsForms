@@ -35,34 +35,34 @@
               </div> <!-- panel-heading -->
 
               <div class="panel-body">
-                <dl class="dl-horizontal" >
+                <dl>
                   <dt>Incident Description</dt>
                   <dd> {{ wrappedForm.form.incidentDesc }} </dd>
                 </dl>
 
-                <dl class="dl-horizontal" >
+                <dl>
                     <dt>Have efforts been made to resolve this complaint
                           through another grievance procedure of the government, institution, or business?</dt>
                     <dd> {{ wrappedForm.form.otherSteps }} </dd>
                 </dl>
 
-                <dl *ngIf="wrappedForm.form.stepsTaken"  class="dl-horizontal" >
+                <dl *ngIf="wrappedForm.form.stepsTaken"  >
                     <dt>Steps Taken</dt>
                     <dd> {{ wrappedForm.form.stepsTaken }} </dd>
                 </dl>
 
-                <dl class="dl-horizontal" >
+                <dl >
                     <dt>Has the complaint been filed with the Department of Justice or any
                         other Federal, State, or local civil rights agency or court?</dt>
                     <dd> {{ wrappedForm.form.legalSteps }} </dd>
                 </dl>
 
-                <dl *ngIf="wrappedForm.form.legalStepsTaken"  class="dl-horizontal" >
+                <dl *ngIf="wrappedForm.form.legalStepsTaken" >
                     <dt>Legal Steps Taken</dt>
                     <dd> {{ wrappedForm.form.legalStepsTaken }} </dd>
                 </dl>
 
-                <dl class="dl-horizontal" >
+                <dl>
                     <dt>Signature</dt>
                     <dd> {{ wrappedForm.form.signature }} </dd>
                 </dl>
