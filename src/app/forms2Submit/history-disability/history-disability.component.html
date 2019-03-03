@@ -1,0 +1,151 @@
+<div class="container-fluid">
+
+  <div *ngIf="err"> {{ errMsg || '' }} <br> {{ err }} </div>
+
+  <h1>{{ title }} </h1>
+
+  <!-- layout based on
+      https://stackoverflow.com/questions/23581571/twitter-bootstrap-3-form-horizontal-and-multiple-input-columns-on-single-line
+  -->
+
+  <div class="row">
+    <div class="col-sm-8">
+
+    <legend class="small">Fields maked <i class="glyphicon glyphicon-asterisk" alt="*"></i> are required.</legend>
+
+
+    <form [formGroup]="form" (ngSubmit)="createOrEditForm()" >
+
+    <div class="well">
+
+      <fieldset>
+
+        <div class="form-group">
+          <label id="fullName" for="fullName">Name <i class="glyphicon glyphicon-asterisk" alt="*"></i> </label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="fullName"
+                aria-required="true"
+                aria-labelledby="fullName">
+
+            <div *ngIf="form.get('fullName').touched && form.get('fullName').hasError('required')"
+                class="alert alert-danger"  >
+                Name is required
+            </div>
+        </div> <!-- form-group, full name -->
+
+        <div class="form-group">
+          <label id="collegeId" for="collegeId">College ID *</label>
+          <input
+              type="text"
+              class="form-control"
+              placeholder="G0 followed by 7 digits"
+              id="collegeIdPlaceHolder"
+              formControlName="collegeId"
+              aria-required="true"
+              aria-labelledby="collegeId collegeIdPlaceHolder" >
+
+          <div *ngIf="collegeId.touched && collegeId.hasError('required')"
+              class="alert alert-danger"  >
+              College ID is required
+          </div>
+          <div *ngIf="collegeId.touched && collegeId.errors?.collegeIdFormat"
+              class="alert alert-danger"  >
+              College ID is of the format G0 followed by 7 digits
+          </div>
+        </div> <!-- form-group -->
+
+        <div class="form-group">
+          <label id="referrer" for="referrer">
+            Who referred you to DSPS? (Conselor? Instructor? Friend? Self Referral? Other?)
+            What was the reason you were referred?
+          </label>
+          <textarea
+              class="form-control"
+              formControlName="referrer"
+              rows="5"
+              aria-required="true"
+              aria-labelledby="referrer">
+          </textarea>
+
+        </div> <!-- form-group -->
+
+        <div class="form-group">
+            <label id="whenStrugglesStarted" for="whenStrugglesStarted">
+              When did your struggles begin? Ex: Began in K-12, elementary,
+              middle, high school, college?
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="whenStrugglesStarted"
+                aria-labelledby="whenStrugglesStarted">
+        </div> <!-- form-group -->
+
+        <div class="form-group" >
+            <label id="specialEdOrMore" for="specialEdOrMore" >
+              Were you in special education classes or pulled
+            out of your class for individual instruction or testing?
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="specialEdOrMore"
+                aria-labelledby="specialEdOrMore">
+
+        </div>  <!-- form-group  -->
+
+        <div class="form-group" >
+            <label id="challengesInSchool" for="challengesInSchool" >
+              What challenges or areas did you struggle in at School?
+            </label>
+            <textarea
+              placeholder="Challenges in school"
+              class="form-control"
+              formControlName="challengesInSchool"
+              rows="5"
+              aria-required="true"
+              aria-labelledby="challengesInSchool">
+          </textarea>
+
+        </div>  <!-- form-group  -->
+
+        <div class="form-group" >
+            <label id="instructorFamilyMemberBelief" for="instructorFamilyMemberBelief" >
+              Does an instructor or family member believe you have
+              a learning challenge?
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="instructorFamilyMemberBelief"
+                aria-labelledby="instructorFamilyMemberBelief">
+
+        </div>  <!-- form-group  -->
+
+      </fieldset>
+    </div>
+
+    <div class="form-group">
+        <button type="submit"
+                [disabled]="!form.valid || !form.dirty"
+                class="btn btn-primary"
+        >Submit</button>
+        <div *ngIf="!form.valid || !form.dirty">
+            <br>
+            <legend class="small">
+              This button will be enabled only after all fields are filled.
+            </legend>
+        </div>
+
+    </div>
+
+    </form>
+
+    </div> <!-- col-sm-8 -->
+  </div> <!-- row -->
+
+</div> <!-- container -->
+
+

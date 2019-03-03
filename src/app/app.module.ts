@@ -72,6 +72,8 @@ import { SafeHtmlPipe } from './util/safe-html.pipe';
 import { MarkArchiveComponent } from './dspsStaff/view-form/mark-archive/mark-archive.component';
 import { ComplaintComponent } from './forms2Submit/complaint/complaint.component';
 import { ViewComplaintComponent } from './dspsStaff/view-form/view-complaint/view-complaint.component';
+import { HistoryDisabilityComponent } from './forms2Submit/history-disability/history-disability.component';
+import { ViewHistoryDisabilityComponent } from './dspsStaff/view-form/view-history-disability/view-history-disability.component';
 
 
 
@@ -122,6 +124,8 @@ import { ViewComplaintComponent } from './dspsStaff/view-form/view-complaint/vie
     MarkArchiveComponent,
     ComplaintComponent,
     ViewComplaintComponent,
+    HistoryDisabilityComponent,
+    ViewHistoryDisabilityComponent,
 
   ],
   imports: [

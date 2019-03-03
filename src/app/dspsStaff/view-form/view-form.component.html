@@ -47,6 +47,14 @@
    <app-mark-archive [data]="data" ></app-mark-archive>
 </div>
 
+<div *ngIf="formInfo.formName == 'historyOfDisability' ">
+    <app-view-history-disability
+       [formKey]="data._id"
+       [wrappedForm]="data" >
+   </app-view-history-disability>
+   <app-mark-archive [data]="data" ></app-mark-archive>
+</div>
+
 <div *ngIf="showJson">
     json
     <p></p>

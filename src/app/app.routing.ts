@@ -31,6 +31,7 @@ import { AgreementCreateEditComponent } from './dspsStaff/agreement-create-edit/
 import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-view.component';
 import { CaptchaScorer } from './captcha-scorer';
 import { ComplaintComponent } from './forms2Submit/complaint/complaint.component';
+import { HistoryDisabilityComponent } from './forms2Submit/history-disability/history-disability.component';
 
 
 /* temporarily commented out
@@ -61,8 +62,10 @@ export const ngProjectRouting = RouterModule.forRoot([
      { path: UrlConfig.NEW_FORM + '/' + UrlConfig.FEEDBACK , component: FeedbackComponent , canActivate: [CaptchaScorer]},
 
      // 'newForm/complaint'
-     // 'newForm/feedback'
      { path: UrlConfig.NEW_FORM + '/' + UrlConfig.COMPLAINT , component: ComplaintComponent , canActivate: [CaptchaScorer]},
+
+     // 'newForm/historyOfDisability'
+     { path: UrlConfig.NEW_FORM + '/' + UrlConfig.HISTORY_OF_DISABILITY , component: HistoryDisabilityComponent , canActivate: [CaptchaScorer]},
 
 
     // 'submittedForm'

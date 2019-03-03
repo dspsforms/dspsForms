@@ -16,6 +16,8 @@ export class UrlConfig {
   static FEEDBACK = FormName.FEEDBACK;
   static COMPLAINT = FormName.COMPLAINT;
 
+  static HISTORY_OF_DISABILITY = FormName.HISTORY_OF_DISABILITY;
+
   static LIST_COLLECTIONS_ABSOLUTE: '/api/forms';
 
   static ADD_NEW_STAFF_USER = 'addNewStaffUser';

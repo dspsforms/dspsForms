@@ -1,0 +1,74 @@
+<div class="container-fluid" *ngIf="wrappedForm.created" >
+
+    <h1>{{ formTitle }} </h1>
+
+    <div class="row">
+      <div class="col-sm-10">
+
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-title inline">
+                    Applicant
+                </div>
+              </div> <!-- panel-heading -->
+
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <tr><td>Name</td> <td> {{ wrappedForm.form.fullName }} </td></tr>
+                  <tr><td>College ID</td> <td> {{ wrappedForm.form.collegeId }} </td></tr>
+                </table>
+              </div> <!-- panel-body -->
+            </div> <!-- panel, panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title inline">
+                      History of Disability Questionnaire
+                  </div>
+                </div> <!-- panel-heading -->
+
+                <div class="panel-body">
+                  <dl>
+                    <dt> Who referred you to DSPS? (Conselor? Instructor? Friend? Self Referral? Other?)
+                        What was the reason you were referred?
+                    </dt>
+                    <dd> {{ wrappedForm.form.referrer }} </dd>
+                  </dl>
+
+                  <dl>
+                      <dt>
+                          When did your struggles begin? Ex: Began in K-12, elementary,
+                          middle, high school, college?
+                      </dt>
+                      <dd> {{ wrappedForm.form.whenStrugglesStarted }} </dd>
+                  </dl>
+
+                  <dl>
+                      <dt>
+                          Were you in special education classes or pulled
+                          out of your class for individual instruction or testing?
+                      </dt>
+                      <dd> {{ wrappedForm.form.specialEdOrMore }} </dd>
+                  </dl>
+
+                  <dl >
+                      <dt>
+                          What challenges or areas did you struggle in at School?
+                      </dt>
+                      <dd> {{ wrappedForm.form.challengesInSchool }} </dd>
+                  </dl>
+
+                  <dl>
+                      <dt> Does an instructor or family member believe you have
+                          a learning challenge?
+                      </dt>
+                      <dd> {{ wrappedForm.form.instructorFamilyMemberBelief }} </dd>
+                  </dl>
+
+                </div> <!-- panel-body -->
+              </div> <!-- panel, panel-default -->
+
+      </div> <!-- col -->
+    </div> <!-- row -->
+  </div> <!-- container -->
+

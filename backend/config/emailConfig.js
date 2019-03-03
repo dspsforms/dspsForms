@@ -10,6 +10,7 @@ emailEndPoint['altMediaRequest'] = config.EMAIL_SENDER_ALT_MEDIA;
 emailEndPoint['emergencyEvacInfo' ] = config.EMAIL_SENDER_INTAKE;
 emailEndPoint['feedback'] = config.EMAIL_SENDER_FEEDBACK;
 emailEndPoint['complaint'] = config.EMAIL_SENDER_COMPLAINT;
+emailEndPoint['historyOfDisability'] = config.EMAIL_SENDER_INTAKE;
 
 emailConfig['emailEndPoint'] = emailEndPoint;
 

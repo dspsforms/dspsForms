@@ -13,6 +13,8 @@ const Feedback = require('../models/feedback-model');
 
 const Complaint = require('../models/complaint-model');
 
+const HistoryOfDisabilty = require('../models/history-of-disability-model');
+
 const FormAgreement = require('../models/form-agreement-model');
 
 
@@ -336,6 +338,8 @@ getFormModel = formName => {
     form = Feedback;
   } else if (formName === 'complaint') {
     form = Complaint;
+  } else if (formName === 'historyOfDisability') {
+    form = HistoryOfDisabilty;
   }
 
   return form;
@@ -423,6 +427,16 @@ createForm = (req, isAgreement) => {
     });
   } else if (req.params.formName === 'complaint') {
     form = new Complaint({
+      formName: formName,
+      user: sanitize(req.body.user),
+      form: sanitize(captchaFree.form), // "tmp form string",
+      edited: false,
+      created: currentTime,
+      lastMod: currentTime,
+      captchaScore: captchaScore
+    });
+  } else if (req.params.formName === 'historyOfDisability') {
+    form = new HistoryOfDisabilty({
       formName: formName,
       user: sanitize(req.body.user),
       form: sanitize(captchaFree.form), // "tmp form string",
