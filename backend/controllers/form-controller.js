@@ -205,6 +205,9 @@ exports.getFormsForACategory = (req, res, next) => {
     query.limit(pageSize);
   }
 
+  // sort, most recent first. i.e., descending order for the field "created"
+  query.sort({ created: -1 });
+
     // TODO fetch only some select fields from db
 
   // chain multiple queries. first the documents with given (offset, limit), then the count
