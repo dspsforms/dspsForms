@@ -185,7 +185,7 @@ exports.getFormsForACategory = (req, res, next) => {
 
   const form = getFormModel(formName);
 
-  let query;
+  let query, query2;
   if (!state || state == 'current') {
     query = form.find({
       $or:
@@ -193,10 +193,19 @@ exports.getFormsForACategory = (req, res, next) => {
           { state: 'current' }
         ]
     }); // also include non existing
+
+    query2 = form.find({
+      $or:
+        [{ state: { $exists: false } },
+          { state: 'current' }
+        ]
+    }); // also include non existing
   } else {
     query = form.find({ state: state });
+    query2 = form.find({ state: state });
   }
   let fetchedItems;
+
   if (pageSize && currentPage) {
     // page numbers start at 1
     query.skip(pageSize * (currentPage-1));
@@ -214,7 +223,7 @@ exports.getFormsForACategory = (req, res, next) => {
   query.then(
     documents => {
       fetchedItems = documents;
-      return query.count(); // was form.count
+      return query2.count(); // was form.count
     }
   ).then(
     count => {
