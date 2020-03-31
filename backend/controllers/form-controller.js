@@ -17,6 +17,9 @@ const HistoryOfDisabilty = require('../models/history-of-disability-model');
 
 const FormAgreement = require('../models/form-agreement-model');
 
+// for complaint forms, user must be an admin.
+const isAdminAuthorized = require('../middleware/check-auth-admin-boolean');
+
 
 
 
@@ -150,6 +153,9 @@ exports.list = (req, res, next) => {
       if (col.name === 'users' || col.name === 'logs' || col.name === 'useragreements') {
         return false;
       }
+      else if (col.name === 'complaints') {
+        return isAdminAuthorized(req, res);
+      }
       else {
         return true;
       }
@@ -174,10 +180,23 @@ exports.list = (req, res, next) => {
 }
 
 // get "/api/form/:formName"  -- must have staff level perm
+// for complaints, must have admin level perm
 exports.getFormsForACategory = (req, res, next) => {
 
   const formName = sanitize(req.params.formName);
   console.log("fetching forms for ", formName);
+
+  // for complaints forms, user must have admin permission
+  if (formName === 'complaint' && !isAdminAuthorized(req, res)) {
+    console.log("user does not have admin permission to access complaints")
+    res.status(404).json({
+      message: "Permission Denied",
+      err: "You do not have permission to see this"
+    });
+
+    return;
+  }
+
   const state = sanitize(req.query.state);
   const pageSize = +sanitize(req.query.pagesize);
   const currentPage = +sanitize(req.query.page);
@@ -240,7 +259,7 @@ exports.getFormsForACategory = (req, res, next) => {
   .catch((err) => {
       console.log(err);
       res.status(404).json({
-        message: "Form fetched for a category failed",
+        message: "Form fetch for a category failed",
         err: err
       });
   });
@@ -250,6 +269,17 @@ exports.getFormsForACategory = (req, res, next) => {
 exports.getAForm = (req, res, next) => {
 
   const formName = sanitize(req.params.formName);
+
+  // for complaints forms, user must have admin permission
+  if (formName === 'complaint' && !isAdminAuthorized(req, res)) {
+    console.log("user does not have admin permission to access complaints")
+    res.status(404).json({
+      message: "Permission Denied",
+      err: "You do not have permission to see this"
+    });
+
+    return;
+  }
 
 
   const form = getFormModel(formName);
@@ -312,6 +342,18 @@ exports.deleteAForm = (req, res, next) => {
 
 
   const formName = sanitize(req.params.formName);
+
+  // for complaints forms, user must have admin permission
+  if (formName === 'complaint' && !isAdminAuthorized(req, res)) {
+    console.log("user does not have admin permission to delete complaints")
+    res.status(404).json({
+      message: "Permission Denied",
+      err: "You do not have permission to delete this"
+    });
+
+    return;
+  }
+
   const id = sanitize(req.params._id);
 
   const form = getFormModel(formName);
