@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { Subscription } from 'rxjs';
 
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-list-users',
@@ -16,9 +17,14 @@ export class ListUsersComponent implements OnInit {
 
   userListSub: Subscription;
 
-  constructor(private userService: UserService) { }
+  // only admins can see the isAdmin column
+  isAdminAuth: boolean;
+
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   ngOnInit() {
+
+    this.isAdminAuth = this.authService.getIsAdminAuth();
 
     this.userListSub = this.userService.getUserListUpdated().subscribe(res => {
       this.users = res;

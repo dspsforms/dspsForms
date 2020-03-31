@@ -16,8 +16,8 @@
             <thead>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Is Admin</th>
-                <th>Is Staff</th>
+                <th *ngIf="isAdminAuth">Is Admin</th>
+                <th *ngIf="isAdminAuth">Is Staff</th>
                 <th>Created</th>
                 <th>Last Modified</th>
             </thead>
@@ -26,8 +26,8 @@
 
               <td> {{ user.name }} </td>
               <td> {{ user.email}}  </td>
-              <td> <i *ngIf="user.isAdmin" class="glyphicon glyphicon-check"></i> </td>
-              <td> <i *ngIf="user.isStaff" class="glyphicon glyphicon-check"></i> </td>
+              <td *ngIf="isAdminAuth"> <i *ngIf="user.isAdmin" class="glyphicon glyphicon-check"></i> </td>
+              <td *ngIf="isAdminAuth"> <i *ngIf="user.isStaff" class="glyphicon glyphicon-check"></i> </td>
               <td> {{ user.created | date:'medium' }} </td>
               <td> {{ user.lastMod | date:'medium' }} </td>
             </tr>
