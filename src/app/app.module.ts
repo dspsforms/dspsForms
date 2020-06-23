@@ -74,6 +74,8 @@ import { ComplaintComponent } from './forms2Submit/complaint/complaint.component
 import { ViewComplaintComponent } from './dspsStaff/view-form/view-complaint/view-complaint.component';
 import { HistoryDisabilityComponent } from './forms2Submit/history-disability/history-disability.component';
 import { ViewHistoryDisabilityComponent } from './dspsStaff/view-form/view-history-disability/view-history-disability.component';
+import { SearchComponent } from './dspsStaff/search/search.component';
+import { SearchResultsComponent } from './dspsStaff/search-results/search-results.component';
 
 
 
@@ -126,6 +128,8 @@ import { ViewHistoryDisabilityComponent } from './dspsStaff/view-form/view-histo
     ViewComplaintComponent,
     HistoryDisabilityComponent,
     ViewHistoryDisabilityComponent,
+    SearchComponent,
+    SearchResultsComponent,
 
   ],
   imports: [

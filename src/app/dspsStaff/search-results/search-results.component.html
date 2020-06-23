@@ -1,0 +1,69 @@
+<div class="container-fluid">
+
+  <app-search [inSearchTerm]="searchTerm"></app-search>
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <div class="panel-title inline">
+          Results for {{ searchTerm }}
+      </div>
+    </div> <!-- panel-heading -->
+
+    <div class="panel-body">
+
+      <div *ngIf="keys">
+        <div *ngFor="let key of keys;" >
+
+            <!-- display only if there is data for a given formName -->
+            <div *ngIf="listOfForms && listOfForms[key] && listOfForms[key].length > 0" class="row">
+              <div class="col-sm-8 col-sm-offset-2">
+
+                <h2> {{ getFormTitle(key) }} </h2>
+
+                <div class="list-group">
+                  <button *ngFor="let form of listOfForms[key]; "
+                    class="list-group-item grid-simple-3"
+                    type="button"
+                    (click)="showForm(form)">
+
+                    <!-- first child of grid -->
+                    <div>
+                      {{ form.form.fullName }}
+                    </div>
+
+                    <!-- 2nd child -->
+                    <div> {{ form.form.collegeId }} </div>
+
+                    <!-- 3rd child -->
+                    <div>{{ form.lastMod | date  }} </div>
+
+
+
+                    <!-- form.form.fullName
+                      form.form.collegeId
+                      form.formName
+                      form._id
+
+                      form.lastMod
+
+                      form.state -- if empty, change this to current
+                      url of the form
+                      /submittedForm/intakeForm/current/5b7bba4198d45e0eb38cfd38
+
+                    -->
+                    <!-- {{ form | json }} -->
+                  </button>
+                </div>
+
+
+              </div> <!-- col-sm-8 -->
+            </div> <!-- row and also inner ngIf-->
+
+
+        </div> <!-- for key of keys -->
+      </div>  <!-- if keys -->
+    </div> <!-- panel body -->
+
+  </div> <!-- panel panel default -->
+</div> <!-- container fluid-->

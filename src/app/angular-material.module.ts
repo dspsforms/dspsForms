@@ -11,6 +11,8 @@ import {
   MatSelectModule,
 } from "@angular/material";
 
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   exports: [
     MatInputModule,
@@ -22,6 +24,7 @@ import {
     MatPaginatorModule,
     MatDialogModule,
     MatSelectModule,
+    MatIconModule
   ]
 })
 export class AngularMaterialModule {}

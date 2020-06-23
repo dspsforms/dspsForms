@@ -1,0 +1,13 @@
+.full-col-width {
+  width: 100%;
+}
+
+vert-space-above {
+  margin-top: 25px !important;
+  padding-top: 25px !important;
+}
+
+vert-space-below {
+  margin-bottom: 35px !important;
+  padding-bottom: 35px !important;
+}

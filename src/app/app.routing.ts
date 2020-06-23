@@ -32,6 +32,7 @@ import { AgreementViewComponent } from './dspsStaff/agreement-view/agreement-vie
 import { CaptchaScorer } from './captcha-scorer';
 import { ComplaintComponent } from './forms2Submit/complaint/complaint.component';
 import { HistoryDisabilityComponent } from './forms2Submit/history-disability/history-disability.component';
+import { SearchResultsComponent } from './dspsStaff/search-results/search-results.component';
 
 
 /* temporarily commented out
@@ -76,7 +77,10 @@ export const ngProjectRouting = RouterModule.forRoot([
   { path: UrlConfig.SUBMITTED_FORM + '/:formName', component: ListFormsComponent  , canActivate: [StaffAuthGuard] } , //
 
     // 'submittedForm/:formName/:state/:_id'
-    { path: UrlConfig.SUBMITTED_FORM + '/:formName/:state/:_id', component: ViewFormComponent  , canActivate: [StaffAuthGuard] },
+  { path: UrlConfig.SUBMITTED_FORM + '/:formName/:state/:_id', component: ViewFormComponent, canActivate: [StaffAuthGuard] },
+
+  // 'search/:searchTerm/'
+  { path: UrlConfig.SEARCH + '/:searchTerm', component: SearchResultsComponent  , canActivate: [StaffAuthGuard] },
 
     // change this to a component that redirects out to the main website
     // {path: 'home', component: ListEmptyFormTypesComponent },

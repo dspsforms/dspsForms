@@ -1,15 +1,5 @@
 const mongoose = require('mongoose');
 
-const applicationForServicesSchema = mongoose.Schema({
-  formName: { type: String, required: true },
-  user: { type: String },
-  form: { type: mongoose.Schema.Types.Mixed },
-  // form: { type: String },
-  edited: { type: Boolean },
-  created: { type: Date },
-  lastMod: { type: Date },
-  captchaScore: { type: String },
-  state: {type: String}
-});
+const commonFormSchemaV1 = require('./common-form-schema-v1');
 
-module.exports = mongoose.model('applicationForServices', applicationForServicesSchema);
+module.exports = mongoose.model('applicationForServices', commonFormSchemaV1);

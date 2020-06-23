@@ -1,14 +1,6 @@
+
 const mongoose = require('mongoose');
 
-const intakeFormSchema = mongoose.Schema({
-  formName: { type: String, required: true },
-  user: { type: String },
-  form: { type: mongoose.Schema.Types.Mixed },
-  edited: { type: Boolean },
-  created: { type: Date },
-  lastMod: { type: Date },
-  captchaScore: { type: String },
-  state: {type: String}
-});
+const commonFormSchemaV1 = require('./common-form-schema-v1');
 
-module.exports = mongoose.model('intakeForm', intakeFormSchema);
+module.exports = mongoose.model('intakeForm', commonFormSchemaV1);

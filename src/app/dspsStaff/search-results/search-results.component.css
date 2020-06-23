@@ -1,0 +1,9 @@
+.grid-simple-3 {
+  display:grid;
+  grid-template-columns: minmax(300px, 2fr) repeat(2, minmax(150px, 1fr));
+  grid-gap: 10px;
+}
+
+h2 {
+  font-size: 1.5vw;
+}

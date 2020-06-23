@@ -56,7 +56,7 @@ async function newFormSubmittedNotification(emConfig, formName){
   };
 
   // send mail with defined transport object
-  let info = await transporter.sendMail(mailOptions)
+  let info = await transporter.sendMail(mailOptions);
 
   console.log("Message sent: %s", info.messageId);
   // Preview only available when sending through an Ethereal account

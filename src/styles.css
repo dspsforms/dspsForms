@@ -20,3 +20,8 @@ div.grecaptcha-badge {
 legend.small{
   font-size: 100%;
 }
+.grid-simple-2 {
+  display:grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-gap: 20px;
+}

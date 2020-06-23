@@ -16,6 +16,7 @@ const config = require('./config/config');
 
 const formRoutes = require('./routes/form-routes');
 const userRoutes = require('./routes/user-routes');
+const searchRoutes = require('./routes/search-routes');
 
 
 
@@ -30,7 +31,11 @@ mongoose.Promise = global.Promise;
 
 // add a second field options after uri if desired
 
-mongoose.connect(uri).then(
+mongoose.connect(uri, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+})
+  .then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
       console.log("connected to database ");
     },
@@ -115,6 +120,7 @@ mongoose.connection.db.listCollections().toArray().then(collections => {
 
 app.use("/api/form", formRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/search", searchRoutes);
 
 
 app.use((req, res, next) => {

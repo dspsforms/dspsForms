@@ -1,16 +1,8 @@
+
 const mongoose = require('mongoose');
 
-const formSchema = mongoose.Schema({
-  formName: { type: String, required: true },
-  user: { type: String },
-  form: { type: mongoose.Schema.Types.Mixed },
-  // form: { type: String },
-  edited: { type: Boolean },
-  created: { type: Date },
-  lastMod: { type: Date },
-  captchaScore: { type: String },
-  state: {type: String}
-});
+const commonFormSchemaV1 = require('./common-form-schema-v1');
+
 
 /*
 this doesn't work. Mongoose does't like you creating a model from a schema more
@@ -18,10 +10,10 @@ than once.
 
 OverwriteModelError: Cannot overwrite `intakeForm` model once compiled.
 */
-exports.IntakeForm = mongoose.model('intakeForm', formSchema);
-exports.AltMediaRequest = mongoose.model('altMediaRequest', formSchema);
-exports.ApplicationForServices = mongoose.model('applicationForServices', formSchema);
-exports.EmergencyEvacInfo = mongoose.model('emergencyEvacInfo', formSchema);
+exports.IntakeForm = mongoose.model('intakeForm', commonFormSchemaV1);
+exports.AltMediaRequest = mongoose.model('altMediaRequest', commonFormSchemaV1);
+exports.ApplicationForServices = mongoose.model('applicationForServices', commonFormSchemaV1);
+exports.EmergencyEvacInfo = mongoose.model('emergencyEvacInfo', commonFormSchemaV1);
 
 exports.formMap = {};
 

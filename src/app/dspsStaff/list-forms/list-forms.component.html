@@ -35,6 +35,10 @@
 
 
     </div>
+
+  <!-- search box for finding results for a student -->
+  <app-search></app-search>
+
   <div class="row">
     <div class="col-sm-8">
 
@@ -54,11 +58,23 @@
           <li *ngIf="item.formName && isCorrectState(item.state)"
             class="list-group-item" >
 
-            <!-- /submittedForm/formName/formKey -->
-            <a
+            <div class="grid-simple-2">
+
+              <!-- first grid child -->
+              <!-- /submittedForm/formName/formKey -->
+              <a
               [routerLink]="[submittedAbs, getFormName(item), state, getKey(item)]">
               {{ getVal(item) }}
-            </a>
+              </a>
+
+              <!-- second grid child -->
+              <div>
+                {{ item.created | date }}
+              </div>
+
+
+            </div>
+
 
           </li>
         </div> <!-- ngFor-->

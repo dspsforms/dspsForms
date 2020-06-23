@@ -9,6 +9,10 @@ export class UrlConfig {
   static SUBMITTED_FORM_ABSOLUTE = '/submittedForm';
   static SUBMITTED_FORM_ABSOLUTE2 = '/submittedForm/';
 
+  static SEARCH = 'search';
+  static SEARCH_ABSOLUTE = '/search';
+  static SEARCH_ABSOLUTE2 = '/search/';
+
   static INTAKE_FORM = FormName.INTAKE_FORM; // 'intakeForm';
   static ALT_MEDIA_REQUEST = FormName.ALT_MEDIA_REQUEST;  // 'altMediaRequest';
   static APPLICATION_FOR_SERVICES = FormName.APPLICATION_FOR_SERVICES; // 'applicationForServices';

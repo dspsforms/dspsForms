@@ -1,0 +1,32 @@
+
+<div class="vert-space-above">  &nbsp; </div>
+<div class="row vert-space">
+  <div class="col-sm-8">
+
+<form *ngIf="searchForm"
+  [formGroup]="searchForm"
+  (ngSubmit)="search()"
+  (keydown.enter)="onEnterKeyDownSearch($event)" >
+
+    <mat-form-field class="full-col-width">
+      <mat-label>Search for a student</mat-label>
+      <input matInput
+      formControlName="searchTerm">
+
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-hint>Partial name is ok. Or search by collegeId.
+          Don't type wildcards such as *. </mat-hint>
+
+        <mat-error *ngIf="searchForm.get('searchTerm').hasError('required')">
+        A search term of miminum 3 characters is required to perform a search.
+        Also, it cannot have a *.
+      </mat-error>
+
+    </mat-form-field>
+
+</form>
+
+</div> <!-- col-sm-6 -->
+</div> <!-- row -->
+
+<div class="vert-space-below"> &nbsp; </div>
