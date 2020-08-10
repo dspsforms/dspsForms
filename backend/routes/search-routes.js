@@ -14,7 +14,7 @@ const router = express.Router();
 // search is a post, so what is searched is not visible in the url
 // get the search term from req.body.searchTerm
 router.post("/form",
-    // checkAuthStaff,
+    checkAuthStaff,
   SearchController.searchForm);
 
 

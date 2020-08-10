@@ -23,7 +23,8 @@ export class StaffAuthGuard implements CanActivate {
     const isStaffAuth = this.authService.getIsStaffAuth();
     if (!isStaffAuth) {
       const nextUrl = route.url.join('/');
-      this.router.navigate(['/login'], {queryParams: {next: nextUrl }} );
+      this.router.navigate(['/login'], { queryParams: { next: nextUrl } });
+      return false;
     }
     return isStaffAuth;
   }

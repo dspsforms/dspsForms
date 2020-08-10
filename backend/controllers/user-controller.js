@@ -1,6 +1,9 @@
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 const config = require("../config/config");
 
 const User = require("../models/user-model");
@@ -128,6 +131,111 @@ exports.login = (req, res, next) => {
       });
     });
 }
+
+exports.checkAndUpdatePassword = (req, res, next) => {
+  console.log("in checkAndUpdatePassword");
+  let fetchedUser;
+
+  /*
+  from extract-userId.js
+  req.userData = {
+      email: decodedToken.email,
+      userId: decodedToken.userId,
+    };
+  */
+  const sanitizedUserId = sanitize(req.userData.userId);
+  console.log("orig: ", req.userData.userId, "sanitized: ", sanitizedUserId);
+  User.findOne({ _id: sanitizedUserId })
+    .then(user => {
+      if (!user) {
+        console.log("no matching user for _id " + sanitizedUserId);
+        return res.status(401).json({
+          message: "Auth failed. Please login again and try. ",
+          err: 'no user found. user may not be logged on, or login may have expired'
+        });
+      }
+      fetchedUser = user;
+      return bcrypt.compare(req.body.oldPassword, user.password);
+    }, err => {
+        console.log(err);
+    })
+    .then(result => {
+
+      // if the previous then failed, we have already sent client an error message
+      if (!fetchedUser) {
+        return null;
+      }
+      if (!result) {
+        console.log("password match failed for user._id = ", sanitizedUserId);
+        return res.status(200).json({
+          message: "Auth failed.",
+          err: 'The existing password you supplied did not match the one in the system.'
+        });
+      }
+
+      console.log("changing password for " + sanitizedUserId);
+
+      bcrypt.hash(req.body.newPassword, 10).then(hash => {
+        //   User.update(
+        //     { _id: sanitizedUserId },
+        //     {
+        //       $set: {
+        //         password: hash,
+        //         lastMod: new Date()
+        //       }
+        //     }
+        //   ).then(status => {
+
+        //   })
+        // }
+
+        User.findByIdAndUpdate(
+
+          // the id of the user to find
+          mongoose.Types.ObjectId(sanitizedUserId),
+
+          // the change to be made. Mongoose will smartly combine your existing
+          // document with this change, which allows for partial updates too
+          // req.body,
+          {
+            password: hash,
+            lastMod: new Date()
+          },
+
+          // an option that asks mongoose to return the updated version
+          // of the document instead of the pre-updated one.
+          { new: true },
+
+          // the callback function
+          (err, result) => {
+
+            // result is an instance of User
+
+            // Handle any possible database errors
+            if (err) {
+              throw (err);
+            } else {
+              console.log(result);
+              res.status(201).json({
+                message: "Password updated for " + result.name
+              });
+            }; // else -- no error
+          } // callback of findByIdAndUpdate
+
+        ); // findByIdAndUpdate
+
+
+      }) // bcrypt then
+        .catch(err => {
+          console.log(err);
+          return res.status(401).json({
+            message: "Auth failed " + err
+          });
+        });
+
+    }); // User.findOne.then()
+
+}  // checkAndUpdatePassword
 
 exports.list = (req, res, next) => {
   console.log("in list");

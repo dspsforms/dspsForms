@@ -33,6 +33,8 @@ import { CaptchaScorer } from './captcha-scorer';
 import { ComplaintComponent } from './forms2Submit/complaint/complaint.component';
 import { HistoryDisabilityComponent } from './forms2Submit/history-disability/history-disability.component';
 import { SearchResultsComponent } from './dspsStaff/search-results/search-results.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { IsloggedinGuard } from './auth/isloggedin-guard';
 
 
 /* temporarily commented out
@@ -86,7 +88,8 @@ export const ngProjectRouting = RouterModule.forRoot([
     // {path: 'home', component: ListEmptyFormTypesComponent },
 
     {path: UrlConfig.ADD_NEW_STAFF_USER, component: AddNewStaffComponent , canActivate: [AdminAuthGuard] }, //
-    {path: UrlConfig.LOGIN, component: LoginComponent },
+  { path: UrlConfig.LOGIN, component: LoginComponent },
+  {path: UrlConfig.CHANGE_PASSWORD, component: ChangePasswordComponent , canActivate: [IsloggedinGuard] },
 
     {path: UrlConfig.SHOW_USERS, component: ListUsersComponent, canActivate: [StaffAuthGuard]} ,
 

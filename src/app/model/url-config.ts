@@ -38,7 +38,9 @@ export class UrlConfig {
   static AGREEMENT_VIEW_ABSOLUTE2 = '/agreementView/';
 
   static LOGIN = 'login';
+  static CHANGE_PASSWORD = 'auth/change-password';
 
+  static ROOT = '/';
 
   static LOGOUT = 'logout';
 

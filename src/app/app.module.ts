@@ -76,6 +76,8 @@ import { HistoryDisabilityComponent } from './forms2Submit/history-disability/hi
 import { ViewHistoryDisabilityComponent } from './dspsStaff/view-form/view-history-disability/view-history-disability.component';
 import { SearchComponent } from './dspsStaff/search/search.component';
 import { SearchResultsComponent } from './dspsStaff/search-results/search-results.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 
 
 
@@ -91,7 +93,6 @@ import { SearchResultsComponent } from './dspsStaff/search-results/search-result
     HomeComponent,
     NavBarComponent,
     ActiveLinkSRComponent,
-    LogoutComponent,
     IntakeInterviewFormComponent,
     AltMediaServiceRequestComponent,
     ApplicationForServicesComponent,
@@ -114,6 +115,8 @@ import { SearchResultsComponent } from './dspsStaff/search-results/search-result
 
     AddNewStaffComponent,
     LoginComponent,
+    LogoutComponent,
+    ChangePasswordComponent,
     ListUsersComponent,
     ErrorComponent,
     PaginationComponent,
@@ -130,6 +133,8 @@ import { SearchResultsComponent } from './dspsStaff/search-results/search-result
     ViewHistoryDisabilityComponent,
     SearchComponent,
     SearchResultsComponent,
+    SuccessDialogComponent,
+
 
   ],
   imports: [
@@ -164,6 +169,6 @@ import { SearchResultsComponent } from './dspsStaff/search-results/search-result
   //   RecaptchaModule
   // ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent, AgreementViewDialogComponent]
+  entryComponents: [ErrorComponent, AgreementViewDialogComponent, SuccessDialogComponent]
 })
 export class AppModule { }

@@ -46,12 +46,14 @@
             <li>
               <a target="_blank" href="http://www.missioncollege.edu">Mission College</a>
             </li>
-
-
+            <li *ngIf="loggedIn">
+              <a  routerLink="/auth/change-password">Change Password</a>
+            </li>
         </ul> <!-- nav navbar-nav -->
+
           <div class="navbar-text navbar-right">
-            <button *ngIf="!loggedIn" (click)="login()">Staff Login</button>
-            <button *ngIf="loggedIn" (click)="logout()">Logout</button>
+              <button *ngIf="!loggedIn" (click)="login()">Staff Login</button>
+              <button *ngIf="loggedIn" (click)="logout()">Logout</button>
           </div>
             <!--
               Signed in as <a href="#" class="navbar-link">Foo</a>
