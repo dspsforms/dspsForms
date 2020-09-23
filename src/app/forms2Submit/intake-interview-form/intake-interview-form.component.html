@@ -550,7 +550,7 @@ accessibility related tabbing -->
 
         <div class="form-row right vert-space">
             <button type="submit"
-                    [disabled]="!form.valid || !form.dirty"
+                    [disabled]="!form.valid || !form.dirty || formSubmitted"
                     class="btn btn-primary"
             >Submit</button>
             <div *ngIf="!form.valid || !form.dirty">

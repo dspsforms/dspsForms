@@ -29,6 +29,10 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
   public captchaTokenSub: Subscription;
   public sequenceNumber: number;
 
+  // prevent multiple form submits
+  // in the template disable submit button when formSubitted is true
+  public formSubmitted: boolean;
+
   constructor(
     public formName: string,
     public router: Router,
@@ -44,14 +48,19 @@ export class AbstractFormSubmit implements OnInit, OnDestroy {
 
     this.title = FormUtil.formTitle(this.formName);  // "DSPS Application for Services" etc;
     this.sequenceNumber = 0;
+    this.formSubmitted = false;
 
   }
 
   createOrEditForm() {
+
     console.log("createOrEditForm ", this.formName, "  ",  this.form.value);
 
 
     if (this.form.dirty) {
+
+      // disable submit button so no more submits
+      this.formSubmitted = true;
 
       // compute the reCaptcha v3 token once more, then use it
       this.sequenceNumber++;

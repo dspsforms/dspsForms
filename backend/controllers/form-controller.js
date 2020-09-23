@@ -34,6 +34,15 @@ exports.postForm = (req, res, next) => {
       console.log("after save, createdForm=", createdForm);
     }
 
+    // testing  multiple submits
+    // setTimeout(() => {
+    //     res.status(201).json({
+    //     message: 'Form ' + form.formName + ' added successfully',
+    //     formId: createdForm._id
+    // });
+    // }, 5000);
+
+    // corect path. uncomment after testing multiple submits
     res.status(201).json({
       message: 'Form ' + form.formName + ' added successfully',
       formId: createdForm._id
