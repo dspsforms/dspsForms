@@ -2,4 +2,5 @@
     margin-left: 5px;
     margin-bottom: 15px;
 }
+.positionLastOpStatus:focus{ outline: none; }
 

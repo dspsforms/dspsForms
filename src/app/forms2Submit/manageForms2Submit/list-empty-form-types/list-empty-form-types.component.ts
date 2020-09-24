@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormUtil, FormName } from '../../../model/form.util';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionUtil } from '../../../shared/subscription-util';
@@ -15,7 +15,7 @@ import { AuthService } from '../../../auth/auth.service';
   templateUrl: './list-empty-form-types.component.html',
   styleUrls: ['./list-empty-form-types.component.css']
 })
-export class ListEmptyFormTypesComponent implements OnInit {
+export class ListEmptyFormTypesComponent implements OnInit, AfterViewInit {
 
   // display these, in this order
   // which is why, not using keys with FormUtil.formMap
@@ -39,6 +39,11 @@ export class ListEmptyFormTypesComponent implements OnInit {
 
   lastOpStatus;
 
+  // static true or false will be needed in angular 8+
+  // @ViewChild('positionLastOpStatus', { static: true }) positionLastOpStatus: ElementRef;
+
+  @ViewChild('positionLastOpStatus') positionLastOpStatus: ElementRef;
+
   ngOnInit() {
 
     this.server = environment.server;
@@ -57,7 +62,25 @@ export class ListEmptyFormTypesComponent implements OnInit {
     the old status is not shown )
     */
     this.lastOpStatus = this.lastOpStatusService.getStatusAndClear();
+    if (this.lastOpStatus && this.positionLastOpStatus) {
+      this.positionLastOpStatus.nativeElement.focus();
+    }
     console.log("ListEmptyFormTypesComponent: lastOpStatus=", this.lastOpStatus);
+    console.log("positionLastOpStatus=", this.positionLastOpStatus);
+
+
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+
+      if (this.lastOpStatus && this.positionLastOpStatus) {
+        this.positionLastOpStatus.nativeElement.focus();
+      }
+      console.log("ngAfterViewInit: lastOpStatus=", this.lastOpStatus);
+      console.log("positionLastOpStatus=", this.positionLastOpStatus);
+
+    }, 1000);
 
 
   }

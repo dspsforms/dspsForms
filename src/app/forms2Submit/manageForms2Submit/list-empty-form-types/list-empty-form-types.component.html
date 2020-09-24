@@ -2,9 +2,13 @@
 
 <div class="container-fluid">
 
-    <div *ngIf="lastOpStatus" class="top-message alert alert-success">
-      {{ lastOpStatus }}
+  <!-- need tabIndex if focus needs to be put here -->
+    <div tabindex="1" class="positionLastOpStatus" #positionLastOpStatus>
+      <div *ngIf="lastOpStatus" class="top-message alert alert-success">
+        {{ lastOpStatus }}
+      </div>
     </div>
+
 
     <h1>DSPS Forms</h1>
   <div class="row">
