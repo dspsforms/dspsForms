@@ -31,7 +31,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // school
-    this.school = environment.school;
+    this.school = environment.school || null;
 
     // initialize with current auth
     this.auth = this.authService.getAuth();
