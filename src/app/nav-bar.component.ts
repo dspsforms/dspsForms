@@ -5,6 +5,7 @@ import { AuthService } from './auth/auth.service';
 import { Subscription } from '../../node_modules/rxjs';
 import { SubscriptionUtil } from './shared/subscription-util';
 import { AuthType } from './auth/auth-type.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'nav-bar',
@@ -21,12 +22,17 @@ export class NavBarComponent implements OnInit, OnDestroy {
   auth: AuthType;
 
   authChange: Subscription;
+  school;
 
   constructor(private _router: Router,
     private authService: AuthService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    // school
+    this.school = environment.school;
+
     // initialize with current auth
     this.auth = this.authService.getAuth();
 

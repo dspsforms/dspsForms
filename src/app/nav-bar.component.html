@@ -43,8 +43,8 @@
                     <active-link-sr [isActive]="isCurrentlyActive('showUsers')"></active-link-sr>
                 </a>
             </li>
-            <li>
-              <a target="_blank" href="http://www.missioncollege.edu">Mission College</a>
+            <li *ngIf="school">
+              <a target="_blank" href="{{school.url}}">{{school.name}}</a>
             </li>
             <li *ngIf="loggedIn">
               <a  routerLink="/auth/change-password">Change Password</a>
