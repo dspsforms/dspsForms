@@ -14,7 +14,16 @@ emailEndPoint['historyOfDisability'] = config.EMAIL_SENDER_INTAKE;
 
 emailConfig['emailEndPoint'] = emailEndPoint;
 
-emailConfig['from'] = '"Mission DSPS" <missiondsps@vannev.com>'; // sender address
+emailConfig['from'] =  config.EMAIL_SENDER; // '"Mission-DSPS" <missiondsps@vannev.com>'; // sender address
+
+if (config.EMAIL_REPLYTO) {
+    emailConfig['replyTo'] =  config.EMAIL_REPLYTO;
+}
+
+// TLS with Cypher, or not
+if (config.EMAIL_TYPE) {
+  emailConfig['emailType'] = config.EMAIL_TYPE;
+}
 
 emailConfig['host'] = config.EMAIL_HOST;
 emailConfig['port'] = config.EMAIL_PORT;

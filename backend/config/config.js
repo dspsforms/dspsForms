@@ -11,6 +11,9 @@ module.exports = {
   EMAIL_SENDER_COMPLAINT: process.env.EMAIL_SENDER_COMPLAINT || '',
   EMAIL_HOST: process.env.EMAIL_HOST || '',
   EMAIL_PORT: process.env.EMAIL_PORT || 0,
+  EMAIL_SENDER: process.env.EMAIL_SENDER || '',
+  EMAIL_REPLYTO: process.env.EMAIL_REPLYTO || '',
+  EMAIL_TYPE: process.env.EMAIL_TYPE || '',
   EMAIL_AUTH_USER: process.env.EMAIL_AUTH_USER || '',
   EMAIL_AUTH_PASS: process.env.EMAIL_AUTH_PASS || '',
   EMAIL_NO_EMAIL: process.env.EMAIL_NO_EMAIL || 0

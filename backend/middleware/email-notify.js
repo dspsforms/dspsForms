@@ -4,6 +4,8 @@ const emailConfig = require('../config/emailConfig');
 
 const nodemailer = require("nodemailer");
 
+const transportCreator = require("./email-transport-creator");
+
 // https://www.npmjs.com/package/request-promise
 const reqPromise = require('request-promise');
 
@@ -36,15 +38,18 @@ module.exports = (req, res, next) => {
 async function newFormSubmittedNotification(emConfig, formName){
 
   // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: emConfig.host ,  // "mail.authsmtp.com",
-    port: emConfig.port, // 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: emConfig.authUser,
-      pass: emConfig.authPassword
-    }
-  });
+  // let transporter = nodemailer.createTransport({
+  //   host: emConfig.host ,  // "mail.authsmtp.com",
+  //   port: emConfig.port, // 465,
+  //   secure: true, // true for 465, false for other ports
+  //   auth: {
+  //     user: emConfig.authUser,
+  //     pass: emConfig.authPassword
+  //   }
+  // });
+
+  // this will handle both the types of transporters we have encountered so far
+  let transporter = transportCreator(emConfig);
 
   // setup email data with unicode symbols
   let mailOptions = {
