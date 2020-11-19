@@ -8,6 +8,14 @@ const reqPromise = require('request-promise');
 
 module.exports = (req, res, next) => {
   try {
+
+    // if recaptcha bypass is true, set req.body.captchaScore = 1, and skip
+    if (config.RECAPTCHA_BYPASS) {
+      console.log("bypassing recaptcha");
+      req.body.captchaScore = 1;
+      next();
+      return;
+    }
     console.log("verify-captchav3: req.body", req.body);
     console.log("config= ", config);
     console.log("debug= ", debug);
