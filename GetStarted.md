@@ -17,22 +17,17 @@ The bash scripts will run on mac and linux. For Windows, take a look at the .sh 
 
 1. Fork this repository. 
 
-2. clone the new repository (with your username) onto your system:
+2. clone the new repository (with your username) onto your system. From a terminal, excute:
 
     git clone ....
 
-3.
-The Angular front end is version 6. It written originally in 2018. As of Nov 2020, the dependencies in package.json are getting errors during npm install. So we need to upgrade this app to the latest version of Angular. 
+    where .... is this repository's url
 
-In the meantime, as a workaround, you can download our old copy of node_modules from https://drive.google.com/file/d/1cQ4BIIYplz9dyKLZsi6ic8_-IETfmU52/view?usp=sharing
+3.  Next, execute:
 
-It's a compressed tar file. The file name is node_modules_dspsforms_intake.tgz. To uncompress:
+    npm install
 
-tar xzf node_modules_dspsforms_intake.tgz 
-
-will result in the node_modules/ directory. Move node_modules to this folder.
-
-Alternstely, you can play with package.json. If you get it to work, we can use your updated package.json!
+Sometimes, this install can fail because of version incompatibilties as things evolve. If it does, first try to Google the error you are getting. Sometimes, you may need to fix a version number (instead of allowing ~ or ^ in package.json). At other times, it maybe helpful to delete package-lock.json, and retry. If you run into issues, please let us know.
 
 4. Set the environment variables:
 
@@ -43,8 +38,7 @@ Copy environment.prod.ts.template -> environment.prod.ts
 
 Then, open the files environment.prod.ts and environment.ts in your favorite text editor (such as Visual Studio Code). Do not use Word or similar programs because they may insert invisible characters. Supply the values that you see in those files. 
 
-Next, go to backend/ and copy env.template -> .env  (notice the period). Open .env in a text editor, and supply the values for your system. 
-
+Next, go to backend/ and copy env.template -> .env  (notice the period). Open .env in a text editor, and supply the values for your system. If you don't have an SMTP server account, set EMAIL_NO_EMAIL=1 . This will ensure there are no emails sent. For smoother running, however, email notifications are helpful.
 
 5. In a terminal, from this folder, execute
     ./buildProd.sh
