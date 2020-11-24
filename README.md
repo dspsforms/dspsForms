@@ -9,7 +9,7 @@ DSPS Forms consists of two web applications:
 The file README.md and GettingStarted.md in dspsAdvisingFlow has information about the Advising Flow application.
 
 
-The file STUDENT_INITIATED_FORMS.md has information about the second application.
+The file STUDENT_INITIATED_FORMS.md in the dspsForms repository has information about the second application.
 
 
 # License
