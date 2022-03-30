@@ -19,7 +19,11 @@ export class ListEmptyFormTypesComponent implements OnInit, AfterViewInit {
 
   // display these, in this order
   // which is why, not using keys with FormUtil.formMap
-  formNames = FormName.formNames; // ['intakeForm', 'altMediaRequest', 'applicationForServices'];
+
+  // 3/29/2022 only some forms are now reqd
+  // this solution is a kludge
+  // was  FormName.formNames  // ['intakeForm', 'altMediaRequest', 'applicationForServices'];
+  formNames = FormName.activeFormNames; // [ 'altMediaRequest', 'feedback', etc];
 
   newFormAbsolute2 = UrlConfig.NEW_FORM_ABSOLUTE2;
 

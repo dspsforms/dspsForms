@@ -19,6 +19,18 @@ export class FormName {
     FormName.HISTORY_OF_DISABILITY
   ];
 
+  // 3/29/2022 only some forms are now reqd 
+  // this solution is a kludge 
+  static activeFormNames = [
+    // FormName.INTAKE_FORM,
+    FormName.ALT_MEDIA_REQUEST,
+    // FormName.APPLICATION_FOR_SERVICES,
+    // FormName.EMERGENCY_EVAC_INFO,
+    FormName.FEEDBACK,
+    FormName.COMPLAINT,
+    FormName.HISTORY_OF_DISABILITY
+  ];
+
 
 
 }

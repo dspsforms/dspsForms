@@ -7,6 +7,7 @@ const http = require("http");
 // check to make sure we have the env variables loaded
 console.log("RECAPTCHA_SERVER_KEY=", process.env.RECAPTCHA_SERVER_KEY);
 console.log("JSON_WEB_TOKEN_SERVER_KEY=", process.env.JSON_WEB_TOKEN_SERVER_KEY);
+console.log("EMAIL_NO_EMAIL=", process.env.EMAIL_NO_EMAIL);
 
 // https://stackoverflow.com/questions/5999373/how-do-i-prevent-node-js-from-crashing-try-catch-doesnt-work#
 process.on('uncaughtException', function (err) {
